@@ -29,7 +29,7 @@ in [Korea University](https://korea.edu) ( Mar 2014 - Present , advised by [Jaew
 * Startup - Opinion8, Co-founder & CIO ( Oct 2014 - Apr 2016 )
     * This startup is consecutive project from [Consento](http://consento.korea.ac.kr)
     * Popop
-![popop1](/assets/op8/1.jpg){:height="150px" width="150px"} ![popop2](/assets/op8/2.jpg){:height="150px" width="150px"} ![popop3](/assets/op8/3.jpg){:height="150px" width="150px"} ![popop4](/assets/op8/4.jpg){:height="150px" width="150px"} ![popop5](/assets/op8/5.jpg){:height="150px" width="150px"}
+![popop1](/assets/op8/1.jpeg){:height="150px" width="150px"} ![popop2](/assets/op8/2.jpeg){:height="150px" width="150px"} ![popop3](/assets/op8/3.jpeg){:height="150px" width="150px"} ![popop4](/assets/op8/4.jpeg){:height="150px" width="150px"} ![popop5](/assets/op8/5.jpeg){:height="150px" width="150px"}
 
  
 <br>
