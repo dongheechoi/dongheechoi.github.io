@@ -28,7 +28,7 @@ in [Korea University](https://korea.edu) ( Mar 2014 - Present , advised by [Jaew
 * Startup - Konolabs, Data Scientist & Software Engineer ( Apr 2016 - Mar 2019 )
 * Startup - Opinion8, Co-founder & CIO ( Oct 2014 - Apr 2016 )
     * This startup is consecutive project from [Consento](http://consento.korea.ac.kr)
-    * Product : Popop ( [Youtube](https://youtu.be/HCqlzz7lb6Q), [producthunt](https://www.producthunt.com/posts/popop-dining) )
+    * Product : Popop ( [Youtube-Short Intro](https://youtu.be/HCqlzz7lb6Q), [Youtube-Demo](https://youtu.be/BNowFWpKzG8), [producthunt](https://www.producthunt.com/posts/popop-dining) )
 <br>
 ![popop1](/assets/op8/1.jpeg){:height="300px" width="200px"} ![popop2](/assets/op8/2.jpeg){:height="300px" width="200px"} ![popop3](/assets/op8/3.jpeg){:height="300px" width="200px"} 
 <br>
