@@ -130,6 +130,7 @@ Jaehoon Choi, Donghyeon Kim, **Donghee Choi**, Sangrak Lim, Seongsoon Kim, Young
 ## Review
 * ICDM 2019 / 2020 Secondary Reviewer
 * ACL 2021 Secondary Reviewer
+* EMNLP 2021 Reviewer
 
 <br>
 ## Award
