@@ -45,6 +45,16 @@ in [Korea University](https://korea.edu) ( Mar 2014 - Present , advised by [Jaew
 * [Google Scholar](https://scholar.google.co.kr/citations?user=iR40DeMAAAAJ&hl=ko)
 
 ## International Conference
+**RecipeMind: Guiding Ingredient Choices from Food Pairing to Recipe Completion using Cascaded Set Transformer.**
+<br>
+Mogan Kim†, **Donghee Choi† (Co-first author)**, Kana Maruyama, Jihun Choi, Hajung Kim, Donghyeon Park* and Jaewoo Kang* 
+<br>
+Proceedings of the 31st ACM International Conference on Information and Knowledge Management (CIKM 2022)
+(In Press)
+<br>
+*This work collaborates with [Sony AI](https://ai.sony) and their Gastronomy Flagship Project*
+<br>
+<br>
 **Learning User Preferences and Understanding Calendar Contexts for Event Scheduling**
 <br>
 Donghyeon Kim, Jinhyuk Lee, **Donghee Choi**, Jaehoon Choi, Jaewoo Kang 
