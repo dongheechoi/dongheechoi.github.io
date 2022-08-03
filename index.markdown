@@ -67,6 +67,7 @@ Proceedings of the 27th ACM International Conference on Information and Knowledg
 **Name Nationality Classification with Recurrent Neural Networks**
 <br>
 Jinhyuk Lee, Hyunjae Kim, Miyoung Ko, **Donghee Choi**, Jaehoon Choi, Jaewoo Kang 
+<br>
 Proceedings of the Twenty-Sixth International Joint Conference on Artificial Intelligence (IJCAI 2017)
 <br>
 [paper](https://www.ijcai.org/Proceedings/2017/289)
