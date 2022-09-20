@@ -47,7 +47,7 @@ in [Korea University](https://korea.edu) ( Mar 2014 - Present , advised by [Jaew
 ## International Conference
 **RecipeMind: Guiding Ingredient Choices from Food Pairing to Recipe Completion using Cascaded Set Transformer.**
 <br>
-Mogan Kim†, **Donghee Choi† (Co-first author)**, Kana Maruyama, Jihun Choi, Hajung Kim, Donghyeon Park* and Jaewoo Kang* 
+Mogan Gim†, **Donghee Choi† (Co-first author)**, Kana Maruyama, Jihun Choi, Hajung Kim, Donghyeon Park* and Jaewoo Kang* 
 <br>
 Proceedings of the 31st ACM International Conference on Information and Knowledge Management (CIKM 2022)
 (In Press)
