@@ -50,7 +50,8 @@ in [Korea University](https://korea.edu) ( Mar 2014 - Present , advised by [Jaew
 Mogan Gim†, **Donghee Choi† (Co-first author)**, Kana Maruyama, Jihun Choi, Hajung Kim, Donghyeon Park* and Jaewoo Kang* 
 <br>
 Proceedings of the 31st ACM International Conference on Information and Knowledge Management (CIKM 2022)
-(In Press)
+<br>
+[paper](https://dl.acm.org/doi/10.1145/3511808.3557092)
 <br>
 *This work collaborates with [Sony AI](https://ai.sony) and their Gastronomy Flagship Project*
 <br>
