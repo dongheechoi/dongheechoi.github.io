@@ -24,6 +24,7 @@ in [Korea University](https://korea.edu) ( Mar 2014 - Present , advised by [Jaew
 
 <br>
 ## Experience
+* Internship - [Sony AI](https://ai.sony) Research Internship - Gastronomy AI project ( Dec 2022 - Mar 2023 )
 * Startup - [LYZE, Inc.](https://lyze.ai) Co-founder & Research Lead ( Jun 2018 - Mar 2019 )
 * Startup - Konolabs, Data Scientist & Software Engineer ( Apr 2016 - Mar 2019 )
     * Product : Kono - AI Scheduling Assistant for Teams ( [ProductHunt](https://www.producthunt.com/posts/kono-email-bot-for-scheduling-meetings), [Homepage](https://about.kono.ai/) )
