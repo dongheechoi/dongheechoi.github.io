@@ -48,7 +48,7 @@ in [Korea University](https://korea.edu) ( Mar 2014 - Present , advised by [Jaew
 ## International Conference
 **RecipeMind: Guiding Ingredient Choices from Food Pairing to Recipe Completion using Cascaded Set Transformer.**
 <br>
-Mogan Gim†, **Donghee Choi† (Co-first author)**, Kana Maruyama, Jihun Choi, Hajung Kim, Donghyeon Park* and Jaewoo Kang* 
+Mogan Gim†, **Donghee Choi† (Co-first author)**, Kana Maruyama, Jihun Choi, Hajung Kim, Donghyeon Park*, and Jaewoo Kang* 
 <br>
 Proceedings of the 31st ACM International Conference on Information and Knowledge Management (CIKM 2022)
 <br>
@@ -59,7 +59,7 @@ Proceedings of the 31st ACM International Conference on Information and Knowledg
 <br>
 **Learning User Preferences and Understanding Calendar Contexts for Event Scheduling**
 <br>
-Donghyeon Kim, Jinhyuk Lee, **Donghee Choi**, Jaehoon Choi, Jaewoo Kang 
+Donghyeon Kim, Jinhyuk Lee, **Donghee Choi**, Jaehoon Choi, and Jaewoo Kang* 
 <br>
 Proceedings of the 27th ACM International Conference on Information and Knowledge Management (CIKM 2018)
 <br>
@@ -68,7 +68,7 @@ Proceedings of the 27th ACM International Conference on Information and Knowledg
 <br>
 **Name Nationality Classification with Recurrent Neural Networks**
 <br>
-Jinhyuk Lee, Hyunjae Kim, Miyoung Ko, **Donghee Choi**, Jaehoon Choi, Jaewoo Kang 
+Jinhyuk Lee, Hyunjae Kim, Miyoung Ko, **Donghee Choi**, Jaehoon Choi, and Jaewoo Kang* 
 <br>
 Proceedings of the Twenty-Sixth International Joint Conference on Artificial Intelligence (IJCAI 2017)
 <br>
@@ -77,7 +77,9 @@ Proceedings of the Twenty-Sixth International Joint Conference on Artificial Int
 <br>
 **BEST: Next-Generation Biomedical Entity Search Tool for Knowledge Discovery from Biomedical Literature**
 <br>
-Donghyeon Kim, Sunwon Lee, Kyubum Lee, Jaehoon Choi, Seongsoon Kim, Minji Jeon, Sangrak Lim, **Donghee Choi**, Aik-Choon Tan, Jaewoo Kang 2016, PLoS ONE (SCIE, IF: 3.057) 
+Donghyeon Kim, Sunwon Lee, Kyubum Lee, Jaehoon Choi, Seongsoon Kim, Minji Jeon, Sangrak Lim, **Donghee Choi**, Aik-Choon Tan, and Jaewoo Kang 2016, 
+<br>
+PLoS ONE (SCIE, IF: 3.057) 
 <br>
 [paper](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0164680) / [demo](http://best.korea.ac.kr/)
 <br>
@@ -85,13 +87,14 @@ Donghyeon Kim, Sunwon Lee, Kyubum Lee, Jaehoon Choi, Seongsoon Kim, Minji Jeon, 
 
 **Smith Search: Opinion-Based Restaurant Search Engine**
 <br>
-Jaehoon Choi, Donghyeon Kim, **Donghee Choi**, Sangrak Lim, Seongsoon Kim, Youngjae Choi and Jaewoo Kang 
+Jaehoon Choi, Donghyeon Kim, **Donghee Choi**, Sangrak Lim, Seongsoon Kim, Youngjae Choi, and Jaewoo Kang 
 <br>
 24th International World Wide Web Conference (WWW 2015) _DEMONSTRATION SESSION_ , Florence, Italy. 18-22 May 2015
 <br>
 [paper](https://dl.acm.org/doi/abs/10.1145/2740908.2742829) 
 <br>
 <br>
+
 ## Domestic Journal
 
 
