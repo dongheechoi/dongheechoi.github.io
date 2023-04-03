@@ -74,16 +74,7 @@ Proceedings of the Twenty-Sixth International Joint Conference on Artificial Int
 <br>
 [paper](https://www.ijcai.org/Proceedings/2017/289)
 <br>
-<br>
-**BEST: Next-Generation Biomedical Entity Search Tool for Knowledge Discovery from Biomedical Literature**
-<br>
-Donghyeon Kim, Sunwon Lee, Kyubum Lee, Jaehoon Choi, Seongsoon Kim, Minji Jeon, Sangrak Lim, **Donghee Choi**, Aik-Choon Tan, and Jaewoo Kang 2016, 
-<br>
-PLoS ONE (SCIE, IF: 3.057) 
-<br>
-[paper](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0164680) / [demo](http://best.korea.ac.kr/)
-<br>
-<br>
+
 
 **Smith Search: Opinion-Based Restaurant Search Engine**
 <br>
@@ -92,6 +83,25 @@ Jaehoon Choi, Donghyeon Kim, **Donghee Choi**, Sangrak Lim, Seongsoon Kim, Young
 24th International World Wide Web Conference (WWW 2015) _DEMONSTRATION SESSION_ , Florence, Italy. 18-22 May 2015
 <br>
 [paper](https://dl.acm.org/doi/abs/10.1145/2740908.2742829) 
+<br>
+<br>
+
+## International Journal
+
+_(To be published)_ **KitchenScale: Learning to Predict Ingredient Quantities from Recipe Contexts**
+<br>
+**Donghee Choi**, Mogan Gim, Samy Badreddine, Hajung Kim, Donghyeon Park, Jaewoo Kang. 
+<br>
+Expert Systems With Applications (SCIE, IF: 8.665), 2023
+<br>
+<br>
+**BEST: Next-Generation Biomedical Entity Search Tool for Knowledge Discovery from Biomedical Literature**
+<br>
+Donghyeon Kim, Sunwon Lee, Kyubum Lee, Jaehoon Choi, Seongsoon Kim, Minji Jeon, Sangrak Lim, **Donghee Choi**, Aik-Choon Tan, and Jaewoo Kang, 
+<br>
+PLoS ONE (SCIE, IF: 3.057), 2016 
+<br>
+[paper](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0164680) / [demo](http://best.korea.ac.kr/)
 <br>
 <br>
 
