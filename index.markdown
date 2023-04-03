@@ -95,6 +95,10 @@ _(To be published)_ **KitchenScale: Learning to Predict Ingredient Quantities fr
 Expert Systems With Applications (SCIE, IF: 8.665), 2023
 <br>
 <br>
+*This work collaborates with [Sony AI](https://ai.sony) and their Gastronomy Flagship Project*
+<br>
+<br>
+
 **BEST: Next-Generation Biomedical Entity Search Tool for Knowledge Discovery from Biomedical Literature**
 <br>
 Donghyeon Kim, Sunwon Lee, Kyubum Lee, Jaehoon Choi, Seongsoon Kim, Minji Jeon, Sangrak Lim, **Donghee Choi**, Aik-Choon Tan, and Jaewoo Kang, 
