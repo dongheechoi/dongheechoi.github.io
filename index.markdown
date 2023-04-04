@@ -8,8 +8,6 @@ layout: page
 ![My Picture](/assets/my.jpg){:height="30%" width="30%"}
 
 # Donghee Choi (최동희)
-
-* Co-Founder & Lead Researcher of LYZE Pte. Ltd. 
 * Ph.D Student, Department of Computer and Radio Communications Engineering 
 <br>
 ( Major : Computer Science and Engineering ) 
@@ -24,7 +22,7 @@ in [Korea University](https://korea.edu) ( Mar 2014 - Present , advised by [Jaew
 
 <br>
 ## Experience
-* Internship - [Sony AI](https://ai.sony) Research Internship - Gastronomy AI project ( Dec 2022 - Mar 2023 )
+* Internship - [Sony AI](https://ai.sony) Research Internship - Gastronomy AI project ( Dec 2022 - June 2023 )
 * Startup - [LYZE, Inc.](https://lyze.ai) Co-founder & Research Lead ( Jun 2018 - Mar 2019 )
 * Startup - Konolabs, Data Scientist & Software Engineer ( Apr 2016 - Mar 2019 )
     * Product : Kono - AI Scheduling Assistant for Teams ( [ProductHunt](https://www.producthunt.com/posts/kono-email-bot-for-scheduling-meetings), [Homepage](https://about.kono.ai/) )
@@ -48,7 +46,7 @@ in [Korea University](https://korea.edu) ( Mar 2014 - Present , advised by [Jaew
 ## International Conference
 **RecipeMind: Guiding Ingredient Choices from Food Pairing to Recipe Completion using Cascaded Set Transformer.**
 <br>
-Mogan Gim†, **Donghee Choi† (Co-first author)**, Kana Maruyama, Jihun Choi, Hajung Kim, Donghyeon Park*, and Jaewoo Kang* 
+Mogan Gim†, **Donghee Choi† (Co-first author)**, Kana Maruyama, Jihun Choi, Hajung Kim, Donghyeon Park, and Jaewoo Kang 
 <br>
 Proceedings of the 31st ACM International Conference on Information and Knowledge Management (CIKM 2022)
 <br>
@@ -59,7 +57,7 @@ Proceedings of the 31st ACM International Conference on Information and Knowledg
 <br>
 **Learning User Preferences and Understanding Calendar Contexts for Event Scheduling**
 <br>
-Donghyeon Kim, Jinhyuk Lee, **Donghee Choi**, Jaehoon Choi, and Jaewoo Kang* 
+Donghyeon Kim, Jinhyuk Lee, **Donghee Choi**, Jaehoon Choi, and Jaewoo Kang 
 <br>
 Proceedings of the 27th ACM International Conference on Information and Knowledge Management (CIKM 2018)
 <br>
@@ -68,7 +66,7 @@ Proceedings of the 27th ACM International Conference on Information and Knowledg
 <br>
 **Name Nationality Classification with Recurrent Neural Networks**
 <br>
-Jinhyuk Lee, Hyunjae Kim, Miyoung Ko, **Donghee Choi**, Jaehoon Choi, and Jaewoo Kang* 
+Jinhyuk Lee, Hyunjae Kim, Miyoung Ko, **Donghee Choi**, Jaehoon Choi, and Jaewoo Kang
 <br>
 Proceedings of the Twenty-Sixth International Joint Conference on Artificial Intelligence (IJCAI 2017)
 <br>
@@ -90,10 +88,9 @@ Jaehoon Choi, Donghyeon Kim, **Donghee Choi**, Sangrak Lim, Seongsoon Kim, Young
 
 _(To be published)_ **KitchenScale: Learning to Predict Ingredient Quantities from Recipe Contexts**
 <br>
-**Donghee Choi**, Mogan Gim, Samy Badreddine, Hajung Kim, Donghyeon Park, Jaewoo Kang. 
+**Donghee Choi**, Mogan Gim, Samy Badreddine, Hajung Kim, Donghyeon Park, and Jaewoo Kang. 
 <br>
 Expert Systems With Applications (SCIE, IF: 8.665), 2023
-<br>
 <br>
 *This work collaborates with [Sony AI](https://ai.sony) and their Gastronomy Flagship Project*
 <br>
@@ -101,7 +98,7 @@ Expert Systems With Applications (SCIE, IF: 8.665), 2023
 
 **BEST: Next-Generation Biomedical Entity Search Tool for Knowledge Discovery from Biomedical Literature**
 <br>
-Donghyeon Kim, Sunwon Lee, Kyubum Lee, Jaehoon Choi, Seongsoon Kim, Minji Jeon, Sangrak Lim, **Donghee Choi**, Aik-Choon Tan, and Jaewoo Kang, 
+Donghyeon Kim, Sunwon Lee, Kyubum Lee, Jaehoon Choi, Seongsoon Kim, Minji Jeon, Sangrak Lim, **Donghee Choi**, Aik-Choon Tan, and Jaewoo Kang 
 <br>
 PLoS ONE (SCIE, IF: 3.057), 2016 
 <br>
