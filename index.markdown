@@ -86,11 +86,13 @@ Jaehoon Choi, Donghyeon Kim, **Donghee Choi**, Sangrak Lim, Seongsoon Kim, Young
 
 ## International Journal
 
-_(To be published)_ **KitchenScale: Learning to Predict Ingredient Quantities from Recipe Contexts**
+**KitchenScale: Learning to Predict Ingredient Quantities from Recipe Contexts**
 <br>
 **Donghee Choi**, Mogan Gim, Samy Badreddine, Hajung Kim, Donghyeon Park, and Jaewoo Kang. 
 <br>
 Expert Systems With Applications (SCIE, IF: 8.665), 2023
+<br>
+[paper](https://www.sciencedirect.com/science/article/abs/pii/S0957417423005432) / [demo](http://kitchenscale.korea.ac.kr/) / [github](https://github.com/dmis-lab/KitchenScale)
 <br>
 *This work collaborates with [Sony AI](https://ai.sony) and their Gastronomy Flagship Project*
 <br>
