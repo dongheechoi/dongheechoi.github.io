@@ -24,16 +24,22 @@ in [Korea University](https://korea.edu) ( Mar 2014 - Present , advised by [Jaew
 ## Experience
 * Internship - [Sony AI](https://ai.sony) Research Internship - Gastronomy AI project ( Dec 2022 - June 2023 )
 * Startup - [LYZE, Inc.](https://lyze.ai) Co-founder & Research Lead ( Jun 2018 - Mar 2019 )
-* Startup - Konolabs, Data Scientist & Software Engineer ( Apr 2016 - Mar 2019 )
+
+<details>
+<summary> Startup - Konolabs, Data Scientist & Software Engineer ( Apr 2016 - Mar 2019 ) </summary>
     * Product : Kono - AI Scheduling Assistant for Teams ( [ProductHunt](https://www.producthunt.com/posts/kono-email-bot-for-scheduling-meetings), [Homepage](https://about.kono.ai/) )
 * Startup - Opinion8, Co-founder & CIO ( Oct 2014 - Apr 2016 )
-    * This startup is consecutive project from [Consento](http://consento.korea.ac.kr)
+</details>
+
+<details>
+   <summary> Details </summary>
+    * This startup is consecutive project from Consento
     * Product : PopOp - Opinion based Restaurant Ranking System ( [Youtube-Short Intro](https://youtu.be/HCqlzz7lb6Q), [Youtube-Demo](https://youtu.be/BNowFWpKzG8), [ProductHunt](https://www.producthunt.com/posts/popop-dining) )
 <br>
 ![popop1](/assets/op8/1.jpeg){:height="300px" width="200px"} ![popop2](/assets/op8/2.jpeg){:height="300px" width="200px"} ![popop3](/assets/op8/3.jpeg){:height="300px" width="200px"} 
 <br>
 ![popop4](/assets/op8/4.jpeg){:height="300px" width="200px"} ![popop5](/assets/op8/5.jpeg){:height="300px" width="200px"}
-
+</details>
  
 <br>
 -----
