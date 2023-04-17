@@ -12,7 +12,7 @@ layout: page
 <br>
 ( Major : Computer Science and Engineering ) 
 <br>
-in [Korea University](https://korea.edu) ( Mar 2014 - Present , advised by [Jaewoo Kang](https://dmis.korea.ac.kr)) 
+in [Korea University](https://korea.edu) ( Mar 2014 - Expected Sep 2023, advised by [Jaewoo Kang](https://dmis.korea.ac.kr)) 
 * Email : iamdongheechoi@gmail.com / choidonghee@korea.ac.kr
 
 <br>
@@ -23,7 +23,7 @@ in [Korea University](https://korea.edu) ( Mar 2014 - Present , advised by [Jaew
 <br>
 ## Experience
 * Internship - [Sony AI](https://ai.sony) Research Internship - Gastronomy AI project ( Dec 2022 - June 2023 )
-* Startup - [LYZE, Inc.](https://lyze.ai) Co-founder & Research Lead ( Jun 2018 - Mar 2019 )
+* Startup - LYZE, Inc. Co-founder & Research Lead ( Jun 2018 - Mar 2019 )
 * Startup - Konolabs, Data Scientist & Software Engineer ( Apr 2016 - Mar 2019 )
 * Startup - Opinion8, Co-founder & CIO ( Oct 2014 - Apr 2016 )
 
