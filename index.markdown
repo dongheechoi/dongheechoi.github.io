@@ -75,6 +75,13 @@ Jaehoon Choi, Donghyeon Kim, **Donghee Choi**, Sangrak Lim, Seongsoon Kim, Young
 
 ## International Journal
 
+**HADAPS : Hierarchical Adaptive Multi-Asset Portfolio Selection**
+<br>
+Jinkyu Kim†, **Donghee Choi† (Co-first author)**, Mogan Gim, and Jaewoo Kang. 
+<br>
+IEEE Access (to be published), 2023
+<br>
+
 **KitchenScale: Learning to Predict Ingredient Quantities from Recipe Contexts**
 <br>
 **Donghee Choi**, Mogan Gim, Samy Badreddine, Hajung Kim, Donghyeon Park, and Jaewoo Kang. 
