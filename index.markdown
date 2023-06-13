@@ -43,7 +43,7 @@ Proceedings of the 31st ACM International Conference on Information and Knowledg
 <br>
 *This work collaborates with [Sony AI](https://ai.sony) and their Gastronomy Flagship Project*
 <br>
-<br>
+
 **Learning User Preferences and Understanding Calendar Contexts for Event Scheduling**
 <br>
 Donghyeon Kim, Jinhyuk Lee, **Donghee Choi**, Jaehoon Choi, and Jaewoo Kang 
@@ -52,7 +52,7 @@ Proceedings of the 27th ACM International Conference on Information and Knowledg
 <br>
 [paper](https://dl.acm.org/doi/10.1145/3269206.3271712) 
 <br>
-<br>
+
 **Name Nationality Classification with Recurrent Neural Networks**
 <br>
 Jinhyuk Lee, Hyunjae Kim, Miyoung Ko, **Donghee Choi**, Jaehoon Choi, and Jaewoo Kang
@@ -61,7 +61,6 @@ Proceedings of the Twenty-Sixth International Joint Conference on Artificial Int
 <br>
 [paper](https://www.ijcai.org/Proceedings/2017/289)
 <br>
-
 
 **Smith Search: Opinion-Based Restaurant Search Engine**
 <br>
@@ -92,7 +91,6 @@ Expert Systems With Applications (SCIE, IF: 8.665), 2023
 <br>
 *This work collaborates with [Sony AI](https://ai.sony) and their Gastronomy Flagship Project*
 <br>
-<br>
 
 **BEST: Next-Generation Biomedical Entity Search Tool for Knowledge Discovery from Biomedical Literature**
 <br>
@@ -115,7 +113,7 @@ PLoS ONE (SCIE, IF: 3.057), 2016
  <br>
 [paper](https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE10583434&mark=0&useDate=&ipRange=N&accessgl=Y&language=ko_KR&hasTopBanner=false) 
 <br>
-<br>
+
 
 **소셜 빅데이터를 활용한 의사 결정 검색 기술**
 <br>
@@ -125,7 +123,7 @@ PLoS ONE (SCIE, IF: 3.057), 2016
  <br>
 [paper](http://www.ndsl.kr/ndsl/search/detail/article/articleSearchResultDetail.do?cn=JAKO201406464395458) 
 <br>
-<br>
+
 **한글 마이크로블로그 텍스트의 감정 분류 및 분석**
 <br>
 이철성, **최동희**, 김성순, 강재우
@@ -143,7 +141,7 @@ PLoS ONE (SCIE, IF: 3.057), 2016
 <br>
 [link](https://doi.org/10.8080/1020170147399)
 <br>
-<br>
+
 **컨텐츠 관리 시스템 및 방법**
 <br>
 **SYSTEM AND METHOD FOR MANAGING CONTENTS**
