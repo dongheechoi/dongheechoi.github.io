@@ -8,24 +8,20 @@ layout: page
 ![My Picture](/assets/my.jpg){:height="30%" width="30%"}
 
 # Donghee Choi (최동희)
-* Ph.D Student, Department of Computer and Radio Communications Engineering 
-<br>
-( Major : Computer Science and Engineering ) 
-<br>
-in [Korea University](https://korea.edu) ( Mar 2014 - Expected Sep 2023, advised by [Jaewoo Kang](https://dmis.korea.ac.kr)) 
+* Ph.D Student, Department of Computer and Radio Communications Engineering (Major: Software) in [Korea University](https://korea.edu) (Mar 2014 - Expected Sep 2023, advised by [Jaewoo Kang](https://dmis.korea.ac.kr)) 
 * Email : iamdongheechoi@gmail.com / choidonghee@korea.ac.kr
 
 <br>
 ## Education
-* M.S, bioinformatics in [Korea University](http://www.korea.edu/) ( Mar 2012 - Feb 2014 , advised by [Jaewoo Kang](https://dmis.korea.ac.kr)) 
-* B.S, Computer Science in [Korea University](http://www.korea.edu/) ( Mar 2006 - Feb 2012 )
+* M.S, bioinformatics in [Korea University](http://www.korea.edu/) (Mar 2012 - Feb 2014 , advised by [Jaewoo Kang](https://dmis.korea.ac.kr)) 
+* B.S, Computer Science in [Korea University](http://www.korea.edu/) (Mar 2006 - Feb 2012)
 
 <br>
 ## Experience
-* Internship - [Sony AI](https://ai.sony) Research Internship - Gastronomy AI project ( Dec 2022 - June 2023 )
-* Startup - LYZE, Inc. Co-founder & Research Lead ( Jun 2018 - Mar 2019 )
-* Startup - Konolabs, Data Scientist & Software Engineer ( Apr 2016 - Mar 2019 )
-* Startup - Opinion8, Co-founder & CIO ( Oct 2014 - Apr 2016 )
+* Internship - [Sony AI](https://ai.sony) Research Internship - Gastronomy AI project (Dec 2022 - June 2023)
+* Startup - LYZE, Inc. Co-founder & Research Lead (June 2018 - Mar 2019)
+* Startup - Konolabs, Data Scientist & Software Engineer (Apr 2016 - Mar 2019)
+* Startup - Opinion8, Co-founder & CIO (Oct 2014 - Apr 2016)
 
 <br>
 ## Publication
