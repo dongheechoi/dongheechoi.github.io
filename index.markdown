@@ -105,7 +105,7 @@ PLoS ONE (SCIE, IF: 3.057), 2016
 ## Domestic Journal
 
 
-**속성기반  감성분석의  연구  동향  및  방향성 ( Issues on Aspect-based Sentiment Analysis: A Survey )**
+**속성기반  감성분석의  연구  동향  및  방향성 (Issues on Aspect-based Sentiment Analysis: A Survey)**
 <br>
 조선희, **최동희**, 강재우 
 <br>
