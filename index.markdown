@@ -74,7 +74,9 @@ Jaehoon Choi, Donghyeon Kim, **Donghee Choi**, Sangrak Lim, Seongsoon Kim, Young
 <br>
 Jinkyu Kim†, **Donghee Choi† (Co-first author)**, Mogan Gim, and Jaewoo Kang. 
 <br>
-IEEE Access (to be published), 2023
+IEEE Access, 2023 (SCIE, IF: 3.476), 2023
+<br>
+[paper](https://ieeexplore.ieee.org/document/10149353)
 <br>
 
 **KitchenScale: Learning to Predict Ingredient Quantities from Recipe Contexts**
