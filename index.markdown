@@ -70,15 +70,6 @@ Jaehoon Choi, Donghyeon Kim, **Donghee Choi**, Sangrak Lim, Seongsoon Kim, Young
 
 ## International Journal
 
-**HADAPS : Hierarchical Adaptive Multi-Asset Portfolio Selection**
-<br>
-Jinkyu Kim†, **Donghee Choi† (Co-first author)**, Mogan Gim, and Jaewoo Kang. 
-<br>
-IEEE Access, 2023 (SCIE, IF: 3.476), 2023
-<br>
-[paper](https://ieeexplore.ieee.org/document/10149353)
-<br>
-
 **KitchenScale: Learning to Predict Ingredient Quantities from Recipe Contexts**
 <br>
 **Donghee Choi**, Mogan Gim, Samy Badreddine, Hajung Kim, Donghyeon Park, and Jaewoo Kang. 
@@ -89,6 +80,17 @@ Expert Systems With Applications (SCIE, IF: 8.665), 2023
 <br>
 *This work collaborates with [Sony AI](https://ai.sony) and their Gastronomy Flagship Project*
 <br>
+
+**HADAPS : Hierarchical Adaptive Multi-Asset Portfolio Selection**
+<br>
+Jinkyu Kim†, **Donghee Choi† (Co-first author)**, Mogan Gim, and Jaewoo Kang. 
+<br>
+IEEE Access, 2023 (SCIE, IF: 3.476), 2023
+<br>
+[paper](https://ieeexplore.ieee.org/document/10149353)
+<br>
+
+
 
 **BEST: Next-Generation Biomedical Entity Search Tool for Knowledge Discovery from Biomedical Literature**
 <br>
