@@ -8,13 +8,13 @@ layout: page
 ![My Picture](/assets/my.jpg){:height="30%" width="30%"}
 
 # Donghee Choi (최동희)
-Post Doctoral Researcher in [Korea University](https://korea.edu) (Sep 2023 - , advised by [Jaewoo Kang](https://dmis.korea.ac.kr))
+Post Doctoral Researcher in [Korea University](https://korea.edu) (Sep 2023 - , supervised by [Jaewoo Kang](https://dmis.korea.ac.kr))
 * Email : iamdongheechoi@gmail.com / choidonghee@korea.ac.kr
 
 <br>
 ## Education
-* Ph.D., Computer Science (Major: Software) in [Korea University](https://korea.edu) (Mar 2014 - Aug 2023, advised by [Jaewoo Kang](https://dmis.korea.ac.kr)) 
-* M.S, bioinformatics in [Korea University](http://www.korea.edu/) (Mar 2012 - Feb 2014, advised by [Jaewoo Kang](https://dmis.korea.ac.kr)) 
+* Ph.D., Computer Science (Major: Software) in [Korea University](https://korea.edu) (Mar 2014 - Aug 2023, supervised by [Jaewoo Kang](https://dmis.korea.ac.kr)) 
+* M.S, bioinformatics in [Korea University](http://www.korea.edu/) (Mar 2012 - Feb 2014, supervised by [Jaewoo Kang](https://dmis.korea.ac.kr)) 
 * B.S, Computer Science in [Korea University](http://www.korea.edu/) (Mar 2006 - Feb 2012)
 
 <br>
