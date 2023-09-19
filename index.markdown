@@ -7,7 +7,7 @@ layout: page
 
 ![My Picture](/assets/my.jpg){:height="30%" width="30%"}
 
-# Donghee Choi (최동희)
+# Donghee Choi, Ph.D. (최동희)
 Post Doctoral Researcher in [Korea University](https://korea.edu) (Sep 2023 - , supervised by [Jaewoo Kang](https://dmis.korea.ac.kr))
 * Email : iamdongheechoi@gmail.com / choidonghee@korea.ac.kr
 
