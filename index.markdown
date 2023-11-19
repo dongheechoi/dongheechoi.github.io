@@ -14,7 +14,7 @@ layout: page
 <br>
 ## Education
 * Ph.D., Computer Science (Major: Software) in [Korea University](https://korea.edu) (Mar 2014 - Aug 2023, supervised by [Jaewoo Kang](https://dmis.korea.ac.kr)) 
-* M.S, bioinformatics in [Korea University](http://www.korea.edu/) (Mar 2012 - Feb 2014, supervised by [Jaewoo Kang](https://dmis.korea.ac.kr)) 
+* M.S, Bioinformatics in [Korea University](http://www.korea.edu/) (Mar 2012 - Feb 2014, supervised by [Jaewoo Kang](https://dmis.korea.ac.kr)) 
 * B.S, Computer Science in [Korea University](http://www.korea.edu/) (Mar 2006 - Feb 2012)
 
 <br>
