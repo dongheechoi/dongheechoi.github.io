@@ -8,7 +8,7 @@ layout: page
 ![My Picture](/assets/my.jpg){:height="30%" width="30%"}
 
 # Donghee Choi, Ph.D. (최동희)
-Post Doctoral Researcher in [Korea University](https://korea.edu) (Sep 2023 - , supervised by [Jaewoo Kang](https://dmis.korea.ac.kr))
+* Research Associate in [Imperial College London](http://imperial.ac.uk) (Nov 2023 - , supervised by [Joram M. Posma](https://www.imperial.ac.uk/people/j.posma11)
 * Email : iamdongheechoi@gmail.com / choidonghee@korea.ac.kr
 
 <br>
@@ -19,6 +19,7 @@ Post Doctoral Researcher in [Korea University](https://korea.edu) (Sep 2023 - , 
 
 <br>
 ## Experience
+* Post Doctoral Researcher in [Korea University](https://korea.edu) (Sep 2023 - Nov 2023, supervised by [Jaewoo Kang](https://dmis.korea.ac.kr))
 * Internship - [Sony AI](https://ai.sony) Research Internship - Gastronomy AI project (Dec 2022 - June 2023)
 * Startup - LYZE, Inc. Co-founder & Research Lead (June 2018 - Mar 2019)
 * Startup - Konolabs, Data Scientist & Software Engineer (Apr 2016 - Mar 2019)
