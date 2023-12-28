@@ -8,7 +8,7 @@ layout: page
 ![My Picture](/assets/my.jpg){:height="30%" width="30%"}
 
 # Donghee Choi, Ph.D. (최동희)
-* Research Associate in [Imperial College London](http://imperial.ac.uk) (Nov 2023 - , supervised by [Joram M. Posma])(https://www.imperial.ac.uk/people/j.posma11)
+* Research Associate in [Imperial College London](http://imperial.ac.uk) (Nov 2023 - , supervised by [Joram M. Posma](https://www.imperial.ac.uk/people/j.posma11))
 * Email : iamdongheechoi@gmail.com / donghee.choi@imperial.ac.uk
 
 <br>
