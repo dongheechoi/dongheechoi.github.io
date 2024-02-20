@@ -31,6 +31,16 @@ layout: page
 * [Google Scholar](https://scholar.google.co.kr/citations?user=iR40DeMAAAAJ&hl=ko)
 
 ## International Conference
+
+**CookingSense: A Culinary Knowledgebase with Multidisciplinary Assertions**
+<br>
+**Donghee Choi**, Mogan Gim, Donghyeon Park, Mujeen Sung, Hyunjae Kim, Jaewoo Kang, and Jihun Choi
+<br>
+COLING-LREC 2014, Full (Accepted)
+<br>
+*This work collaborates with [Sony AI](https://ai.sony) and their Gastronomy Flagship Project*
+<br>
+
 **RecipeMind: Guiding Ingredient Choices from Food Pairing to Recipe Completion using Cascaded Set Transformer.**
 <br>
 Mogan Gim†, **Donghee Choi† (Co-first author)**, Kana Maruyama, Jihun Choi, Hajung Kim, Donghyeon Park, and Jaewoo Kang 
