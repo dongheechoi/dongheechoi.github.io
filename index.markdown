@@ -20,7 +20,7 @@ layout: page
 <br>
 ## Experience
 * Post Doctoral Researcher in [Korea University](https://korea.edu) (Sep 2023 - Nov 2023, supervised by [Jaewoo Kang](https://dmis.korea.ac.kr))
-* Internship - [Sony AI](https://ai.sony) Research Internship - Gastronomy AI project (Dec 2022 - June 2023)
+* Internship - [Sony AI](https://ai.sony) Research Internship: Gastronomy AI project (Dec 2022 - June 2023)
 * Startup - LYZE, Inc. Co-founder & Research Lead (June 2018 - Mar 2019)
 * Startup - Konolabs, Data Scientist & Software Engineer (Apr 2016 - Mar 2019)
 * Startup - Opinion8, Co-founder & CIO (Oct 2014 - Apr 2016)
