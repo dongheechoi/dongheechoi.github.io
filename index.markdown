@@ -30,6 +30,17 @@ layout: page
 
 * [Google Scholar](https://scholar.google.co.kr/citations?user=iR40DeMAAAAJ&hl=ko)
 
+<br>
+<br>
+## Preprint
+**Small Language Models Learn Enhanced Reasoning Skills from Medical Textbooks**
+<br>
+Hyunjae Kim, Hyeon Hwang, Jiwoo Lee, Sihyeon Park, Dain Kim, Taewhoo Lee, Chanwoong Yoon, Jiwoong Sohn, **Donghee Choi**, Jaewoo Kang
+<br>
+[Arxiv](https://arxiv.org/abs/2404.00376) / [huggingface model](https://huggingface.co/dmis-lab/meerkat-7b-v1.0) / [ollama](https://ollama.com/dmis/meerkat-7b)
+<br>
+<br>
+
 ## International Conference
 
 **CookingSense: A Culinary Knowledgebase with Multidisciplinary Assertions**
