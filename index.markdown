@@ -39,6 +39,7 @@ Hyunjae Kim, Hyeon Hwang, Jiwoo Lee, Sihyeon Park, Dain Kim, Taewhoo Lee, Chanwo
 <br>
 [Arxiv](https://arxiv.org/abs/2404.00376) / [huggingface model](https://huggingface.co/dmis-lab/meerkat-7b-v1.0) / [ollama](https://ollama.com/dmis/meerkat-7b)
 <br>
+[동아일보](https://n.news.naver.com/article/020/0003559991)/[국민일보](https://www.kmib.co.kr/article/view.asp?arcid=0019981332&code=61141111&cp=nv)
 <br>
 
 ## International Conference
