@@ -35,7 +35,7 @@ layout: page
 ## Preprint
 **Small Language Models Learn Enhanced Reasoning Skills from Medical Textbooks**
 <br>
-Hyunjae Kim, Hyeon Hwang, Jiwoo Lee, Sihyeon Park, Dain Kim, Taewhoo Lee, Chanwoong Yoon, Jiwoong Sohn, **Donghee Choi**, Jaewoo Kang
+Hyunjae Kim, Hyeon Hwang, Jiwoo Lee, Sihyeon Park, Dain Kim, Taewhoo Lee, Chanwoong Yoon, Jiwoong Sohn, <ins>Donghee Choi</ins>, Jaewoo Kang
 <br>
 [Arxiv](https://arxiv.org/abs/2404.00376) / [huggingface model](https://huggingface.co/dmis-lab/meerkat-7b-v1.0) / [ollama](https://ollama.com/dmis/meerkat-7b)
 <br>
@@ -46,7 +46,7 @@ Hyunjae Kim, Hyeon Hwang, Jiwoo Lee, Sihyeon Park, Dain Kim, Taewhoo Lee, Chanwo
 
 **CookingSense: A Culinary Knowledgebase with Multidisciplinary Assertions**
 <br>
-**Donghee Choi**, Mogan Gim, Donghyeon Park, Mujeen Sung, Hyunjae Kim, Jaewoo Kang, and Jihun Choi
+<ins>Donghee Choi</ins>, Mogan Gim, Donghyeon Park, Mujeen Sung, Hyunjae Kim, Jaewoo Kang, and Jihun Choi
 <br>
 COLING-LREC 2014, Full (Accepted)
 <br>
@@ -57,7 +57,7 @@ COLING-LREC 2014, Full (Accepted)
 
 **RecipeMind: Guiding Ingredient Choices from Food Pairing to Recipe Completion using Cascaded Set Transformer.**
 <br>
-Mogan Gim†, **Donghee Choi† (Co-first author)**, Kana Maruyama, Jihun Choi, Hajung Kim, Donghyeon Park, and Jaewoo Kang 
+Mogan Gim†, <ins>Donghee Choi† (Co-first author)</ins>, Kana Maruyama, Jihun Choi, Hajung Kim, Donghyeon Park, and Jaewoo Kang 
 <br>
 Proceedings of the 31st ACM International Conference on Information and Knowledge Management (CIKM 2022)
 <br>
@@ -68,7 +68,7 @@ Proceedings of the 31st ACM International Conference on Information and Knowledg
 
 **Learning User Preferences and Understanding Calendar Contexts for Event Scheduling**
 <br>
-Donghyeon Kim, Jinhyuk Lee, **Donghee Choi**, Jaehoon Choi, and Jaewoo Kang 
+Donghyeon Kim, Jinhyuk Lee, <ins>Donghee Choi</ins>, Jaehoon Choi, and Jaewoo Kang 
 <br>
 Proceedings of the 27th ACM International Conference on Information and Knowledge Management (CIKM 2018)
 <br>
@@ -77,7 +77,7 @@ Proceedings of the 27th ACM International Conference on Information and Knowledg
 
 **Name Nationality Classification with Recurrent Neural Networks**
 <br>
-Jinhyuk Lee, Hyunjae Kim, Miyoung Ko, **Donghee Choi**, Jaehoon Choi, and Jaewoo Kang
+Jinhyuk Lee, Hyunjae Kim, Miyoung Ko, <ins>Donghee Choi</ins>, Jaehoon Choi, and Jaewoo Kang
 <br>
 Proceedings of the Twenty-Sixth International Joint Conference on Artificial Intelligence (IJCAI 2017)
 <br>
@@ -98,7 +98,7 @@ Jaehoon Choi, Donghyeon Kim, **Donghee Choi**, Sangrak Lim, Seongsoon Kim, Young
 
 **KitchenScale: Learning to Predict Ingredient Quantities from Recipe Contexts**
 <br>
-**Donghee Choi**, Mogan Gim, Samy Badreddine, Hajung Kim, Donghyeon Park, and Jaewoo Kang. 
+<ins>Donghee Choi</ins>, Mogan Gim, Samy Badreddine, Hajung Kim, Donghyeon Park, and Jaewoo Kang. 
 <br>
 Expert Systems With Applications (SCIE, IF: 8.665), 2023
 <br>
@@ -109,7 +109,7 @@ Expert Systems With Applications (SCIE, IF: 8.665), 2023
 
 **HADAPS : Hierarchical Adaptive Multi-Asset Portfolio Selection**
 <br>
-Jinkyu Kim†, **Donghee Choi† (Co-first author)**, Mogan Gim, and Jaewoo Kang. 
+Jinkyu Kim†, <ins>Donghee Choi† (Co-first author)</ins>, Mogan Gim, and Jaewoo Kang. 
 <br>
 IEEE Access, 2023 (SCIE, IF: 3.476), 2023
 <br>
@@ -120,7 +120,7 @@ IEEE Access, 2023 (SCIE, IF: 3.476), 2023
 
 **BEST: Next-Generation Biomedical Entity Search Tool for Knowledge Discovery from Biomedical Literature**
 <br>
-Donghyeon Kim, Sunwon Lee, Kyubum Lee, Jaehoon Choi, Seongsoon Kim, Minji Jeon, Sangrak Lim, **Donghee Choi**, Aik-Choon Tan, and Jaewoo Kang 
+Donghyeon Kim, Sunwon Lee, Kyubum Lee, Jaehoon Choi, Seongsoon Kim, Minji Jeon, Sangrak Lim, <ins>Donghee Choi</ins>, Aik-Choon Tan, and Jaewoo Kang 
 <br>
 PLoS ONE (SCIE, IF: 3.057), 2016 
 <br>
@@ -133,7 +133,7 @@ PLoS ONE (SCIE, IF: 3.057), 2016
 
 **속성기반  감성분석의  연구  동향  및  방향성 (Issues on Aspect-based Sentiment Analysis: A Survey)**
 <br>
-조선희, **최동희**, 강재우 
+조선희, <ins>최동희</ins>, 강재우 
 <br>
 한국정보과학회 2021 한국컴퓨터종합학술대회 논문집
  <br>
@@ -143,7 +143,7 @@ PLoS ONE (SCIE, IF: 3.057), 2016
 
 **소셜 빅데이터를 활용한 의사 결정 검색 기술**
 <br>
-최재훈, **최동희**, 김동현, 김성순, 임상락, 강재우 
+최재훈, <ins>최동희</ins>, 김동현, 김성순, 임상락, 강재우 
 <br>
 정보과학회지, Vol. 32, Issue 296, Pages 44-52. Jan 2014
  <br>
@@ -152,7 +152,7 @@ PLoS ONE (SCIE, IF: 3.057), 2016
 
 **한글 마이크로블로그 텍스트의 감정 분류 및 분석**
 <br>
-이철성, **최동희**, 김성순, 강재우
+이철성, <ins>최동희</ins>, 김성순, 강재우
 <br>
 정보과학회논문지: 데이타베이스, Vol. 40, No. 3, Pages 159-167. Jun 2013
 <br>
