@@ -50,7 +50,7 @@ Hyunjae Kim, Hyeon Hwang, Jiwoo Lee, Sihyeon Park, Dain Kim, Taewhoo Lee, Chanwo
 <br>
 COLING-LREC 2024, Full (Accepted)
 <br>
-[Arxiv](https://arxiv.org/abs/2405.00523)
+[Paper](https://aclanthology.org/2024.lrec-main.354/), [Arxiv](https://arxiv.org/abs/2405.00523)
 <br>
 *This work collaborates with [Sony AI](https://ai.sony) and their Gastronomy Flagship Project*
 <br>
