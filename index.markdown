@@ -86,7 +86,7 @@ Proceedings of the Twenty-Sixth International Joint Conference on Artificial Int
 
 **Smith Search: Opinion-Based Restaurant Search Engine**
 <br>
-Jaehoon Choi, Donghyeon Kim, **Donghee Choi**, Sangrak Lim, Seongsoon Kim, Youngjae Choi, and Jaewoo Kang 
+Jaehoon Choi, Donghyeon Kim, <ins>Donghee Choi</ins>, Sangrak Lim, Seongsoon Kim, Youngjae Choi, and Jaewoo Kang 
 <br>
 24th International World Wide Web Conference (WWW 2015) _DEMONSTRATION SESSION_ , Florence, Italy. 18-22 May 2015
 <br>
