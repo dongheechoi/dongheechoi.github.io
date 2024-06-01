@@ -52,7 +52,7 @@ COLING-LREC 2024, Full (Accepted)
 <br>
 [Paper](https://aclanthology.org/2024.lrec-main.354/), [Arxiv](https://arxiv.org/abs/2405.00523)
 <br>
-*This work collaborates with [Sony AI](https://ai.sony) and their Gastronomy Flagship Project*
+*This work collaborates with [Sony AI](https://ai.sony) and their Gastronomy Flagship Project [more information available here](https://ai.sony/publications/CookingSense-A-Culinary-Knowledgebase-with-Multidisciplinary-Assertions/)*
 <br>
 
 **RecipeMind: Guiding Ingredient Choices from Food Pairing to Recipe Completion using Cascaded Set Transformer.**
@@ -63,7 +63,7 @@ Proceedings of the 31st ACM International Conference on Information and Knowledg
 <br>
 [paper](https://dl.acm.org/doi/10.1145/3511808.3557092)
 <br>
-*This work collaborates with [Sony AI](https://ai.sony) and their Gastronomy Flagship Project*
+*This work collaborates with [Sony AI](https://ai.sony) and their Gastronomy Flagship Project [more information available here](https://ai.sony/publications/RecipeMind-Guiding-Ingredient-Choices-from-Food-Pairing-to-Recipe-Completion-using-Cascaded-Set-Transformer/)*
 <br>
 
 **Learning User Preferences and Understanding Calendar Contexts for Event Scheduling**
