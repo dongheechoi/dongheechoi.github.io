@@ -177,9 +177,7 @@ PLoS ONE (SCIE, IF: 3.057), 2016
 <br>
 
 ## Review
-* ICDM 2019 / 2020 Secondary Reviewer
-* ACL 2021 Secondary Reviewer
-* EMNLP 2021 Reviewer, 2023 Secondary Reviewer
+* ACL(Secondary: 2021), EMNLP(2021, Secondary: 2023), NAACL(2024), ICDM(Secondary: 2019,2020), IPM(Secondary: 2024)
 
 <br>
 ## Award
