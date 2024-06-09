@@ -46,7 +46,7 @@ Hyunjae Kim, Hyeon Hwang, Jiwoo Lee, Sihyeon Park, Dain Kim, Taewhoo Lee, Chanwo
 
 **CookingSense: A Culinary Knowledgebase with Multidisciplinary Assertions**
 <br>
-<ins>Donghee Choi</ins>, Mogan Gim, Donghyeon Park, Mujeen Sung, Hyunjae Kim, Jaewoo Kang, and Jihun Choi
+<ins>Donghee Choi</ins>, Mogan Gim, Donghyeon Park, Mujeen Sung, Hyunjae Kim, Jaewoo Kang, Jihun Choi
 <br>
 COLING-LREC 2024, Full (Accepted)
 <br>
@@ -57,7 +57,7 @@ COLING-LREC 2024, Full (Accepted)
 
 **RecipeMind: Guiding Ingredient Choices from Food Pairing to Recipe Completion using Cascaded Set Transformer.**
 <br>
-Mogan Gim†, <ins>Donghee Choi† (Co-first author)</ins>, Kana Maruyama, Jihun Choi, Hajung Kim, Donghyeon Park, and Jaewoo Kang 
+Mogan Gim†, <ins>Donghee Choi† (Co-first author)</ins>, Kana Maruyama, Jihun Choi, Hajung Kim, Donghyeon Park, Jaewoo Kang 
 <br>
 Proceedings of the 31st ACM International Conference on Information and Knowledge Management (CIKM 2022)
 <br>
@@ -68,7 +68,7 @@ Proceedings of the 31st ACM International Conference on Information and Knowledg
 
 **Learning User Preferences and Understanding Calendar Contexts for Event Scheduling**
 <br>
-Donghyeon Kim, Jinhyuk Lee, <ins>Donghee Choi</ins>, Jaehoon Choi, and Jaewoo Kang 
+Donghyeon Kim, Jinhyuk Lee, <ins>Donghee Choi</ins>, Jaehoon Choi, Jaewoo Kang 
 <br>
 Proceedings of the 27th ACM International Conference on Information and Knowledge Management (CIKM 2018)
 <br>
@@ -77,7 +77,7 @@ Proceedings of the 27th ACM International Conference on Information and Knowledg
 
 **Name Nationality Classification with Recurrent Neural Networks**
 <br>
-Jinhyuk Lee, Hyunjae Kim, Miyoung Ko, <ins>Donghee Choi</ins>, Jaehoon Choi, and Jaewoo Kang
+Jinhyuk Lee, Hyunjae Kim, Miyoung Ko, <ins>Donghee Choi</ins>, Jaehoon Choi, Jaewoo Kang
 <br>
 Proceedings of the Twenty-Sixth International Joint Conference on Artificial Intelligence (IJCAI 2017)
 <br>
@@ -86,7 +86,7 @@ Proceedings of the Twenty-Sixth International Joint Conference on Artificial Int
 
 **Smith Search: Opinion-Based Restaurant Search Engine**
 <br>
-Jaehoon Choi, Donghyeon Kim, <ins>Donghee Choi</ins>, Sangrak Lim, Seongsoon Kim, Youngjae Choi, and Jaewoo Kang 
+Jaehoon Choi, Donghyeon Kim, <ins>Donghee Choi</ins>, Sangrak Lim, Seongsoon Kim, Youngjae Choi, Jaewoo Kang 
 <br>
 24th International World Wide Web Conference (WWW 2015) _DEMONSTRATION SESSION_ , Florence, Italy. 18-22 May 2015
 <br>
@@ -98,7 +98,7 @@ Jaehoon Choi, Donghyeon Kim, <ins>Donghee Choi</ins>, Sangrak Lim, Seongsoon Kim
 
 **KitchenScale: Learning to Predict Ingredient Quantities from Recipe Contexts**
 <br>
-<ins>Donghee Choi</ins>, Mogan Gim, Samy Badreddine, Hajung Kim, Donghyeon Park, and Jaewoo Kang. 
+<ins>Donghee Choi</ins>, Mogan Gim, Samy Badreddine, Hajung Kim, Donghyeon Park, Jaewoo Kang. 
 <br>
 Expert Systems With Applications (SCIE, IF: 8.665), 2023
 <br>
@@ -109,7 +109,7 @@ Expert Systems With Applications (SCIE, IF: 8.665), 2023
 
 **HADAPS : Hierarchical Adaptive Multi-Asset Portfolio Selection**
 <br>
-Jinkyu Kim†, <ins>Donghee Choi† (Co-first author)</ins>, Mogan Gim, and Jaewoo Kang. 
+Jinkyu Kim†, <ins>Donghee Choi† (Co-first author)</ins>, Mogan Gim, Jaewoo Kang. 
 <br>
 IEEE Access, 2023 (SCIE, IF: 3.476), 2023
 <br>
@@ -120,7 +120,7 @@ IEEE Access, 2023 (SCIE, IF: 3.476), 2023
 
 **BEST: Next-Generation Biomedical Entity Search Tool for Knowledge Discovery from Biomedical Literature**
 <br>
-Donghyeon Kim, Sunwon Lee, Kyubum Lee, Jaehoon Choi, Seongsoon Kim, Minji Jeon, Sangrak Lim, <ins>Donghee Choi</ins>, Aik-Choon Tan, and Jaewoo Kang 
+Donghyeon Kim, Sunwon Lee, Kyubum Lee, Jaehoon Choi, Seongsoon Kim, Minji Jeon, Sangrak Lim, <ins>Donghee Choi</ins>, Aik-Choon Tan, Jaewoo Kang 
 <br>
 PLoS ONE (SCIE, IF: 3.057), 2016 
 <br>
