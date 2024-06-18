@@ -48,7 +48,7 @@ Hyunjae Kim, Hyeon Hwang, Jiwoo Lee, Sihyeon Park, Dain Kim, Taewhoo Lee, Chanwo
 <br>
 <ins>Donghee Choi</ins>, Mogan Gim, Donghyeon Park, Mujeen Sung, Hyunjae Kim, Jaewoo Kang, Jihun Choi
 <br>
-COLING-LREC 2024, Full (Accepted)
+COLING-LREC 2024, Full
 <br>
 [Paper](https://aclanthology.org/2024.lrec-main.354/), [Arxiv](https://arxiv.org/abs/2405.00523)
 <br>
