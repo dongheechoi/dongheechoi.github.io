@@ -46,7 +46,7 @@ Hyunjae Kim, Hyeon Hwang, Jiwoo Lee, Sihyeon Park, Dain Kim, Taewhoo Lee, Chanwo
 
 **DeepClair: Utilizing Market Forecasts for Effective Portfolio Selection**
 <br>
-<ins>Donghee Choi</ins>, Jinkyu Kim, Mogan Gim, Jinho Lee, Jaewoo Kang
+<ins>Donghee Choi†(Co-first author)</ins>, Jinkyu Kim†, Mogan Gim, Jinho Lee, Jaewoo Kang
 <br>
 CIKM 2024, Applied Research, Accepted
 <br>
