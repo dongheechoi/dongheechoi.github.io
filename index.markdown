@@ -44,6 +44,23 @@ Hyunjae Kim, Hyeon Hwang, Jiwoo Lee, Sihyeon Park, Dain Kim, Taewhoo Lee, Chanwo
 
 ## International Conference
 
+**DeepClair: Utilizing Market Forecasts for Effective Portfolio Selection**
+<br>
+<ins>Donghee Choi</ins>, Jinkyu Kim, Mogan Gim, Jinho Lee, Jaewoo Kang
+<br>
+CIKM 2024, Applied Research, Accepted
+<br>
+[Arxiv](https://arxiv.org/abs/2407.13427)
+<br>
+
+**LAPIS: Language Model-Augmented Police Investigation System**
+<br>
+Heedou Kim, Dain Kim, Jiwoo Lee, Chanwoong Yoon, <ins>Donghee Choi</ins>, Mogan Gim, Jaewoo Kang
+<br>
+CIKM 2024, Applied Research, Accepted
+<br>
+
+
 **CookingSense: A Culinary Knowledgebase with Multidisciplinary Assertions**
 <br>
 <ins>Donghee Choi</ins>, Mogan Gim, Donghyeon Park, Mujeen Sung, Hyunjae Kim, Jaewoo Kang, Jihun Choi
