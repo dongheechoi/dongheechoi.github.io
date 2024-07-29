@@ -26,9 +26,10 @@ layout: page
 * Startup - Konolabs, Data Scientist & Software Engineer (Apr 2016 - Mar 2019)
 * Startup - Opinion8, Co-founder & CIO (Oct 2014 - Apr 2016)
 
-# Publication
+<br>
+## Publication
 
-## Preprint
+### Preprint
 **Small Language Models Learn Enhanced Reasoning Skills from Medical Textbooks**
 <br>
 Hyunjae Kim, Hyeon Hwang, Jiwoo Lee, Sihyeon Park, Dain Kim, Taewhoo Lee, Chanwoong Yoon, Jiwoong Sohn, <ins>Donghee Choi</ins>, Jaewoo Kang
@@ -38,7 +39,7 @@ Hyunjae Kim, Hyeon Hwang, Jiwoo Lee, Sihyeon Park, Dain Kim, Taewhoo Lee, Chanwo
 [동아일보](https://n.news.naver.com/article/020/0003559991)/[국민일보](https://www.kmib.co.kr/article/view.asp?arcid=0019981332&code=61141111&cp=nv)
 <br>
 
-## International Conference
+### International Conference
 
 **DeepClair: Utilizing Market Forecasts for Effective Portfolio Selection**
 <br>
@@ -107,7 +108,7 @@ Jaehoon Choi, Donghyeon Kim, <ins>Donghee Choi</ins>, Sangrak Lim, Seongsoon Kim
 <br>
 <br>
 
-## International Journal
+### International Journal
 
 **KitchenScale: Learning to Predict Ingredient Quantities from Recipe Contexts**
 <br>
@@ -141,7 +142,7 @@ PLoS ONE (SCIE, IF: 3.057), 2016
 <br>
 <br>
 
-## Domestic Journal
+### Domestic Journal
 
 
 **속성기반  감성분석의  연구  동향  및  방향성 (Issues on Aspect-based Sentiment Analysis: A Survey)**
