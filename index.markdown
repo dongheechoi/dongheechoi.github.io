@@ -10,6 +10,7 @@ layout: page
 # Donghee Choi, Ph.D. (최동희)
 * Research Associate in [Imperial College London](https://profiles.imperial.ac.uk/donghee.choi/) (Nov 2023 - , supervised by [Joram M. Posma](https://www.imperial.ac.uk/people/j.posma11))
 * Email : iamdongheechoi@gmail.com / donghee.choi@imperial.ac.uk
+* Arxiv: [Arxiv](https://arxiv.org/a/choi_d_1.html)
 
 <br>
 ## Education
@@ -48,7 +49,7 @@ Hyunjae Kim, Hyeon Hwang, Jiwoo Lee, Sihyeon Park, Dain Kim, Taewhoo Lee, Chanwo
 <br>
 <ins>Donghee Choi†(Co-first author)</ins>, Jinkyu Kim†, Mogan Gim, Jinho Lee, Jaewoo Kang
 <br>
-CIKM 2024, Applied Research, Accepted
+CIKM 2024 Full, Applied Research Track, Accepted
 <br>
 [Arxiv](https://arxiv.org/abs/2407.13427)
 <br>
@@ -57,7 +58,7 @@ CIKM 2024, Applied Research, Accepted
 <br>
 Heedou Kim, Dain Kim, Jiwoo Lee, Chanwoong Yoon, <ins>Donghee Choi</ins>, Mogan Gim, Jaewoo Kang
 <br>
-CIKM 2024, Applied Research, Accepted
+CIKM 2024 Full, Applied Research Track, Accepted
 <br>
 
 
