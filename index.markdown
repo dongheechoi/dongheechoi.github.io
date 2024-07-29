@@ -190,7 +190,7 @@ PLoS ONE (SCIE, IF: 3.057), 2016
 <br>
 
 ## Review
-* ACL(Secondary: 2021), EMNLP(2021, Secondary: 2023), NAACL(2024), ICDM(Secondary: 2019,2020), IPM(Secondary: 2024)
+* ACL(Secondary: 2021), EMNLP(2021, Secondary: 2023), NAACL(2024), ICDM(Secondary: 2019,2020), IPM(Secondary: 2024), JMIR(2024), Discover Computing(2024)
 
 <br>
 ## Award
