@@ -27,12 +27,7 @@ layout: page
 * Startup - Opinion8, Co-founder & CIO (Oct 2014 - Apr 2016)
 
 <br>
-## Publication
-
-* [Google Scholar](https://scholar.google.co.kr/citations?user=iR40DeMAAAAJ&hl=ko)
-
-<br>
-<br>
+# Publication
 ## Preprint
 **Small Language Models Learn Enhanced Reasoning Skills from Medical Textbooks**
 <br>
