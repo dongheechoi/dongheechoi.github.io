@@ -26,8 +26,8 @@ layout: page
 * Startup - Konolabs, Data Scientist & Software Engineer (Apr 2016 - Mar 2019)
 * Startup - Opinion8, Co-founder & CIO (Oct 2014 - Apr 2016)
 
-<br>
 # Publication
+
 ## Preprint
 **Small Language Models Learn Enhanced Reasoning Skills from Medical Textbooks**
 <br>
