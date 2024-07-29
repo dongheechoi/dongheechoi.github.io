@@ -10,7 +10,7 @@ layout: page
 # Donghee Choi, Ph.D. (최동희)
 * Research Associate in [Imperial College London](https://profiles.imperial.ac.uk/donghee.choi/) (Nov 2023 - , supervised by [Joram M. Posma](https://www.imperial.ac.uk/people/j.posma11))
 * Email : iamdongheechoi@gmail.com / donghee.choi@imperial.ac.uk
-* Arxiv: [Arxiv](https://arxiv.org/a/choi_d_1.html)
+* [Arxiv](https://arxiv.org/a/choi_d_1.html), [Google Scholar](https://scholar.google.com/citations?user=iR40DeMAAAAJ&hl=en&authuser=1)
 
 <br>
 ## Education
