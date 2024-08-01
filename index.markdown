@@ -56,6 +56,8 @@ Heedou Kim, Dain Kim, Jiwoo Lee, Chanwoong Yoon, <ins>Donghee Choi</ins>, Mogan 
 <br>
 CIKM 2024 Full, Applied Research Track, Accepted
 <br>
+[Arxiv](https://arxiv.org/abs/2407.20248)
+<br>
 
 
 **CookingSense: A Culinary Knowledgebase with Multidisciplinary Assertions**
