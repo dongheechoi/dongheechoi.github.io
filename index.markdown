@@ -66,7 +66,7 @@ CIKM 2024 Full, Applied Research Track, Accepted
 <br>
 COLING-LREC 2024, Full
 <br>
-[Paper](https://aclanthology.org/2024.lrec-main.354/), [Arxiv](https://arxiv.org/abs/2405.00523)
+[Paper](https://aclanthology.org/2024.lrec-main.354/), [Arxiv](https://arxiv.org/abs/2405.00523), [Github](https://github.com/dmis-lab/cookingsense)
 <br>
 *This work collaborates with [Sony AI](https://ai.sony) and their Gastronomy Flagship Project [more information available here](https://ai.sony/publications/CookingSense-A-Culinary-Knowledgebase-with-Multidisciplinary-Assertions/)*
 <br>
