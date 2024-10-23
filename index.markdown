@@ -47,7 +47,7 @@ Hyunjae Kim, Hyeon Hwang, Jiwoo Lee, Sihyeon Park, Dain Kim, Taewhoo Lee, Chanwo
 <br>
 CIKM 2024 Full, Applied Research Track, Accepted
 <br>
-[Arxiv](https://arxiv.org/abs/2407.13427)
+[Arxiv](https://arxiv.org/abs/2407.13427), [ACM](https://dl.acm.org/doi/10.1145/3627673.3680008)
 <br>
 
 **LAPIS: Language Model-Augmented Police Investigation System**
@@ -56,7 +56,7 @@ Heedou Kim, Dain Kim, Jiwoo Lee, Chanwoong Yoon, <ins>Donghee Choi</ins>, Mogan 
 <br>
 CIKM 2024 Full, Applied Research Track, Accepted
 <br>
-[Arxiv](https://arxiv.org/abs/2407.20248)
+[Arxiv](https://arxiv.org/abs/2407.20248), [ACM](https://dl.acm.org/doi/10.1145/3627673.3680044)
 <br>
 
 
