@@ -30,6 +30,13 @@ layout: page
 ## Publication
 
 ### Preprint
+**Culinary Class Wars: Evaluating LLMs using ASH in Cuisine Transfer Task**
+<be>
+Hoonick Lee, Mogan Gim, Donghyeon Park, <ins>Donghee Choi(Co-corresponding author)</ins>, Jaewoo Kang
+<br>
+[Arxiv](https://arxiv.org/abs/2411.01996)
+<br>
+
 **Small Language Models Learn Enhanced Reasoning Skills from Medical Textbooks**
 <br>
 Hyunjae Kim, Hyeon Hwang, Jiwoo Lee, Sihyeon Park, Dain Kim, Taewhoo Lee, Chanwoong Yoon, Jiwoong Sohn, <ins>Donghee Choi</ins>, Jaewoo Kang
