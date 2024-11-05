@@ -31,7 +31,7 @@ layout: page
 
 ### Preprint
 **Culinary Class Wars: Evaluating LLMs using ASH in Cuisine Transfer Task**
-<be>
+<br>
 Hoonick Lee, Mogan Gim, Donghyeon Park, <ins>Donghee Choi(Co-corresponding author)</ins>, Jaewoo Kang
 <br>
 [Arxiv](https://arxiv.org/abs/2411.01996)
