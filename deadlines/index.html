@@ -80,7 +80,28 @@ title: Deadlines
             </div>
         </div>
 
-        <div id="ijcai" class=" ML-conf ">
+        <div id="ismb2025" class=" Bioinfo-conf ">
+          <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                  <a href="https://www.iscb.org/ismbeccb2025/call-for-submissions/proceedings"><b>ISMB/ECCB 2025 - Proceedings</b></a>
+                  <div class="meta">
+                    July 20-24, 2025 // <a href="http://maps.google.com/?q=Liverpool, UK">Liverpool, UK</a>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-6">
+                <span class="timer"></span>
+                <div class="deadline">
+                  <div>Deadline:
+                    <span class="deadline-time"></span>
+                  </div>
+                </div>
+                <div class="calendar"></div>
+              </div>
+          </div>
+          <hr>
+        </div>
+
+        <div id="ijcai2025" class=" ML-conf ">
           <div class="row">
               <div class="col-xs-12 col-sm-6">
                   <a href="https://2025.ijcai.org"><b>IJCAI 2025</b></a>
@@ -101,7 +122,7 @@ title: Deadlines
           <hr>
         </div>
 
-        <div id="kdd" class=" DM-conf ">
+        <div id="kdd2025" class=" DM-conf ">
           <div class="row">
               <div class="col-xs-12 col-sm-6">
                   <a href="https://kdd2025.kdd.org/"><b>KDD 2025 - Feb</b></a>
@@ -122,7 +143,7 @@ title: Deadlines
           <hr>
         </div>
 
-        <div id="icml" class=" ML-conf ">
+        <div id="icml2025" class=" ML-conf ">
           <div class="row">
               <div class="col-xs-12 col-sm-6">
                   <a href="https://icml.cc"><b>ICML 2025</b></a>
@@ -170,10 +191,10 @@ title: Deadlines
           var confDate = moment.tz("2025-01-23 23:59:59", timezone);
 
           // render countdown timer
-          $('#ijcai .timer').countdown(confDate.toDate(), function(event) {
+          $('#ismb2025 .timer').countdown(confDate.toDate(), function(event) {
             $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
           });
-          $('#ijcai .deadline-time').html(confDate.toString());
+          $('#ismb2025 .deadline-time').html(confDate.toString());
 
           // add calendar button
           var myCalendar = createCalendar({
@@ -181,7 +202,44 @@ title: Deadlines
               class: 'calendar-obj',
 
               // You can pass an ID. If you don't, one will be generated for you
-              id: 'ijcai'
+              id: 'ismb2025'
+            },
+            data: {
+              // Event title
+              title: 'ISMB/ECCB 2025 Proceedings deadline',
+
+              // Event start date
+              start: confDate.toDate(), // new Date('June 15, 2013 19:00'),
+
+              // Event duration
+              duration: 60,
+            }
+          });
+          document.querySelector('#ismb2025 .calendar').appendChild(myCalendar);
+
+          // check if date has passed, add 'past' class to it
+          var today = moment();
+          if (today.diff(confDate) > 0)
+            $('#ismb2025').addClass('past');
+
+        // ------------------------------//---------------------------------//
+          // adjust date according to deadline timezone
+          var timezone = "America/Los_Angeles" ;
+          var confDate = moment.tz("2025-01-23 23:59:59", timezone);
+
+          // render countdown timer
+          $('#ijcai2025 .timer').countdown(confDate.toDate(), function(event) {
+            $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+          });
+          $('#ijcai2025 .deadline-time').html(confDate.toString());
+
+          // add calendar button
+          var myCalendar = createCalendar({
+            options: {
+              class: 'calendar-obj',
+
+              // You can pass an ID. If you don't, one will be generated for you
+              id: 'ijcai2025'
             },
             data: {
               // Event title
@@ -199,7 +257,7 @@ title: Deadlines
           // check if date has passed, add 'past' class to it
           var today = moment();
           if (today.diff(confDate) > 0)
-            $('#ijcai').addClass('past');
+            $('#ijcai2025').addClass('past');
 
          // ------------------------------//---------------------------------//
           // adjust date according to deadline timezone
@@ -207,7 +265,7 @@ title: Deadlines
           var confDate = moment.tz("2025-02-10 23:59:59", timezone);
 
           // render countdown timer
-          $('#kdd .timer').countdown(confDate.toDate(), function(event) {
+          $('#kdd2025 .timer').countdown(confDate.toDate(), function(event) {
             $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
           });
           $('#kdd .deadline-time').html(confDate.toString());
@@ -218,7 +276,7 @@ title: Deadlines
               class: 'calendar-obj',
 
               // You can pass an ID. If you don't, one will be generated for you
-              id: 'kdd'
+              id: 'kdd2025'
             },
             data: {
               // Event title
@@ -231,12 +289,12 @@ title: Deadlines
               duration: 60,
             }
           });
-          document.querySelector('#kdd .calendar').appendChild(myCalendar);
+          document.querySelector('#kdd2025 .calendar').appendChild(myCalendar);
 
           // check if date has passed, add 'past' class to it
           var today = moment();
           if (today.diff(confDate) > 0)
-            $('#kdd').addClass('past');
+            $('#kdd2025').addClass('past');
 
          
 	   // -----------------------------------//-----------------------------//
