@@ -278,57 +278,55 @@ title: Deadlines
 
 	// Set checkboxes
 	  var conf_type_data = [{"name":"Machine Learning","sub":"ML"},{"name":"Data Mining","sub":"DM"},{"name":"Natural Language Processing","sub":"NLP"}, {"name":"Bioinformatics","sub":"BIOINFO"}];
-		        var all_subs = [];
-		               for (var i = 0; i < conf_type_data.length; i++) {
-			                 all_subs[i] = conf_type_data[i]['sub'];
-			          }
+    var all_subs = conf_type_data.map(conf => conf['sub']);
 
-	        // Get subjects from URL
-	        var url = new URL(window.location);
-        var subs = url.searchParams.get('sub');
-        if (subs == undefined) {
-	           subs = store.get('aideadlin.es');
-	           } else {
-		           subs = subs.toUpperCase().split(',');
-		        }
-        // Get subjects from browser cache
-        if (subs === undefined) {
-	          subs = all_subs;
-	            for (var i = 0; i < subs.length; i++) {
-		              $('#' + subs[i] + '-checkbox').prop('checked', true);
-		            }
-              } else {
-            for (var i = 0; i < subs.length; i++) {
-            $('#' + subs[i] + '-checkbox').prop('checked', true);
-          }
-        }
-        // Hide unchecked subs
-        for (var i = 0; i < all_subs.length; i++) {
-	          if (subs.indexOf(all_subs[i]) < 0) {
-		              $('.' + all_subs[i] + '-conf').hide();
-		              }
-            }
-        store.set('aideadlin.es', subs);
+	  // Get subjects from URL or browser cache
+    var url = new URL(window.location);
+    var subs = url.searchParams.get('sub');
+    if (subs === undefined || subs === null) {
+      subs = store.get('aideadlin.es'); // Load from local storage
+    }
 
-        // Event handler on checkbox change
-        $('form :checkbox').change(function(e) {
-	          var checked = $(this).is(':checked');
-	            var cid = $(this).prop('id');
-	            var csub = cid.substring(0, cid.length - 9);
-	          if (checked == true) {
-	                  $('.' + csub + '-conf').show();
-	            if (subs.indexOf(csub) < 0)
-	                subs.push(csub);
-          }
-          else {
-            $('.' + csub + '-conf').hide();
-            var idx = subs.indexOf(csub);
-            if (idx >= 0)
-	              subs.splice(idx, 1);
-          }
-          console.log(subs);
-        });
-    });	
+    if (subs === undefined || subs === null) {
+      subs = all_subs; // Default to all subs if nothing is found
+    } else {
+      subs = subs.toUpperCase().split(',');
+    }
+
+    // Set checkboxes based on `subs`
+    all_subs.forEach(function(sub) {
+      const isChecked = subs.includes(sub);
+      $(`#${sub}-checkbox`).prop('checked', isChecked);
+
+      // Show or hide conferences based on checkbox state
+      if (isChecked) {
+        $(`.${sub}-conf`).show();
+      } else {
+        $(`.${sub}-conf`).hide();
+      }
+    });
+
+    // Save to cache
+    store.set('aideadlin.es', subs);
+
+    // Event handler for checkbox change
+    $('form :checkbox').change(function(e) {
+      var checked = $(this).is(':checked');
+      var cid = $(this).prop('id');
+      var csub = cid.substring(0, cid.length - 9); // Remove "-checkbox"
+
+      if (checked) {
+        $(`.${csub}-conf`).show();
+        if (!subs.includes(csub)) subs.push(csub);
+      } else {
+        $(`.${csub}-conf`).hide();
+        subs = subs.filter(sub => sub !== csub);
+      }
+
+      // Save updated state to cache
+      store.set('aideadlin.es', subs);
+    });
+  });	
    </script>
   <body>
 
