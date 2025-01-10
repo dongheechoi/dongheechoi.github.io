@@ -1,0 +1,354 @@
+---
+layout: default
+title: Deadlines
+---
+
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>AI Conference Deadlines</title> 
+    <meta name="description" content="Countdowns to top ML/NLP/Bioinfo conference deadlines">
+    <meta name="author" content="Donghee Choi">
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/deadlines.css" media="screen,projection">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.countdown.min.js"></script>
+    <script src="static/js/moment.min.js"></script>
+    <script src="static/js/moment-timezone-with-data.min.js"></script>
+    <script src="static/js/store.min.js"></script>
+    <script src="static/js/ouical.min.js"></script>
+
+  </head>
+  <body>
+    <div class="top-strip"></div>
+    <div class="container">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8">
+                  <h1>
+                    AI Conference Deadlines 
+                  </h1>
+                </div>
+                <div class="meta col-xs-12">
+                  Countdowns to top ML/NLP/Bio conference deadlines.
+                </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-xs-12">
+                  <form class="form-horizontal">
+                    <div class="form-group">
+                      
+                      <div class="col-md-2 col-xs-5">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" id="ML-checkbox" class=""> Machine Learning
+                          </label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-2 col-xs-5">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" id="DM-checkbox" class=""> Data Mining
+                          </label>
+                        </div>
+                      </div>
+                         
+                      <div class="col-md-2 col-xs-5">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" id="NLP-checkbox" class=""> Natural Language Processing
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="col-md-2 col-xs-5">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" id="Bio-checkbox" class=""> Bioinformatics
+                          </label>
+                        </div>
+                      </div>
+                                 
+                    </div>
+                  </form>
+              </div>
+            </div>
+        </div>
+
+        <div id="ijcai" class=" ML-conf ">
+          <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                  <a href="https://2025.ijcai.org"><b>IJCAI 2025</b></a>
+                  <div class="meta">
+                    August 16-22, 2025 // <a href="http://maps.google.com/?q=Montreal, CANADA">Montreal, Canada</a>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-6">
+                <span class="timer"></span>
+                <div class="deadline">
+                  <div>Deadline:
+                    <span class="deadline-time"></span>
+                  </div>
+                </div>
+                <div class="calendar"></div>
+              </div>
+          </div>
+          <hr>
+        </div>
+
+        <div id="ijcai" class=" ML-conf ">
+          <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                  <a href="https://kdd2025.kdd.org/"><b>KDD 2025 - Feb</b></a>
+                  <div class="meta">
+                    August 3-7, 2025 // <a href="http://maps.google.com/?q=Toronto, CANADA">Toronto, Canada</a>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-6">
+                <span class="timer"></span>
+                <div class="deadline">
+                  <div>Deadline:
+                    <span class="deadline-time"></span>
+                  </div>
+                </div>
+                <div class="calendar"></div>
+              </div>
+          </div>
+          <hr>
+        </div>
+
+        <div id="icml" class=" ML-conf ">
+          <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                  <a href="https://icml.cc"><b>ICML 2025</b></a>
+                  <div class="meta">
+                    July 13-19, 2025 // <a href="http://maps.google.com/?q=Vancouver, Canada">Vancouver, Canada</a>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-6">
+                <span class="timer"></span>
+                <div class="deadline">
+                  <div>Deadline:
+                    <span class="deadline-time"></span>
+                 </div>
+                </div>
+                <div class="calendar"></div>
+              </div>
+          </div>
+          <hr>
+        </div>
+ 
+	<div id="iros" class=" RO-conf ">
+          <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                  <a href="https://irmv.sjtu.edu.cn/iros2025/"><b>iROS 2025</b></a>
+                  <div class="meta">
+                    October 19-25, 2025 // <a href="http://maps.google.com/?q=Hangzhou, China">Hangzhou, China</a>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-6">
+                <span class="timer"></span>
+                <div class="deadline">
+                  <div>Deadline:
+                    <span class="deadline-time"></span>
+                  </div>
+                </div>
+                <div class="calendar"></div>
+              </div>
+          </div>
+          <hr>
+        </div> 
+
+
+        <div id="aaai" class=" ML-conf ">
+          <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                  <a href="https://aaai.org/aaai-conference/"><b>AAAI 2024</b></a>
+                  <div class="meta">
+                    February 7-14, 2024 // <a href="http://maps.google.com/?q=Vancouver, CANADA">Vancouver, Canada</a>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-6">
+                <span class="timer"></span>
+                <div class="deadline">
+                  <div>Deadline:
+                    <span class="deadline-time"></span>
+                  </div>
+                </div>
+                <div class="calendar"></div>
+              </div>
+          </div>
+          <hr>
+        </div>
+
+
+	<div id="icrl" class=" CV-conf ">
+          <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                  <a href="https://iclr.cc/"><b>ICRL 2024</b></a>
+                  <div class="meta">
+                    May 4-8, 2024 // <a href="http://maps.google.com/?q=Vienna, Austria">Vienna, Austria</a>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-6">
+                <span class="timer"></span>
+                <div class="deadline">
+                  <div>Deadline:
+                    <span class="deadline-time"></span>
+                  </div>
+                </div>
+                <div class="calendar"></div>
+              </div>
+          </div>
+          <hr>
+        </div>
+
+        <div id="nips" class=" ML-conf ">
+          <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                  <a href="https://nips.cc/Conferences/2024"><b>NIPS 2024</b></a>
+                  <div class="meta">
+                    December 9-15, 2024 // <a href="http://maps.google.com/?q=Vancouver, Canada">Vancouver, Canada</a>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-6">
+                <span class="timer"></span>
+                <div class="deadline">
+                  <div>Deadline:
+                    <span class="deadline-time"></span>
+                  </div>
+                </div>
+                <div class="calendar"></div>
+              </div>
+          </div>
+          <hr>
+         </div>
+
+        <footer>
+          Maintained by <a href="https://github.com/dongheechoi">Donghee Choi</a>.
+        </footer>
+        <hr>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+    	$(function() {
+
+	   	// Make sure this is >= no. of subs
+	    	// Currently not used
+	    	var colors = ['#341f97', '#ee5253', '#2e86de',
+		                      '#ff9f43', '#10ac84', '#222f3e']
+	        // Borrowed from https://github.com/moment/moment-timezone/issues/167
+      		// Adds support for time zones 'UTC-12'..'UTC+12'
+      		function addUtcTimeZones() {
+  		// Moment.js uses the IANA timezone database, which supports generic time zones like 'Etc/GMT+1'.
+ 		// However, the signs for these time zones are inverted compared to ISO 8601.
+  		// For more details, see https://github.com/moment/moment-timezone/issues/167
+  		for (let offset = -12; offset <= 12; offset++) {
+    			const posixSign = offset <= 0 ? '+' : '-';
+    			const isoSign = offset >= 0 ? '+' : '-';
+    			const link = `Etc/GMT${posixSign}${Math.abs(offset)}|UTC${isoSign}${Math.abs(offset)}`;
+    			moment.tz.link(link);
+  		}
+	}
+	addUtcTimeZones();
+
+         // ------------------------------//---------------------------------//
+          // adjust date according to deadline timezone
+          var timezone = "America/Los_Angeles" ;
+          var confDate = moment.tz("2025-03-01 23:59:59", timezone);
+
+          // render countdown timer
+          $('#iros .timer').countdown(confDate.toDate(), function(event) {
+            $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+          });
+          $('#iros .deadline-time').html(confDate.toString());
+
+          // add calendar button
+          var myCalendar = createCalendar({
+            options: {
+              class: 'calendar-obj',
+
+              // You can pass an ID. If you don't, one will be generated for you
+              id: 'iros'
+            },
+            data: {
+              // Event title
+              title: 'iROS 2024 deadline',
+
+              // Event start date
+              start: confDate.toDate(), // new Date('June 15, 2013 19:00'),
+
+              // Event duration
+              duration: 60,
+            }
+          });
+          document.querySelector('#iros .calendar').appendChild(myCalendar);
+
+          // check if date has passed, add 'past' class to it
+          var today = moment();
+          if (today.diff(confDate) > 0)
+            $('#iros').addClass('past');
+
+         
+	   // -----------------------------------//-----------------------------//
+
+	// Set checkboxes
+	  var conf_type_data = [{"name":"Machine Learning","sub":"ML"},{"name":"Data Mining","sub":"DM"},{"name":"Natural Language Processing","sub":"NLP"}];
+		        var all_subs = [];
+		               for (var i = 0; i < conf_type_data.length; i++) {
+			                 all_subs[i] = conf_type_data[i]['sub'];
+			          }
+
+	        // Get subjects from URL
+	        var url = new URL(window.location);
+        var subs = url.searchParams.get('sub');
+        if (subs == undefined) {
+	           subs = store.get('aideadlin.es');
+	           } else {
+		           subs = subs.toUpperCase().split(',');
+		        }
+        // Get subjects from browser cache
+        if (subs === undefined) {
+	          subs = all_subs;
+	            for (var i = 0; i < subs.length; i++) {
+		              $('#' + subs[i] + '-checkbox').prop('checked', true);
+		            }
+              } else {
+            for (var i = 0; i < subs.length; i++) {
+            $('#' + subs[i] + '-checkbox').prop('checked', true);
+          }
+        }
+        // Hide unchecked subs
+        for (var i = 0; i < all_subs.length; i++) {
+	          if (subs.indexOf(all_subs[i]) < 0) {
+		              $('.' + all_subs[i] + '-conf').hide();
+		              }
+            }
+        store.set('aideadlin.es', subs);
+
+        // Event handler on checkbox change
+        $('form :checkbox').change(function(e) {
+	          var checked = $(this).is(':checked');
+	            var cid = $(this).prop('id');
+	            var csub = cid.substring(0, cid.length - 9);
+	          if (checked == true) {
+	                  $('.' + csub + '-conf').show();
+	            if (subs.indexOf(csub) < 0)
+	                subs.push(csub);
+          }
+          else {
+            $('.' + csub + '-conf').hide();
+            var idx = subs.indexOf(csub);
+            if (idx >= 0)
+	              subs.splice(idx, 1);
+          }
+          console.log(subs);
+        });
+    });	
+   </script>
+  <body>
+

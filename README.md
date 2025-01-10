@@ -1,2 +1,2 @@
-gem install --user-install bundler jekyll
+## Donghee Choi homepage
 
