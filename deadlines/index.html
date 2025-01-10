@@ -10,7 +10,7 @@ title: Deadlines
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
     <title>AI Conference Deadlines</title> 
-    <meta name="description" content="Countdowns to top ML/NLP/Bioinfo conference deadlines">
+    <meta name="description" content="Countdowns to top ML/NLP/BIOINFO conference deadlines">
     <meta name="author" content="Donghee Choi">
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="static/css/deadlines.css" media="screen,projection">
@@ -69,7 +69,7 @@ title: Deadlines
                       <div class="col-md-2 col-xs-5">
                         <div class="checkbox">
                           <label>
-                            <input type="checkbox" id="Bioinfo-checkbox" class=""> Bioinformatics
+                            <input type="checkbox" id="BIOINFO-checkbox" class=""> Bioinformatics
                           </label>
                         </div>
                       </div>
@@ -80,7 +80,7 @@ title: Deadlines
             </div>
         </div>
 
-        <div id="ismb2025" class=" Bioinfo-conf ">
+        <div id="ismb2025" class=" BIOINFO-conf ">
           <div class="row">
               <div class="col-xs-12 col-sm-6">
                   <a href="https://www.iscb.org/ismbeccb2025/call-for-submissions/proceedings"><b>ISMB/ECCB 2025 - Proceedings</b></a>
@@ -163,7 +163,26 @@ title: Deadlines
           </div>
           <hr>
         </div>
-
+        <div id="acl2025" class=" NLP-conf ">
+          <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                  <a href="https://2025.aclweb.org/"><b>ACL 2025</b></a>
+                  <div class="meta">
+                    July 27-Aug 1, 2025 // <a href="http://maps.google.com/?q=Vienna, Austria">Vienna, Austria</a>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-6">
+                <span class="timer"></span>
+                <div class="deadline">
+                  <div>Deadline:
+                    <span class="deadline-time"></span>
+                 </div>
+                </div>
+                <div class="calendar"></div>
+              </div>
+          </div>
+          <hr>
+        </div>
     <script type="text/javascript" charset="utf-8">
     	$(function() {
 
@@ -240,11 +259,25 @@ title: Deadlines
       })
     );
     if (moment().diff(icmlDate) > 0) $('#icml2025').addClass('past');
+
+    // Configuration for ACL 2025
+    const aclDate = moment.tz("2025-02-15 23:59:59", "America/Los_Angeles");
+    $('#acl2025 .timer').countdown(aclDate.toDate(), function(event) {
+      $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+    });
+    $('#acl2025 .deadline-time').html(aclDate.toString());
+    $('#acl2025 .calendar').append(
+      createCalendar({
+        options: { class: 'calendar-obj', id: 'acl2025' },
+        data: { title: 'ACL 2025 deadline', start: aclDate.toDate(), duration: 60 }
+      })
+    );
+    if (moment().diff(aclDate) > 0) $('#acl2025').addClass('past');
          
 	   // -----------------------------------//-----------------------------//
 
 	// Set checkboxes
-	  var conf_type_data = [{"name":"Machine Learning","sub":"ML"},{"name":"Data Mining","sub":"DM"},{"name":"Natural Language Processing","sub":"NLP"}, {"name":"Bioinformatics","sub":"Bioinfo"}];
+	  var conf_type_data = [{"name":"Machine Learning","sub":"ML"},{"name":"Data Mining","sub":"DM"},{"name":"Natural Language Processing","sub":"NLP"}, {"name":"Bioinformatics","sub":"BIOINFO"}];
 		        var all_subs = [];
 		               for (var i = 0; i < conf_type_data.length; i++) {
 			                 all_subs[i] = conf_type_data[i]['sub'];
