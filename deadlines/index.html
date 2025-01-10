@@ -185,154 +185,61 @@ title: Deadlines
   		}
 	}
 	addUtcTimeZones();
-        // ------------------------------//---------------------------------//
-          // adjust date according to deadline timezone
-          var timezone = "America/Los_Angeles" ;
-          var confDate = moment.tz("2025-01-23 23:59:59", timezone);
+         // Configuration for ISMB/ECCB 2025
+    const ismbDate = moment.tz("2025-01-23 23:59:59", "America/Los_Angeles");
+    $('#ismb2025 .timer').countdown(ismbDate.toDate(), function(event) {
+      $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+    });
+    $('#ismb2025 .deadline-time').html(ismbDate.toString());
+    $('#ismb2025 .calendar').append(
+      createCalendar({
+        options: { class: 'calendar-obj', id: 'ismb2025' },
+        data: { title: 'ISMB/ECCB 2025 Proceedings deadline', start: ismbDate.toDate(), duration: 60 }
+      })
+    );
+    if (moment().diff(ismbDate) > 0) $('#ismb2025').addClass('past');
 
-          // render countdown timer
-          $('#ismb2025 .timer').countdown(confDate.toDate(), function(event) {
-            $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
-          });
-          $('#ismb2025 .deadline-time').html(confDate.toString());
+    // Configuration for IJCAI 2025
+    const ijcaiDate = moment.tz("2025-02-15 23:59:59", "America/Los_Angeles");
+    $('#ijcai2025 .timer').countdown(ijcaiDate.toDate(), function(event) {
+      $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+    });
+    $('#ijcai2025 .deadline-time').html(ijcaiDate.toString());
+    $('#ijcai2025 .calendar').append(
+      createCalendar({
+        options: { class: 'calendar-obj', id: 'ijcai2025' },
+        data: { title: 'IJCAI 2025 deadline', start: ijcaiDate.toDate(), duration: 60 }
+      })
+    );
+    if (moment().diff(ijcaiDate) > 0) $('#ijcai2025').addClass('past');
 
-          // add calendar button
-          var myCalendar = createCalendar({
-            options: {
-              class: 'calendar-obj',
+    // Configuration for KDD 2025
+    const kddDate = moment.tz("2025-02-10 23:59:59", "America/Los_Angeles");
+    $('#kdd2025 .timer').countdown(kddDate.toDate(), function(event) {
+      $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+    });
+    $('#kdd2025 .deadline-time').html(kddDate.toString());
+    $('#kdd2025 .calendar').append(
+      createCalendar({
+        options: { class: 'calendar-obj', id: 'kdd2025' },
+        data: { title: 'KDD 2025 deadline', start: kddDate.toDate(), duration: 60 }
+      })
+    );
+    if (moment().diff(kddDate) > 0) $('#kdd2025').addClass('past');
 
-              // You can pass an ID. If you don't, one will be generated for you
-              id: 'ismb2025'
-            },
-            data: {
-              // Event title
-              title: 'ISMB/ECCB 2025 Proceedings deadline',
-
-              // Event start date
-              start: confDate.toDate(), // new Date('June 15, 2013 19:00'),
-
-              // Event duration
-              duration: 60,
-            }
-          });
-          document.querySelector('#ismb2025 .calendar').appendChild(myCalendar);
-
-          // check if date has passed, add 'past' class to it
-          var today = moment();
-          if (today.diff(confDate) > 0)
-            $('#ismb2025').addClass('past');
-
-        // ------------------------------//---------------------------------//
-          // adjust date according to deadline timezone
-          var timezone = "America/Los_Angeles" ;
-          var confDate = moment.tz("2025-01-23 23:59:59", timezone);
-
-          // render countdown timer
-          $('#ijcai2025 .timer').countdown(confDate.toDate(), function(event) {
-            $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
-          });
-          $('#ijcai2025 .deadline-time').html(confDate.toString());
-
-          // add calendar button
-          var myCalendar = createCalendar({
-            options: {
-              class: 'calendar-obj',
-
-              // You can pass an ID. If you don't, one will be generated for you
-              id: 'ijcai2025'
-            },
-            data: {
-              // Event title
-              title: 'IJCAI 2025 deadline',
-
-              // Event start date
-              start: confDate.toDate(), // new Date('June 15, 2013 19:00'),
-
-              // Event duration
-              duration: 60,
-            }
-          });
-          document.querySelector('#ijcai .calendar').appendChild(myCalendar);
-
-          // check if date has passed, add 'past' class to it
-          var today = moment();
-          if (today.diff(confDate) > 0)
-            $('#ijcai2025').addClass('past');
-
-         // ------------------------------//---------------------------------//
-          // adjust date according to deadline timezone
-          var timezone = "America/Los_Angeles" ;
-          var confDate = moment.tz("2025-02-10 23:59:59", timezone);
-
-          // render countdown timer
-          $('#kdd2025 .timer').countdown(confDate.toDate(), function(event) {
-            $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
-          });
-          $('#kdd2025 .deadline-time').html(confDate.toString());
-
-          // add calendar button
-          var myCalendar = createCalendar({
-            options: {
-              class: 'calendar-obj',
-
-              // You can pass an ID. If you don't, one will be generated for you
-              id: 'kdd2025'
-            },
-            data: {
-              // Event title
-              title: 'KDD 2025 deadline',
-
-              // Event start date
-              start: confDate.toDate(), // new Date('June 15, 2013 19:00'),
-
-              // Event duration
-              duration: 60,
-            }
-          });
-          document.querySelector('#kdd2025 .calendar').appendChild(myCalendar);
-
-          // check if date has passed, add 'past' class to it
-          var today = moment();
-          if (today.diff(confDate) > 0)
-            $('#kdd2025').addClass('past');
-
-        // ------------------------------//---------------------------------//
-          // adjust date according to deadline timezone
-          var timezone = "America/Los_Angeles" ;
-          var confDate = moment.tz("2025-01-30 23:59:59", timezone);
-
-          // render countdown timer
-          $('#icml2025 .timer').countdown(confDate.toDate(), function(event) {
-            $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
-          });
-          $('#icml2025 .deadline-time').html(confDate.toString());
-
-          // add calendar button
-          var myCalendar = createCalendar({
-            options: {
-              class: 'calendar-obj',
-
-              // You can pass an ID. If you don't, one will be generated for you
-              id: 'icml2025'
-            },
-            data: {
-              // Event title
-              title: 'ICML 2025 deadline',
-
-              // Event start date
-              start: confDate.toDate(), // new Date('June 15, 2013 19:00'),
-
-              // Event duration
-              duration: 60,
-            }
-          });
-          document.querySelector('#icml2025 .calendar').appendChild(myCalendar);
-
-          // check if date has passed, add 'past' class to it
-          var today = moment();
-          if (today.diff(confDate) > 0)
-            $('#icml2025').addClass('past');
-
+    // Configuration for ICML 2025
+    const icmlDate = moment.tz("2025-01-30 23:59:59", "America/Los_Angeles");
+    $('#icml2025 .timer').countdown(icmlDate.toDate(), function(event) {
+      $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+    });
+    $('#icml2025 .deadline-time').html(icmlDate.toString());
+    $('#icml2025 .calendar').append(
+      createCalendar({
+        options: { class: 'calendar-obj', id: 'icml2025' },
+        data: { title: 'ICML 2025 deadline', start: icmlDate.toDate(), duration: 60 }
+      })
+    );
+    if (moment().diff(icmlDate) > 0) $('#icml2025').addClass('past');
          
 	   // -----------------------------------//-----------------------------//
 
