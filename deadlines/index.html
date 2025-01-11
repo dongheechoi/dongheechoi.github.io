@@ -121,7 +121,7 @@ title: Deadlines
           </div>
           <hr>
         </div>
-        
+
         <div id="kdd2025" class=" DM-conf ">
           <div class="row">
               <div class="col-xs-12 col-sm-6">
@@ -185,6 +185,26 @@ title: Deadlines
                 <div class="calendar"></div>
               </div>
           </div>
+
+          <div id="neurips2024" class=" ML-conf ">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <a href="https://neurips.cc/Conferences/2024/"><b>NeurIPS 2024</b></a>
+                    <div class="meta">
+                      Dec 10 - Dec 15 // <a href="http://maps.google.com/?q=Vancouver, Canada">Vancouver, Canada</a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <span class="timer"></span>
+                  <div class="deadline">
+                    <div>Deadline:
+                      <span class="deadline-time"></span>
+                   </div>
+                  </div>
+                  <div class="calendar"></div>
+                </div>
+            </div>
+
           <hr>
         </div>
     <script type="text/javascript" charset="utf-8">
@@ -277,6 +297,20 @@ title: Deadlines
       })
     );
     if (moment().diff(aclDate) > 0) $('#acl2025').addClass('past');
+
+    // Configuration for NeurIPS 2024
+    const neurips2024Date = moment.tz("2024-05-22 23:59:59", "UTC");
+    $('#neurips2024 .timer').countdown(neurips2024Date.toDate(), function(event) {
+      $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+    });
+    $('#neurips2024 .deadline-time').html(neurips2024Date.toString());
+    $('#neurips2024 .calendar').append(
+      createCalendar({
+        options: { class: 'calendar-obj', id: 'neurips2024' },
+        data: { title: 'NeurIPS 2024 deadline', start: neurips2024Date.toDate(), duration: 60 }
+      })
+    );
+    if (moment().diff(aclDate) > 0) $('#neurips2024').addClass('past');
          
 	   // -----------------------------------//-----------------------------//
 
