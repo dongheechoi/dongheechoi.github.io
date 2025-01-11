@@ -517,17 +517,17 @@ title: Deadlines
 
     // Configuration for EMNLP 2025
     const emnlp2024Date = moment.tz("2025-06-15 23:59:59", "Etc/GMT-12");
-    $('#emnlp2025 .timer').countdown(emnlp2024Date.toDate(), function(event) {
+    $('#emnlp2024 .timer').countdown(emnlp2024Date.toDate(), function(event) {
       $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
     });
-    $('#emnlp2025 .deadline-time').html(emnlp2024Date.toString());
-    $('#emnlp2025 .calendar').append(
+    $('#emnlp2024 .deadline-time').html(emnlp2024Date.toString());
+    $('#emnlp2024 .calendar').append(
       createCalendar({
-        options: { class: 'calendar-obj', id: 'emnlp2025' },
+        options: { class: 'calendar-obj', id: 'emnlp2024' },
         data: { title: 'EMNLP 2024 deadline', start: emnlp2024Date.toDate(), duration: 60 }
       })
     );
-    if (moment().diff(emnlp2024Date) > 0) $('#emnlp2025').addClass('past');
+    if (moment().diff(emnlp2024Date) > 0) $('#emnlp2024').addClass('past');
 
     // Configuration for CIKM 2024
     const cikm2024Date = moment.tz("2025-05-20 23:59:59", "Etc/GMT-12");
