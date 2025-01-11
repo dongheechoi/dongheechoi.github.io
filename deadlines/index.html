@@ -200,12 +200,75 @@ title: Deadlines
         </div>
         <hr>
 
+        <div id="cikm2024" class=" DM-conf ">
+          <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                  <a href="https://cikm2024.org/"><b>CIKM 2024</b></a>
+                  <div class="meta">
+                    Oct 21 - 25, 2024 // <a href="https://maps.google.com/?q=Boise, Idaho, USA">Boise, Idaho, USA</a>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-6">
+                <span class="timer"></span>
+                <div class="deadline">
+                  <div>Deadline:
+                    <span class="deadline-time"></span>
+                 </div>
+                </div>
+                <div class="calendar"></div>
+              </div>
+          </div>
+          <hr>
+        </div>
+
           <div id="neurips2024" class=" ML-conf ">
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
                     <a href="https://neurips.cc/Conferences/2024/"><b>NeurIPS 2024</b></a>
                     <div class="meta">
                       Dec 10 - 15, 2024 // <a href="http://maps.google.com/?q=Vancouver, Canada">Vancouver, Canada</a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <span class="timer"></span>
+                  <div class="deadline">
+                    <div>Deadline:
+                      <span class="deadline-time"></span>
+                   </div>
+                  </div>
+                  <div class="calendar"></div>
+                </div>
+            </div>
+            <hr>
+          </div>
+
+          <div id="emnlp2024" class=" NLP-conf ">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <a href="https://2024.emnlp.org/"><b>EMNLP 2024</b></a>
+                    <div class="meta">
+                      Nov 12 - 16, 2024 // <a href="https://maps.google.com/?q=Miami, Florida, USA">Miami, Florida, USA</a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <span class="timer"></span>
+                  <div class="deadline">
+                    <div>Deadline:
+                      <span class="deadline-time"></span>
+                   </div>
+                  </div>
+                  <div class="calendar"></div>
+                </div>
+            </div>
+            <hr>
+          </div>
+
+          <div id="aaai2025" class=" ML-conf ">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <a href="https://aaai.org/conference/aaai/aaai-25/"><b>AAAI 2025</b></a>
+                    <div class="meta">
+                      Feb 25 - Mar 4, 2025 // <a href="https://maps.google.com/?q=Philadelphia, USA">Philadelphia, USA</a>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6">
@@ -285,26 +348,7 @@ title: Deadlines
               <hr>
             </div>
 
-            <div id="aaai2025" class=" ML-conf ">
-              <div class="row">
-                  <div class="col-xs-12 col-sm-6">
-                      <a href="https://aaai.org/conference/aaai/aaai-25/"><b>AAAI 2025</b></a>
-                      <div class="meta">
-                        Feb 25 - Mar 4, 2025 // <a href="https://maps.google.com/?q=Philadelphia, USA">Philadelphia, USA</a>
-                      </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-6">
-                    <span class="timer"></span>
-                    <div class="deadline">
-                      <div>Deadline:
-                        <span class="deadline-time"></span>
-                     </div>
-                    </div>
-                    <div class="calendar"></div>
-                  </div>
-              </div>
-              <hr>
-            </div>
+            
 
           <hr>
         </div>
@@ -470,6 +514,34 @@ title: Deadlines
       })
     );
     if (moment().diff(naacl2025Date) > 0) $('#naacl2025').addClass('past');
+
+    // Configuration for EMNLP 2025
+    const emnlp2024Date = moment.tz("2025-06-15 23:59:59", "Etc/GMT-12");
+    $('#emnlp2025 .timer').countdown(emnlp2024Date.toDate(), function(event) {
+      $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+    });
+    $('#emnlp2025 .deadline-time').html(emnlp2024Date.toString());
+    $('#emnlp2025 .calendar').append(
+      createCalendar({
+        options: { class: 'calendar-obj', id: 'emnlp2025' },
+        data: { title: 'EMNLP 2024 deadline', start: emnlp2024Date.toDate(), duration: 60 }
+      })
+    );
+    if (moment().diff(emnlp2024Date) > 0) $('#emnlp2025').addClass('past');
+
+    // Configuration for CIKM 2024
+    const cikm2024Date = moment.tz("2025-05-20 23:59:59", "Etc/GMT-12");
+    $('#cikm2024 .timer').countdown(cikm2024Date.toDate(), function(event) {
+      $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+    });
+    $('#cikm2024 .deadline-time').html(cikm2024Date.toString());
+    $('#cikm2024 .calendar').append(
+      createCalendar({
+        options: { class: 'calendar-obj', id: 'cikm2024' },
+        data: { title: 'EMNLP 2024 deadline', start: cikm2024Date.toDate(), duration: 60 }
+      })
+    );
+    if (moment().diff(cikm2024Date) > 0) $('#cikm2024').addClass('past');
          
 	   // -----------------------------------//-----------------------------//
 
