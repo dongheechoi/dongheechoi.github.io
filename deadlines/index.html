@@ -264,6 +264,48 @@ title: Deadlines
               <hr>
             </div>
 
+            <div id="naacl2025" class=" NLP-conf ">
+              <div class="row">
+                  <div class="col-xs-12 col-sm-6">
+                      <a href="https://2025.naacl.org/"><b>NAACL 2025</b></a>
+                      <div class="meta">
+                        Apr 29 - May 4, 2025 // <a href="http://maps.google.com/?q=Albuquerque, New Mexico, USA">Albuquerque, New Mexico, USA</a>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <span class="timer"></span>
+                    <div class="deadline">
+                      <div>Deadline:
+                        <span class="deadline-time"></span>
+                     </div>
+                    </div>
+                    <div class="calendar"></div>
+                  </div>
+              </div>
+              <hr>
+            </div>
+
+            <div id="aaai2025" class=" ML-conf ">
+              <div class="row">
+                  <div class="col-xs-12 col-sm-6">
+                      <a href="https://aaai.org/conference/aaai/aaai-25/"><b>AAAI 2025</b></a>
+                      <div class="meta">
+                        Feb 25 - Mar 4, 2025 // <a href="https://maps.google.com/?q=Philadelphia, USA">Philadelphia, USA</a>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <span class="timer"></span>
+                    <div class="deadline">
+                      <div>Deadline:
+                        <span class="deadline-time"></span>
+                     </div>
+                    </div>
+                    <div class="calendar"></div>
+                  </div>
+              </div>
+              <hr>
+            </div>
+
           <hr>
         </div>
     <script type="text/javascript" charset="utf-8">
@@ -400,6 +442,34 @@ title: Deadlines
       })
     );
     if (moment().diff(iclr2025Date) > 0) $('#iclr2025').addClass('past');
+    
+    // Configuration for AAAI 2025
+    const aaai2025Date = moment.tz("2025-08-15 23:59:59", "Etc/GMT-12");
+    $('#aaai2025 .timer').countdown(aaai2025Date.toDate(), function(event) {
+      $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+    });
+    $('#aaai2025 .deadline-time').html(aaai2025Date.toString());
+    $('#aaai2025 .calendar').append(
+      createCalendar({
+        options: { class: 'calendar-obj', id: 'aaai2025' },
+        data: { title: 'AAAI 2025 deadline', start: aaai2025Date.toDate(), duration: 60 }
+      })
+    );
+    if (moment().diff(aaai2025Date) > 0) $('#aaai2025').addClass('past');
+
+    // Configuration for NAACL 2025
+    const naacl2025Date = moment.tz("2025-10-16 23:59:59", "Etc/GMT+01");
+    $('#naacl2025 .timer').countdown(naacl2025Date.toDate(), function(event) {
+      $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+    });
+    $('#naacl2025 .deadline-time').html(naacl2025Date.toString());
+    $('#naacl2025 .calendar').append(
+      createCalendar({
+        options: { class: 'calendar-obj', id: 'naacl2025' },
+        data: { title: 'NAACL 2025 deadline', start: naacl2025Date.toDate(), duration: 60 }
+      })
+    );
+    if (moment().diff(naacl2025Date) > 0) $('#naacl2025').addClass('past');
          
 	   // -----------------------------------//-----------------------------//
 
