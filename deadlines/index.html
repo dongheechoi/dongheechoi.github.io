@@ -185,13 +185,15 @@ title: Deadlines
                 <div class="calendar"></div>
               </div>
           </div>
+          <hr>
+        </div>
 
           <div id="neurips2024" class=" ML-conf ">
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
                     <a href="https://neurips.cc/Conferences/2024/"><b>NeurIPS 2024</b></a>
                     <div class="meta">
-                      Dec 10 - Dec 15 // <a href="http://maps.google.com/?q=Vancouver, Canada">Vancouver, Canada</a>
+                      Dec 10 - Dec 15, 2024 // <a href="http://maps.google.com/?q=Vancouver, Canada">Vancouver, Canada</a>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6">
@@ -203,6 +205,29 @@ title: Deadlines
                   </div>
                   <div class="calendar"></div>
                 </div>
+            </div>
+            <hr>
+          </div>
+
+            <div id="iclr2025" class=" ML-conf ">
+              <div class="row">
+                  <div class="col-xs-12 col-sm-6">
+                      <a href="https://iclr.cc/"><b>ICLR 2025</b></a>
+                      <div class="meta">
+                        Apr 24 - Apr 28, 2025 // <a href="http://maps.google.com/?q=Singapore">Singapore</a>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <span class="timer"></span>
+                    <div class="deadline">
+                      <div>Deadline:
+                        <span class="deadline-time"></span>
+                     </div>
+                    </div>
+                    <div class="calendar"></div>
+                  </div>
+              </div>
+              <hr>
             </div>
 
           <hr>
@@ -229,7 +254,7 @@ title: Deadlines
 	}
 	addUtcTimeZones();
          // Configuration for ISMB/ECCB 2025
-    const ismbDate = moment.tz("2025-01-23 23:59:59", "America/Los_Angeles");
+    const ismbDate = moment.tz("2025-01-23 23:59:59", "Etc/GMT+12");
     $('#ismb2025 .timer').countdown(ismbDate.toDate(), function(event) {
       $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
     });
@@ -243,7 +268,7 @@ title: Deadlines
     if (moment().diff(ismbDate) > 0) $('#ismb2025').addClass('past');
 
     // Configuration for IJCAI 2025
-    const ijcaiDate = moment.tz("2025-02-15 23:59:59", "America/Los_Angeles");
+    const ijcaiDate = moment.tz("2025-02-15 23:59:59", "Etc/GMT+12");
     $('#ijcai2025 .timer').countdown(ijcaiDate.toDate(), function(event) {
       $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
     });
@@ -257,7 +282,7 @@ title: Deadlines
     if (moment().diff(ijcaiDate) > 0) $('#ijcai2025').addClass('past');
 
     // Configuration for KDD 2025
-    const kddDate = moment.tz("2025-02-10 23:59:59", "America/Los_Angeles");
+    const kddDate = moment.tz("2025-02-10 23:59:59", "Etc/GMT+12");
     $('#kdd2025 .timer').countdown(kddDate.toDate(), function(event) {
       $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
     });
@@ -271,7 +296,7 @@ title: Deadlines
     if (moment().diff(kddDate) > 0) $('#kdd2025').addClass('past');
 
     // Configuration for ICML 2025
-    const icmlDate = moment.tz("2025-01-30 23:59:59", "America/Los_Angeles");
+    const icmlDate = moment.tz("2025-01-30 23:59:59", "Etc/GMT+12");
     $('#icml2025 .timer').countdown(icmlDate.toDate(), function(event) {
       $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
     });
@@ -285,7 +310,7 @@ title: Deadlines
     if (moment().diff(icmlDate) > 0) $('#icml2025').addClass('past');
 
     // Configuration for ACL 2025
-    const aclDate = moment.tz("2025-02-15 23:59:59", "America/Los_Angeles");
+    const aclDate = moment.tz("2025-02-15 23:59:59", "Etc/GMT+12");
     $('#acl2025 .timer').countdown(aclDate.toDate(), function(event) {
       $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
     });
@@ -297,7 +322,7 @@ title: Deadlines
       })
     );
     if (moment().diff(aclDate) > 0) $('#acl2025').addClass('past');
-
+    
     // Configuration for NeurIPS 2024
     const neurips2024Date = moment.tz("2024-05-22 23:59:59", "UTC");
     $('#neurips2024 .timer').countdown(neurips2024Date.toDate(), function(event) {
@@ -311,6 +336,20 @@ title: Deadlines
       })
     );
     if (moment().diff(aclDate) > 0) $('#neurips2024').addClass('past');
+
+    // Configuration for ICLR 2025
+    const iclr2025Date = moment.tz("2024-10-01 23:59:59", "Etc/GMT+12");
+    $('#iclr2025 .timer').countdown(iclr2025Date.toDate(), function(event) {
+      $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+    });
+    $('#iclr2025 .deadline-time').html(iclr2025Date.toString());
+    $('#iclr2025 .calendar').append(
+      createCalendar({
+        options: { class: 'calendar-obj', id: 'iclr2025' },
+        data: { title: 'ICLR 2025 deadline', start: iclr2025Date.toDate(), duration: 60 }
+      })
+    );
+    if (moment().diff(aclDate) > 0) $('#iclr2025').addClass('past');
          
 	   // -----------------------------------//-----------------------------//
 
