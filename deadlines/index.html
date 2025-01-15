@@ -33,7 +33,7 @@ title: Deadlines
                   </h1>
                 </div>
                 <div class="meta col-xs-12">
-                  Countdowns to top ML/NLP/Bio conference deadlines.
+                  Countdowns to top ML/NLP/DM/Bio conference deadlines.
                 </div>
             </div>
             <br>
@@ -173,6 +173,27 @@ title: Deadlines
                   <a href="https://2025.aclweb.org/"><b>ACL 2025</b></a>
                   <div class="meta">
                     July 27-Aug 1, 2025 // <a href="http://maps.google.com/?q=Vienna, Austria">Vienna, Austria</a>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-6">
+                <span class="timer"></span>
+                <div class="deadline">
+                  <div>Deadline:
+                    <span class="deadline-time"></span>
+                 </div>
+                </div>
+                <div class="calendar"></div>
+              </div>
+          </div>
+          <hr>
+        </div>
+
+	<div id="neurips2025" class=" ML-conf ">
+          <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                  <a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=182647&copyownerid=163282"><b>NeurIPS 2025</b></a>
+                  <div class="meta">
+                    Dec 9-15, 2025 // <a href="http://maps.google.com/?q=San Diego, USA">San Diego, USA</a>
                   </div>
               </div>
               <div class="col-xs-12 col-sm-6">
@@ -538,10 +559,24 @@ title: Deadlines
     $('#cikm2024 .calendar').append(
       createCalendar({
         options: { class: 'calendar-obj', id: 'cikm2024' },
-        data: { title: 'EMNLP 2024 deadline', start: cikm2024Date.toDate(), duration: 60 }
+        data: { title: 'CIKKM 2024 deadline', start: cikm2024Date.toDate(), duration: 60 }
       })
     );
     if (moment().diff(cikm2024Date) > 0) $('#cikm2024').addClass('past');
+
+   // Configuration for NeurIPS 2024
+    const neurips2025Date = moment.tz("2025-05-01 23:59:59", "Etc/GMT-12");
+    $('#neurips2025 .timer').countdown(neurips2025Date.toDate(), function(event) {
+      $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+    });
+    $('#neurips2025 .deadline-time').html(neurips2025Date.toString());
+    $('#neurips2025 .calendar').append(
+      createCalendar({
+        options: { class: 'calendar-obj', id: 'neurips2025' },
+        data: { title: 'NeurIPS 2024 deadline', start: neurips2025Date.toDate(), duration: 60 }
+      })
+    );
+    if (moment().diff(neurips2025Date) > 0) $('#neurips2025').addClass('past');
          
 	   // -----------------------------------//-----------------------------//
 
