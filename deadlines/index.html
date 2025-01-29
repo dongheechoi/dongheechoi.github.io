@@ -80,26 +80,7 @@ title: Deadlines
             </div>
         </div>
 
-        <div id="ismb2025" class=" BIOINFO-conf ">
-          <div class="row">
-              <div class="col-xs-12 col-sm-6">
-                  <a href="https://www.iscb.org/ismbeccb2025/call-for-submissions/proceedings"><b>ISMB/ECCB 2025 - Proceedings</b></a>
-                  <div class="meta">
-                    July 20-24, 2025 // <a href="http://maps.google.com/?q=Liverpool, UK">Liverpool, UK</a>
-                  </div>
-              </div>
-              <div class="col-xs-12 col-sm-6">
-                <span class="timer"></span>
-                <div class="deadline">
-                  <div>Deadline:
-                    <span class="deadline-time"></span>
-                  </div>
-                </div>
-                <div class="calendar"></div>
-              </div>
-          </div>
-          <hr>
-        </div>
+        
 
         <div id="icml2025" class=" ML-conf ">
           <div class="row">
@@ -368,7 +349,27 @@ title: Deadlines
               </div>
               <hr>
             </div>
-
+	    
+	 <div id="ismb2025" class=" BIOINFO-conf ">
+          <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                  <a href="https://www.iscb.org/ismbeccb2025/call-for-submissions/proceedings"><b>ISMB/ECCB 2025 - Proceedings</b></a>
+                  <div class="meta">
+                    July 20-24, 2025 // <a href="http://maps.google.com/?q=Liverpool, UK">Liverpool, UK</a>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-6">
+                <span class="timer"></span>
+                <div class="deadline">
+                  <div>Deadline:
+                    <span class="deadline-time"></span>
+                  </div>
+                </div>
+                <div class="calendar"></div>
+              </div>
+          </div>
+          <hr>
+        </div>
             
 
           <hr>
@@ -395,7 +396,7 @@ title: Deadlines
 	}
 	addUtcTimeZones();
          // Configuration for ISMB/ECCB 2025
-    const ismbDate = moment.tz("2025-01-23 23:59:59", "Etc/GMT+12");
+    const ismbDate = moment.tz("2026-01-23 23:59:59", "Etc/GMT+12");
     $('#ismb2025 .timer').countdown(ismbDate.toDate(), function(event) {
       $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
     });
