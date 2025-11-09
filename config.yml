@@ -9,7 +9,7 @@ params:
 params:
   editPost:
     disabled: true
-  hideFooter: true
+    hideFooter: true
   # 홈 화면에 짧은 소개 + 링크
   homeInfoParams:
     Title: "PNU-CLinK Lab"
@@ -17,8 +17,8 @@ params:
       Computational Linguistics & Knowledge (CLinK) Lab  
       Pusan National University, Busan, South Korea
 
-      👉 **[Visit the lab website →](https://sites.google.com/view/pnu-clink)**
-
+      <p>👉 <strong><a href="https://sites.google.com/view/pnu-clink" target="_blank">Visit the lab website →</a></strong></p>
+      
   # 포스트 목록 감추고 홈을 간결하게
   disableHomePageList: true
 
