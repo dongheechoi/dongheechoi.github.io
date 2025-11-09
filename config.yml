@@ -6,6 +6,10 @@ theme: "PaperMod"
 paginate: 5
 
 params:
+params:
+  editPost:
+    disabled: true
+  hideFooter: true
   # 홈 화면에 짧은 소개 + 링크
   homeInfoParams:
     Title: "PNU-CLinK Lab"
