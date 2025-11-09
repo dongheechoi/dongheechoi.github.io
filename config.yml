@@ -1,123 +1,37 @@
-baseURL: "https://pascalmichaillat.org/hugo-website/" 
-title: Moritz-Maria von Igelfeld
-theme: PaperMod
+baseURL: "https://dongheechoi.github.io"   # 본인 GitHub Pages 주소
+title: "Donghee Choi"
+theme: "PaperMod"
 
-enableInlineShortcodes: true
-enableRobotsTXT: true
-pagination:
-  pagerSize: 20
-
-taxonomies:
-    tag: tags
-
-menu:
-    main:
-        # - name: Books
-        #   url: books/
-        #   weight: 5 
-        - name: Papers
-          url: papers/
-          weight: 2
-        # - name: People
-        #   url: people/
-        #   weight: 0
-        # - name: Courses
-        #   url: courses/
-        #   weight: 3
-        # - name: Data
-        #   url: data/
-        #   weight: 4 
-        # - name: Blog
-        #   url: https://en.wikipedia.org/wiki/Moritz-Maria_von_Igelfeld_(character)
-        #   weight: 6
+# (테마 공통 추천 설정)
+paginate: 5
 
 params:
-    description: "AIES: Artificial Intelligence Expert Systems Lab"
-    author: Donghee Choi
-    # googleAnalyticsID: "G-XXXXX"
-    DateFormat: "January 2006"
-    defaultTheme: light
-    hideFooter: false
-    disableThemeToggle: true
-    ShowShareButtons: false
-    ShowReadingTime: false
-    disableSpecial1stPost: true
-    disableAnchoredHeadings: true
-    ShowPostNavLinks: false
-    ShowBreadCrumbs: false
-    ShowCodeCopyButtons: true
-    ShowAllPagesInArchive: false
-    MainSections: ["papers"]
-    ShowToc: false
-    disableScrollToTop: true
-    TocOpen: true
-    ShowWordCount: false
-    UseHugoToc: true
-    comments: false
-    math: true
-    profileMode:
-          enabled: true
-          title: Incoming Assistant Professor Donghee Choi at Pusan National University
-          subtitle: "I am a computer scientist with a focus on artificial intelligence and expert systems."
-          imageUrl: "ExpertSystemsAI.png"
-          imageWidth: 160
-          imageHeight: 160
-          buttons:
-            - name: Papers
-              url: papers/
-            - name: Data
-              url: data/
-            - name: Books
-              url: books/
-            - name: Courses
-              url: courses/
-            - name: Tags
-              url: tags/
-            - name: Archive
-              url: archive/
-            - name: Blog
-              url: https://en.wikipedia.org/wiki/Moritz-Maria_von_Igelfeld_(character)
+  # 홈 화면에 짧은 소개 + 링크
+  homeInfoParams:
+    Title: "PNU-CLinK Lab"
+    Content: |
+      Computational Linguistics & Knowledge (CLinK) Lab  
+      Pusan National University, Busan, South Korea
 
-    socialIcons:
-        - name: CV
-          url: cv.pdf
-        - name: Email
-          url: mailto:iamdongheechoi@gmail.com
-        - name: Location
-          url: location/
-        - name: Office Hours
-          url: officehours/
-        - name: Google Scholar
-          url: https://scholar.google.com/citations?user=iR40DeMAAAAJ
-        - name: GitHub
-          url: https://github.com/dongheechoi
-        # - name: Substack
-        #   url: https://pmichaillat.substack.com
-        # - name: YouTube
-        #   url: https://www.youtube.com/@pmichaillat
-        - name: Twitter
-          url: https://x.com/iamdongheechoi
-        - name: Bluesky
-          url: https://bsky.app/profile/donghee.bsky.social
+      👉 **[Visit the lab website →](https://sites.google.com/view/pnu-clink)**
 
-    assets:
-        disableScrollBarStyle: true
-    cover:
-        hiddenInList: false
-        hiddenInSingle: true
-    label:
-      text: "Expert Systems AI Lab"
-      icon: favicon.ico
-      iconHeight: 18
+  # 포스트 목록 감추고 홈을 간결하게
+  disableHomePageList: true
 
-markup:
-    goldmark:
-        renderer:
-            unsafe: true
-    highlight:
-        guessSyntax: true
-        style: autumn 
-    tableOfContents:
-        endLevel: 2
-        ordered: false
-        startLevel: 2
+  # 소셜 아이콘
+  socialIcons:
+    - name: email
+      url: "mailto:dchoi@pusan.ac.kr"
+    - name: github
+      url: "https://github.com/dongheechoi"
+    - name: linkedin
+      url: "https://www.linkedin.com/in/dongheechoi/"
+    - name: x
+      url: "https://x.com/iamdongheechoi"
+
+# 상단 메뉴(메인 네비게이션)
+menu:
+  main:
+    - name: "Lab Website →"
+      url: "https://sites.google.com/view/pnu-clink"
+      weight: 1
