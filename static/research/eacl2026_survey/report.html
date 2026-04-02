@@ -1,0 +1,2771 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EACL 2026 Paper Survey - CLinK Lab</title>
+<style>
+  :root {
+    --primary: #1a237e;
+    --primary-light: #3949ab;
+    --accent: #ff6f00;
+    --bg: #fafafa;
+    --card-bg: #ffffff;
+    --text: #212121;
+    --text-secondary: #616161;
+    --border: #e0e0e0;
+    --star-active: #ff9800;
+    --star-inactive: #ccc;
+    --tag-food: #e8f5e9;
+    --tag-kg: #e0f2f1;
+    --tag-eff: #fff3e0;
+    --tag-reason: #f3e5f5;
+    --tag-eval: #fce4ec;
+    --section-food: #2e7d32;
+    --section-kg: #00695c;
+    --section-eff: #e65100;
+    --section-reason: #6a1b9a;
+    --section-eval: #b71c1c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* Header */
+  .page-header {
+    background: linear-gradient(135deg, #0d1b4a 0%, #1a237e 40%, #283593 100%);
+    color: white;
+    padding: 48px 0 36px;
+    text-align: center;
+    position: relative;
+  }
+  .page-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--section-food), var(--section-kg), var(--section-eff), var(--section-reason), var(--section-eval));
+  }
+  .page-header h1 { font-size: 2.2em; font-weight: 800; letter-spacing: -0.5px; }
+  .page-header .subtitle { opacity: 0.85; margin-top: 6px; font-size: 1.1em; }
+  .page-header .date-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    padding: 6px 22px;
+    border-radius: 20px;
+    margin-top: 14px;
+    font-size: 0.95em;
+    backdrop-filter: blur(4px);
+  }
+  .page-header .stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 18px;
+    font-size: 0.92em;
+    opacity: 0.9;
+  }
+  .page-header .stat-item { text-align: center; }
+  .page-header .stat-num { font-size: 1.6em; font-weight: 800; display: block; }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+  /* Overview */
+  .overview-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: -24px auto 30px;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .overview-card h2 {
+    font-size: 1.2em;
+    color: var(--primary);
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--primary);
+    display: inline-block;
+    padding-bottom: 4px;
+  }
+  .topic-dist {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin: 16px 0;
+  }
+  .topic-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .topic-bar .label { width: 180px; font-weight: 600; font-size: 0.9em; text-align: right; }
+  .topic-bar .bar-bg {
+    flex: 1;
+    height: 28px;
+    background: #eee;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+  }
+  .topic-bar .bar-fill {
+    height: 100%;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    font-size: 0.8em;
+    font-weight: 700;
+    color: white;
+    min-width: 40px;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .toc h2 { font-size: 1.15em; color: var(--primary); margin-bottom: 14px; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 4px; }
+  .toc-section-title {
+    font-size: 0.95em;
+    font-weight: 700;
+    margin: 14px 0 8px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    display: inline-block;
+  }
+  .toc ol { padding-left: 22px; }
+  .toc li { margin-bottom: 7px; }
+  .toc a { text-decoration: none; color: var(--primary-light); font-weight: 500; }
+  .toc a:hover { text-decoration: underline; }
+  .toc .relevance { font-size: 0.85em; margin-left: 6px; }
+  .tag {
+    display: inline-block;
+    font-size: 0.72em;
+    padding: 1px 8px;
+    border-radius: 10px;
+    margin-left: 6px;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+  .tag-food { background: var(--tag-food); color: #1b5e20; }
+  .tag-kg { background: var(--tag-kg); color: #004d40; }
+  .tag-eff { background: var(--tag-eff); color: #bf360c; }
+  .tag-reason { background: var(--tag-reason); color: #4a148c; }
+  .tag-eval { background: var(--tag-eval); color: #880e4f; }
+
+  /* Section divider */
+  .section-divider {
+    margin: 40px 0 24px;
+    padding: 16px 24px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 700;
+    font-size: 1.25em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-divider .section-icon { font-size: 1.4em; }
+  .section-divider .section-count { font-size: 0.7em; opacity: 0.8; font-weight: 400; }
+
+  /* Paper card */
+  .paper-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 28px;
+    overflow: hidden;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+    page-break-inside: avoid;
+  }
+  .paper-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 20px 28px 16px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+  }
+  .paper-header .paper-num { font-size: 0.8em; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; }
+  .paper-header h2 { font-size: 1.3em; margin: 4px 0 8px; font-weight: 700; line-height: 1.4; }
+  .paper-header .authors { font-size: 0.88em; opacity: 0.85; }
+  .paper-header .meta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+    font-size: 0.88em;
+    flex-wrap: wrap;
+  }
+  .paper-header .arxiv-link {
+    color: #ffcc80;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .paper-header .arxiv-link:hover { text-decoration: underline; }
+  .stars { color: var(--star-active); letter-spacing: 1px; }
+  .star-off { color: rgba(255,255,255,0.35); }
+  .toggle-icon {
+    float: right;
+    font-size: 1.3em;
+    transition: transform 0.3s;
+    margin-top: 4px;
+  }
+  .paper-header .venue-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 0.82em;
+  }
+
+  .paper-body { padding: 24px 28px 28px; }
+  .paper-body.collapsed { display: none; }
+
+  /* Sections */
+  .section { margin-bottom: 22px; }
+  .section h3 {
+    font-size: 1.05em;
+    color: var(--primary);
+    border-left: 4px solid var(--accent);
+    padding-left: 12px;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .section p, .section ul, .section ol { margin-bottom: 8px; }
+  .section ul, .section ol { padding-left: 22px; }
+  .section li { margin-bottom: 4px; }
+
+  /* Figure */
+  .figure-container {
+    text-align: center;
+    margin: 16px 0 20px;
+    padding: 14px;
+    background: #f5f5f5;
+    border-radius: 8px;
+  }
+  .figure-container img {
+    max-width: 100%;
+    max-height: 480px;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+  }
+  .figure-container .caption {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    font-style: italic;
+  }
+  .figure-placeholder {
+    text-align: center;
+    margin: 16px 0 20px;
+    padding: 24px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    border: 2px dashed #ccc;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  /* Tables */
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92em;
+    margin: 10px 0;
+  }
+  .results-table th {
+    background: var(--primary);
+    color: white;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.92em;
+  }
+  .results-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .results-table tr:nth-child(even) { background: #f8f9ff; }
+  .results-table tr:hover { background: #e8eaf6; }
+  .highlight-cell { font-weight: 700; color: var(--primary); }
+  .results-table .best { background: #e8f5e9; font-weight: 700; }
+
+  /* Opinion box */
+  .opinion-box {
+    background: #fffde7;
+    border-left: 4px solid var(--accent);
+    padding: 18px 22px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 10px;
+  }
+  .opinion-box .strength { color: #2e7d32; font-weight: 600; }
+  .opinion-box .weakness { color: #c62828; font-weight: 600; }
+  .opinion-box .relevance-note { color: var(--primary); font-weight: 600; }
+  .opinion-box .rel-tag {
+    display: inline-block;
+    font-size: 0.78em;
+    padding: 2px 8px;
+    border-radius: 8px;
+    margin-right: 4px;
+    font-weight: 600;
+  }
+  .rel-lg { background: #e3f2fd; color: #0d47a1; }
+  .rel-soc { background: #f3e5f5; color: #6a1b9a; }
+  .rel-kg { background: #e0f2f1; color: #004d40; }
+  .rel-culture { background: #fff8e1; color: #f57f17; }
+  .rel-glocal { background: #fce4ec; color: #880e4f; }
+
+  /* Footer */
+  .page-footer {
+    text-align: center;
+    padding: 30px 0;
+    color: var(--text-secondary);
+    font-size: 0.85em;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+
+  /* Keywords & special */
+  .keyword { background: #e3f2fd; padding: 1px 6px; border-radius: 4px; font-size: 0.9em; font-weight: 600; color: #1565c0; }
+  .eq { background: #f5f5f5; padding: 8px 16px; border-radius: 6px; font-family: 'Cambria Math', 'Times New Roman', serif; font-size: 1.05em; display: block; margin: 8px 0; text-align: center; overflow-x: auto; }
+
+  /* Collapsible subsections */
+  .sub-toggle {
+    cursor: pointer;
+    user-select: none;
+  }
+  .sub-toggle::before {
+    content: '\25B6';
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 0.7em;
+    transition: transform 0.2s;
+  }
+  .sub-toggle.open::before {
+    transform: rotate(90deg);
+  }
+  .sub-content { display: none; }
+  .sub-content.open { display: block; }
+
+  /* Print */
+  @media print {
+    .page-header { padding: 20px 0; }
+    .paper-body.collapsed { display: block !important; }
+    .sub-content { display: block !important; }
+    .toggle-icon { display: none; }
+    .paper-card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+    body { font-size: 11px; }
+    .section-divider { break-before: page; }
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .container { padding: 0 12px; }
+    .paper-body { padding: 16px; }
+    .paper-header { padding: 16px; }
+    .results-table { font-size: 0.82em; }
+    .results-table th, .results-table td { padding: 6px 8px; }
+    .page-header .stats { gap: 16px; flex-wrap: wrap; }
+  }
+
+/* Feedback System */
+.feedback-box { margin-top: 15px; padding: 12px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e0e0e0; }
+.feedback-box label { font-size: 0.85em; font-weight: 600; color: #555; }
+.feedback-box textarea { width: 100%; min-height: 60px; margin-top: 5px; padding: 8px; border: 1px solid #ddd; border-radius: 5px; font-size: 0.85em; resize: vertical; font-family: inherit; }
+.feedback-box textarea:focus { border-color: #3f51b5; outline: none; }
+.feedback-box button { margin-top: 5px; padding: 4px 14px; background: #3f51b5; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8em; }
+.feedback-box button:hover { background: #283593; }
+.fb-saved { font-size: 0.75em; color: #4caf50; margin-left: 8px; opacity: 0; transition: opacity 0.3s; }
+.fb-indicator { display: none; font-size: 0.9em; margin-left: 5px; }
+.feedback-collect { background: #fff3e0; border: 1px solid #ffcc80; border-radius: 8px; padding: 15px; margin: 20px 0; }
+.feedback-collect h3 { color: #e65100; margin-bottom: 10px; }
+.feedback-collect pre { background: #fff; padding: 10px; border-radius: 5px; font-size: 0.8em; max-height: 200px; overflow-y: auto; white-space: pre-wrap; }
+.feedback-collect button { margin-top: 8px; padding: 6px 16px; background: #e65100; color: white; border: none; border-radius: 4px; cursor: pointer; }
+.changelog { background: #f5f5f5; border-radius: 8px; padding: 15px; margin-top: 30px; font-size: 0.8em; }
+.changelog h3 { color: #333; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="page-header">
+  <div class="container">
+    <h1>EACL 2026 Deep Paper Survey</h1>
+    <div class="subtitle">CLinK Lab | Prof. Donghee Choi | Pusan National University</div>
+    <div class="date-badge">2026-03-27 &mdash; 15 Papers Selected from 748 Total</div>
+    <div class="stats">
+      <div class="stat-item"><span class="stat-num">748</span>Total Papers</div>
+      <div class="stat-item"><span class="stat-num">15</span>Deep Analysis</div>
+      <div class="stat-item"><span class="stat-num">5</span>Topic Sections</div>
+      <div class="stat-item"><span class="stat-num">2.0%</span>Selection Rate</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== OVERVIEW ===== -->
+<div class="container">
+  <div class="overview-card">
+    <h2>Overview: EACL 2026 Survey</h2>
+    <p style="margin-bottom:12px;">
+      EACL 2026 (European Chapter of ACL)에서 발표된 748편 중, CLinK Lab 연구 방향과 관련성이 높은 15편을 선별하여 심층 분석했다.
+      주요 관심 축: <strong>Food/Recipe NLP</strong>, <strong>Knowledge Graph + RAG</strong>, <strong>Efficient LLM</strong>, <strong>Reasoning</strong>, <strong>Evaluation &amp; Reward</strong>.
+    </p>
+
+    <h3 style="font-size:1em; margin:16px 0 8px; color:var(--primary);">Topic Distribution</h3>
+    <div class="topic-dist">
+      <div class="topic-bar">
+        <div class="label" style="color:var(--section-food);">Food / Recipe</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:26.7%; background: linear-gradient(90deg, #43a047, #66bb6a);">4</div></div>
+      </div>
+      <div class="topic-bar">
+        <div class="label" style="color:var(--section-kg);">KG/RE + RAG</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:26.7%; background: linear-gradient(90deg, #00897b, #26a69a);">4</div></div>
+      </div>
+      <div class="topic-bar">
+        <div class="label" style="color:var(--section-eff);">Efficient + Synthetic</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:20%; background: linear-gradient(90deg, #ef6c00, #ffa726);">3</div></div>
+      </div>
+      <div class="topic-bar">
+        <div class="label" style="color:var(--section-reason);">Reasoning</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:13.3%; background: linear-gradient(90deg, #7b1fa2, #ab47bc);">2</div></div>
+      </div>
+      <div class="topic-bar">
+        <div class="label" style="color:var(--section-eval);">Evaluation + Reward</div>
+        <div class="bar-bg"><div class="bar-fill" style="width:13.3%; background: linear-gradient(90deg, #c62828, #ef5350);">2</div></div>
+      </div>
+    </div>
+
+    <p style="font-size:0.9em; color:var(--text-secondary); margin-top:12px;">
+      Relevance: &#9733;&#9733;&#9733; = CLinK 핵심 (Food AI, KG, RAG) &nbsp;|&nbsp; &#9733;&#9733;&#9734; = 방법론 참고 &nbsp;|&nbsp; &#9733;&#9734;&#9734; = 일반 참고
+    </p>
+  </div>
+
+  <!-- ===== TOC ===== -->
+  <div class="toc">
+    <h2>Table of Contents</h2>
+
+    <div class="toc-section-title" style="background:var(--tag-food); color:var(--section-food);">Section 1: Food / Recipe &#9733;&#9733;&#9733;</div>
+    <ol>
+      <li>
+        <a href="#paper1">ReciFine: Finely Annotated Recipe Dataset</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;&#9733;</span></span>
+        <span class="tag tag-food">Food NLP</span>
+        <span class="tag tag-food">Dataset</span>
+      </li>
+      <li>
+        <a href="#paper2">Knowledge Augmentation for Recipe Token Classification</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;&#9733;</span></span>
+        <span class="tag tag-food">Food NER</span>
+      </li>
+      <li>
+        <a href="#paper3">NG-Router: Graph-Supervised Multi-Agent for Nutrition QA</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;&#9733;</span></span>
+        <span class="tag tag-food">Nutrition</span>
+        <span class="tag tag-kg">KG</span>
+      </li>
+      <li>
+        <a href="#paper4">Meal Recommendation Bias in LLMs</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></span>
+        <span class="tag tag-food">Food AI</span>
+        <span class="tag tag-eval">Bias</span>
+      </li>
+    </ol>
+
+    <div class="toc-section-title" style="background:var(--tag-kg); color:var(--section-kg);">Section 2: KG/RE + RAG &#9733;&#9733;&#9733;</div>
+    <ol start="5">
+      <li>
+        <a href="#paper5">BRINK: What Breaks KG-RAG</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;&#9733;</span></span>
+        <span class="tag tag-kg">KG-RAG</span>
+        <span class="tag tag-eval">Benchmark</span>
+      </li>
+      <li>
+        <a href="#paper6">Wikontic: Ontology-Grounded KG Construction</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;&#9733;</span></span>
+        <span class="tag tag-kg">KG Construction</span>
+      </li>
+      <li>
+        <a href="#paper7">DRAGON: Domain-Specific Synthetic Data for RAG</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;&#9733;</span></span>
+        <span class="tag tag-kg">RAG</span>
+        <span class="tag tag-eff">Synthetic</span>
+      </li>
+      <li>
+        <a href="#paper8">GRITHopper: Multi-Hop Dense Retrieval</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;&#9733;</span></span>
+        <span class="tag tag-kg">Multi-Hop</span>
+        <span class="tag tag-kg">RAG</span>
+      </li>
+    </ol>
+
+    <div class="toc-section-title" style="background:var(--tag-eff); color:var(--section-eff);">Section 3: Efficient + Synthetic &#9733;&#9733;&#9734;</div>
+    <ol start="9">
+      <li>
+        <a href="#paper9">COREA: SLM-LLM Cascading with RL Confidence</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></span>
+        <span class="tag tag-eff">Efficient</span>
+      </li>
+      <li>
+        <a href="#paper10">DS2-Instruct: Bloom's Taxonomy Synthetic Data</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></span>
+        <span class="tag tag-eff">Synthetic</span>
+      </li>
+      <li>
+        <a href="#paper11">RoSE: Round-Robin Cross-Evaluation</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></span>
+        <span class="tag tag-eval">Selection</span>
+      </li>
+    </ol>
+
+    <div class="toc-section-title" style="background:var(--tag-reason); color:var(--section-reason);">Section 4: Reasoning &#9733;&#9733;&#9734;</div>
+    <ol start="12">
+      <li>
+        <a href="#paper12">Teaching Small LMs Logic via Meta-Learning</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></span>
+        <span class="tag tag-reason">Logic</span>
+        <span class="tag tag-eff">Small LM</span>
+      </li>
+      <li>
+        <a href="#paper13">Think Just Enough: Adaptive Reasoning Depth</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></span>
+        <span class="tag tag-reason">Reasoning</span>
+        <span class="tag tag-eff">Efficient</span>
+      </li>
+    </ol>
+
+    <div class="toc-section-title" style="background:var(--tag-eval); color:var(--section-eval);">Section 5: Evaluation + Reward &#9733;&#9733;&#9734;</div>
+    <ol start="14">
+      <li>
+        <a href="#paper14">Learning to Judge: LLM-Generated Rubrics (GER-Eval)</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></span>
+        <span class="tag tag-eval">Evaluation</span>
+      </li>
+      <li>
+        <a href="#paper15">Online Difficulty Filtering for GRPO</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></span>
+        <span class="tag tag-eval">Reward</span>
+        <span class="tag tag-reason">RL</span>
+      </li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: FOOD / RECIPE -->
+  <!-- ============================================================ -->
+  <div class="section-divider" style="background: linear-gradient(135deg, #2e7d32, #43a047);">
+    <span class="section-icon">&#127860;</span>
+    Section 1: Food / Recipe
+    <span class="section-count">&mdash; 4 Papers &mdash; &#9733;&#9733;&#9733;</span>
+  </div>
+
+  <!-- PAPER 1: ReciFine -->
+  
+<div class="feedback-collect" id="feedbackSection">
+  <h3>📝 피드백 모아보기</h3>
+  <pre id="feedbackList">(피드백 없음)</pre>
+  <button onclick="exportFeedbacks()">클립보드에 복사 (Claude에게 전달용)</button>
+</div>
+<div class="paper-card" id="paper1">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 1 &mdash; <span class="stars">&#9733;&#9733;&#9733;</span></div>
+      <h2>ReciFine: Finely Annotated Recipe Dataset for Controllable Recipe Generation</h2>
+      <div class="authors">Nuhu Ibrahim, Rishi Ravikumar, Robert Stevens, Riza Batista-Navarro</div>
+      <div class="meta-row">
+        <span class="venue-badge">EACL 2026 Findings</span>
+        <span>University of Manchester</span>
+        <a class="arxiv-link" href="https://github.com/nuhu-ibrahim/ReciFine" target="_blank">GitHub: ReciFine</a>
+        <span class="tag tag-food" style="color:#fff;background:rgba(255,255,255,0.2)">Food NLP</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-placeholder">
+        [Figure] See paper PDF &mdash; ReciFine pipeline overview (NER &rarr; large-scale annotation &rarr; controllable generation)
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          본 논문은 레시피 도메인 최초의 대규모 <span class="keyword">fine-grained entity annotation</span> 데이터셋을 구축한다.
+          RecipeNLG 2.2M 레시피에 <strong>10가지 entity type</strong>(Food, Tool, Duration, Quantity, Action by chef/food/tool, Discontinuous action, Food state, Tool state)으로
+          <strong>9,700만+ entity</strong>를 자동 추출하고, 이를 활용하여 entity 조합에 따라 제어 가능한 레시피 생성을 수행한다.
+          핵심 발견: RecipeNLG의 <strong>92% 레시피에서 ingredient list에 있는 재료가 instruction에 누락</strong>되어 있어, instruction-level NER이 필수적임을 밝힌다.
+          Fine-tuned Mistral 7B가 GPT-4.1 few-shot을 크게 능가한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>Recipe1M+</strong> (Marin+, 2018): 수백만 레시피+이미지, entity annotation 없음</li>
+          <li><strong>RecipeNLG</strong> (Bien+, 2020): 2.2M 레시피, food entity만 ingredient list에서 추출, instruction 무시</li>
+          <li><strong>ERFG</strong> (Yamakata+, LREC 2020): 300 레시피, 10개 entity type 상세 annotation &mdash; ReciFine의 schema 원천</li>
+          <li><strong>RecipeMC</strong> (Taneja+, 2024): GPT-2 + MCTS 레시피 생성</li>
+          <li><strong>LLaVA-Chef</strong> (Mohbat & Zaki, 2024): multimodal 레시피 생성</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>Scale + Granularity</strong>: 기존 fine-grained dataset(ERFG)은 300편, ReciFine은 <strong>2.2M편</strong>에 10 entity type 적용</li>
+          <li><strong>Instruction-level NER</strong>: ingredient list가 아닌 조리 instruction에서 entity 추출 &mdash; 92% coverage gap 해결</li>
+          <li><strong>5가지 Entity-Enhanced Prompt Types</strong>: entity 조합별 제어 가능한 생성 (ING-List, ING-Inst, ING+Tool, ING+Cook, ALL)</li>
+          <li><strong>Fine-tuned 7B &gt; GPT-4.1 few-shot</strong>: 도메인 특화 fine-tuning의 우월성 실증</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method 상세</h3>
+        <p><strong>Stage A: Recipe NER 시스템 구축</strong></p>
+        <ul>
+          <li>ERFG 300편 + 수동 annotation 500편 = 800편 학습 데이터</li>
+          <li><span class="keyword">Knowledge-Augmented (KA)</span>: entity type 정의/예시를 프롬프트에 prepend &mdash; [CLS] knowledge_context [SEP] recipe_text [SEP]</li>
+          <li><span class="keyword">Entity Type-Specific (ETS)</span>: 타입별 독립 binary BIO 학습 &rarr; 유사 타입 간 혼동 감소</li>
+          <li>최고 모델: RecipeRoBERTa-KA &rarr; ERFG test F1 = <strong>90.37</strong></li>
+        </ul>
+        <p><strong>Stage B: 대규모 적용</strong></p>
+        <ul>
+          <li>RecipeRoBERTa-KA로 RecipeNLG 2.2M 전체 자동 annotation &rarr; 9,700만+ entity (silver-standard)</li>
+        </ul>
+        <p><strong>Stage C: Controllable Generation</strong></p>
+        <ul>
+          <li>5가지 EPT (Entity-Enhanced Prompt Type)별 레시피 생성</li>
+          <li>Mistral 7B + LoRA fine-tuning, 200K 학습 데이터</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <table class="results-table">
+          <thead><tr><th>Dataset</th><th>Size</th><th>Entity Types</th><th>Year</th></tr></thead>
+          <tbody>
+            <tr><td>ERFG (Yamakata+)</td><td>300 recipes</td><td>10</td><td>2020</td></tr>
+            <tr><td>RecipeNLG (Bien+)</td><td>2.2M recipes</td><td>1 (food only)</td><td>2020</td></tr>
+            <tr class="best"><td><strong>ReciFine</strong></td><td><strong>2.2M recipes</strong></td><td><strong>10</strong></td><td><strong>2026</strong></td></tr>
+          </tbody>
+        </table>
+        <p><strong>Generation Baselines:</strong> Mistral 7B (LoRA), GPT-4.1 (0/5-shot)</p>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <p><strong>Controllable Generation (Mistral 7B LoRA)</strong></p>
+        <table class="results-table">
+          <thead><tr><th>EPT</th><th>BLEU</th><th>METEOR</th><th>BERTScore</th></tr></thead>
+          <tbody>
+            <tr><td>ING-List</td><td>0.164</td><td>0.364</td><td>0.895</td></tr>
+            <tr><td>ING-Inst</td><td>0.219</td><td>0.432</td><td>0.910</td></tr>
+            <tr><td>ING+Tool</td><td>0.254</td><td>0.479</td><td>0.919</td></tr>
+            <tr><td>ING+Cook</td><td>0.365</td><td>0.576</td><td>0.936</td></tr>
+            <tr class="best"><td><strong>ALL</strong></td><td class="highlight-cell"><strong>0.448</strong></td><td class="highlight-cell"><strong>0.654</strong></td><td class="highlight-cell"><strong>0.946</strong></td></tr>
+          </tbody>
+        </table>
+        <p><strong>GPT-4.1 few-shot (ALL)</strong>: BLEU=0.132, BERTScore=0.888 &mdash; fine-tuned Mistral 7B에 크게 열세</p>
+        <p><strong>Human Evaluation</strong> (5점 Likert): ING-Inst가 accuracy/feasibility/overall 최고 (4.43/5) &mdash; ALL은 자동 메트릭 최고이나 human eval에서 약간 하락</p>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          레시피 instruction-level의 fine-grained NER이 controllable generation의 핵심이며, entity type이 많을수록 자동 메트릭은 단조 증가한다.
+          다만 human evaluation과의 괴리가 존재하여, 모든 entity를 사용하는 것이 항상 최선은 아님을 시사한다.
+          Fine-tuned 소형 모델이 대형 모델 few-shot을 일관되게 능가한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[Strengths]</span></p>
+          <ul>
+            <li>2.2M 규모의 10-type fine-grained 레시피 데이터셋은 커뮤니티에 큰 기여</li>
+            <li>92% coverage gap 발견은 기존 연구의 근본 문제를 지적</li>
+            <li>Entity 조합별 controllable generation 프레임워크가 체계적</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="weakness">[Weaknesses]</span></p>
+          <ul>
+            <li>9,700만 entity는 silver-standard (모델 예측, F1=83~95) &mdash; 수백만 개 오류 가능</li>
+            <li>Entity 스키마는 ERFG에서 그대로 차용 &mdash; 새 entity type 제안 없음</li>
+            <li>Human eval vs auto eval 괴리: ING-Inst &asymp; ALL in human eval, "more types = better" 논거 약화</li>
+            <li>KG 통합 없음: 저자도 future work로 언급</li>
+            <li>평가 규모 작음: 2.2M 중 200K fine-tuning, 200개만 평가</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="relevance-note">[Relevance]</span></p>
+          <ul>
+            <li><span class="rel-tag rel-lg">LG Oven</span> 10개 entity type이 조리 절차 지식(도구, 시간, 동작, 상태)과 정확히 일치 &mdash; 오븐 Agent 직결</li>
+            <li><span class="rel-tag rel-soc">SoC RAG</span> Fine-tuned 7B &gt; GPT-4.1 few-shot &mdash; on-device 경량 모델 전략 근거</li>
+            <li><span class="rel-tag rel-kg">KG 기초연구</span> ReciFine entity &rarr; KG 구조화하면 후속 논문 가능 (저자가 못 한 gap)</li>
+            <li><span class="rel-tag rel-culture">K-Culture</span> 한식 레시피에 동일 스키마 적용 가능 (NER 모델 transfer 필요)</li>
+            <li><span class="rel-tag rel-glocal">Glocal Lab</span> 다국어 레시피 NER 확장 가능성</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAPER 2: Knowledge Augmentation Recipe -->
+  <div class="paper-card" id="paper2">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 2 &mdash; <span class="stars">&#9733;&#9733;&#9733;</span></div>
+      <h2>Knowledge Augmentation Enhances Token Classification for Recipe Understanding</h2>
+      <div class="authors">Nuhu Ibrahim, Robert Stevens, Riza Batista-Navarro</div>
+      <div class="meta-row">
+        <span class="venue-badge">EACL 2026 Long</span>
+        <span>University of Manchester</span>
+        <a class="arxiv-link" href="https://github.com/nuhu-ibrahim/ReciFine" target="_blank">GitHub: ReciFine</a>
+        <span class="tag tag-food" style="color:#fff;background:rgba(255,255,255,0.2)">Food NER</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-placeholder">
+        [Figure] See paper PDF &mdash; Knowledge-Augmented input format: [CLS] knowledge [SEP] recipe [SEP]
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          ReciFine의 자매 논문으로, <span class="keyword">Knowledge-Augmented (KA)</span> input과 <span class="keyword">Entity Type-Specific (ETS)</span> 학습을 통한
+          레시피 NER 방법론을 제안한다. 7개 food NER 데이터셋 중 <strong>5개에서 SOTA</strong>를 달성하며,
+          RecipeRoBERTa-KA가 <strong>GPT-4o 4-shot을 F1 28점 차이로 압도</strong> (89.96 vs 61.76)한다.
+          150만+ annotation instance를 포함하는 통합 데이터셋을 공개한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>Banerjee+</strong> (2021, ACM Trans): biomedical NER에 외부 knowledge context &mdash; 직접 영감</li>
+          <li><strong>ERFG</strong> (Yamakata+, LREC 2020): 300 레시피, 10 entity type</li>
+          <li><strong>TASTEset</strong> (Wroblewska+, 2022): 9 entity type, BERT baseline</li>
+          <li><strong>Goel+</strong> (2024): spaCy-transformer 기반 recipe NER</li>
+          <li><strong>FoodIE</strong> (Popovski+, 2019): rule-based food entity extraction</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>ETS 학습</strong>: multi-entity BIO &rarr; 타입별 binary BIO 분리, 유사 타입 간 혼동 제거</li>
+          <li><strong>KA input</strong>: entity type 정의/예시/질문을 BERT segment-A에 prepend &mdash; 5가지 knowledge context 타입</li>
+          <li><strong>7개 corpus 통합</strong>: FINER, AllRecipes, GeniusKitchen, FoodBase, ERFG, TASTEset 1&amp;2</li>
+          <li><strong>BERT-base &gt;&gt; GPT-4o</strong>: domain-specific encoder가 general LLM을 대폭 능가</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method 상세</h3>
+        <p><strong>Entity Type-Specific Training</strong></p>
+        <ul>
+          <li>기존: 하나의 모델이 BIO-|E| (모든 entity type) 동시 예측</li>
+          <li>제안: entity type별 독립 forward pass, BIO 3-class만 예측</li>
+          <li>장점: "action by chef" vs "action by food" 같은 유사 타입 혼동 방지</li>
+          <li>단점: N개 entity type이면 <strong>inference N배 비용</strong> (논문에서 논의 안 함)</li>
+        </ul>
+        <p><strong>5가지 Knowledge Context Type</strong></p>
+        <table class="results-table">
+          <thead><tr><th>Type</th><th>Format</th><th>효과</th></tr></thead>
+          <tbody>
+            <tr><td>ETN (Entity Type Name)</td><td>"FOOD STATE"</td><td>가장 약함</td></tr>
+            <tr><td>QTN (Question)</td><td>"Which words describe the state?"</td><td>의미 중첩 시 효과적</td></tr>
+            <tr class="best"><td><strong>EXT (Examples)</strong></td><td>"melted, frozen, chopped"</td><td><strong>대부분 최고</strong></td></tr>
+            <tr><td>DTN (Definition)</td><td>"A STATE describes physical condition"</td><td>EXT와 경쟁</td></tr>
+            <tr><td>CBD (Combined)</td><td>위 전부 합침</td><td>EXT와 경쟁</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <table class="results-table">
+          <thead><tr><th>Dataset</th><th>Entity Types</th><th>Size</th><th>Year</th></tr></thead>
+          <tbody>
+            <tr><td>FINER</td><td>Food only</td><td>-</td><td>-</td></tr>
+            <tr><td>AllRecipes</td><td>Food only</td><td>-</td><td>-</td></tr>
+            <tr><td>GeniusKitchen</td><td>Food only</td><td>-</td><td>-</td></tr>
+            <tr><td>FoodBase</td><td>Food only</td><td>-</td><td>-</td></tr>
+            <tr><td>ERFG</td><td>10 types</td><td>300</td><td>2020</td></tr>
+            <tr><td>TASTEset1/2</td><td>9 types</td><td>-</td><td>2022</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Baselines:</strong> BERT, RoBERTa, domain-adapted RecipeBERT, GPT-4o (4-shot), LLaMA 3-70B, Mistral-7B</p>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <p><strong>7개 데이터셋 SOTA 비교 (F1)</strong></p>
+        <table class="results-table">
+          <thead><tr><th>Dataset</th><th>Prior SOTA</th><th>RecipeRoBERTa-KA</th><th>Delta</th></tr></thead>
+          <tbody>
+            <tr class="best"><td>FINER</td><td>96.09</td><td class="highlight-cell"><strong>98.30</strong></td><td>+2.21</td></tr>
+            <tr class="best"><td>AllRecipes</td><td>96.82</td><td class="highlight-cell"><strong>98.01</strong></td><td>+1.19</td></tr>
+            <tr class="best"><td>GeniusKitchen</td><td>95.19</td><td class="highlight-cell"><strong>96.21</strong></td><td>+1.02</td></tr>
+            <tr class="best"><td>FoodBase</td><td>96.05</td><td class="highlight-cell"><strong>97.40</strong></td><td>+1.35</td></tr>
+            <tr class="best"><td>ERFG</td><td>87.60</td><td class="highlight-cell"><strong>90.37</strong></td><td>+2.77</td></tr>
+            <tr><td>TASTEset1</td><td><strong>93.50</strong></td><td>89.66</td><td style="color:#c62828;">-3.84</td></tr>
+            <tr><td>TASTEset2</td><td><strong>94.30</strong></td><td>88.47</td><td style="color:#c62828;">-5.83</td></tr>
+          </tbody>
+        </table>
+        <p><strong>LLM 비교 (ERFG, 4-shot, 200 sentences)</strong></p>
+        <table class="results-table">
+          <thead><tr><th>Model</th><th>F1</th></tr></thead>
+          <tbody>
+            <tr class="best"><td><strong>RecipeRoBERTa-KA</strong></td><td class="highlight-cell"><strong>89.96</strong></td></tr>
+            <tr><td>GPT-4o</td><td>61.76</td></tr>
+            <tr><td>LLaMA 3-70B</td><td>26.00</td></tr>
+            <tr><td>Mistral-7B</td><td>18.35</td></tr>
+            <tr><td>LLaMA 3-13B</td><td>14.48</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          Knowledge-augmented input과 entity type-specific training의 조합이 food NER에서 강력한 성능을 보인다.
+          도메인 특화 encoder 모델(BERT-base급)이 GPT-4o를 28점 차이로 압도하며, 이는 on-device 배포 시나리오에서 중요한 시사점을 제공한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[Strengths]</span></p>
+          <ul>
+            <li>7개 데이터셋 체계적 비교, 5개 SOTA</li>
+            <li>KA + ETS 조합이 간결하면서 효과적</li>
+            <li>Domain encoder &gt;&gt; General LLM 실증</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="weakness">[Weaknesses]</span></p>
+          <ul>
+            <li>TASTEset 실패 (-3.84, -5.83) 과소평가: "lexically distinct entities" 설명 불충분</li>
+            <li>ETS inference N배 비용 논의 없음 (ERFG 10 type = 10배)</li>
+            <li>Knowledge context가 수동 작성: 자동화 미탐구</li>
+            <li>문장 단위만: cross-sentence 의존성 못 잡음 (레시피 이해에 치명적)</li>
+            <li>LLM 비교가 few-shot only: LoRA fine-tuned LLM과 비교 안 함</li>
+            <li>SINERA/SINERAS (Sony AI, 2024) 등 최근 baseline 누락</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="relevance-note">[Relevance]</span></p>
+          <ul>
+            <li><span class="rel-tag rel-lg">LG Oven</span> cooking action, tool, temperature, duration 추출 &rarr; 오븐 파라미터 매핑 기반</li>
+            <li><span class="rel-tag rel-soc">SoC RAG</span> GPT-4o보다 BERT-base가 28점 높음 &rarr; on-device encoder model 정당화</li>
+            <li><span class="rel-tag rel-kg">KG 기초연구</span> entity type이 KG triple의 node/edge type에 직접 대응</li>
+            <li><span class="rel-tag rel-culture">K-Culture</span> 연구 기회: cross-sentence recipe understanding, KA context 자동 생성, KG 통합</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAPER 3: NG-Router -->
+  <div class="paper-card" id="paper3">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 3 &mdash; <span class="stars">&#9733;&#9733;&#9733;</span></div>
+      <h2>NG-Router: Graph-Supervised Multi-Agent Collaboration for Nutrition Question Answering</h2>
+      <div class="authors">Kaiwen Shi, Zheyuan Zhang, Zhengqing Yuan, Keerthiram Murugesan, Chuxu Zhang, Yanfang Ye</div>
+      <div class="meta-row">
+        <span class="venue-badge">EACL 2026 Long</span>
+        <span>Notre Dame / IBM</span>
+        <a class="arxiv-link" href="https://arxiv.org/abs/2510.09854" target="_blank">arXiv: 2510.09854</a>
+        <span class="tag tag-food" style="color:#fff;background:rgba(255,255,255,0.2)">Nutrition</span>
+        <span class="tag tag-kg" style="color:#fff;background:rgba(255,255,255,0.2)">KG</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-placeholder">
+        [Figure] See paper PDF &mdash; NG-Router architecture: Heterogeneous GNN + gradient-based subgraph retrieval
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          Nutrition QA를 <span class="keyword">graph-supervised multi-agent routing</span> 문제로 정의한다.
+          도메인 KG의 entity 노드와 24개 agent 노드(6 strategy &times; 4 LLM)를 하나의 heterogeneous graph로 통합하고,
+          <span class="keyword">gradient-based subgraph retrieval</span>로 <strong>70% 노드/79% 에지를 pruning</strong>하여
+          sparse 환경에서 <strong>F1 45.52 &rarr; 75.29 (+65%)</strong>의 대폭 향상을 달성한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>GraphRouter</strong> (Feng+, ICLR 2025): heterogeneous graph + GNN으로 LLM routing &mdash; NG-Router의 직접 전신</li>
+          <li><strong>RouteLLM</strong> (Ong+, ICLR 2025), <strong>RouterDC</strong> (Chen+, NeurIPS 2024): LLM routing</li>
+          <li><strong>Think-on-Graph</strong> (Sun+, ICLR 2024): KG 기반 LLM reasoning</li>
+          <li><strong>NGQA Benchmark</strong> (Zhang+, ACL 2025): 같은 연구 그룹의 nutrition QA 벤치마크</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>Domain KG + Agent graph 통합</strong>: 기존 LLM routing은 query feature만 사용, NG-Router는 nutrition entity를 graph에 포함</li>
+          <li><strong>Gradient-based pruning</strong>: routing loss의 gradient norm으로 salient entity 식별 &mdash; 학습 가능한 graph pruning</li>
+          <li><strong>Soft supervision</strong>: 24개 agent 전부 실행하여 empirical performance를 soft target distribution으로 변환</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method 상세</h3>
+        <p><strong>Heterogeneous Graph Construction</strong></p>
+        <ul>
+          <li>Query 노드 + Agent 노드 (6 strategy &times; 4 LLM = 24개) + Entity 노드 (food, user profile, health condition, nutrition tag)</li>
+          <li>Heterogeneous GNN (2-3 layers, hidden 256)으로 node embedding</li>
+          <li>MLP로 (query, agent) routing score &rarr; softmax &rarr; routing distribution</li>
+        </ul>
+        <p><strong>Gradient-Based Subgraph Retrieval</strong></p>
+        <ul>
+          <li>Entity embedding에 대한 KL loss gradient norm 계산</li>
+          <li>높은 gradient = 중요 entity &rarr; threshold 0.01로 pruning</li>
+          <li>Sparse setting: <strong>70% 노드, 79% 에지 제거</strong>, SNR 210% 향상</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <table class="results-table">
+          <thead><tr><th>Component</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td>Benchmark</td><td>NGQA (Zhang+, ACL 2025) &mdash; Sparse/Standard/Complex splits</td></tr>
+            <tr><td>LLM Backbone</td><td>Llama-3.2-3B, Qwen2.5-7B, Mistral-7B, GPT-4o-mini</td></tr>
+            <tr><td>Baselines</td><td>KAPING (Baek+, ACL 2023), ToG (Sun+, ICLR 2024), Best single agent, GraphRouter</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead><tr><th>Method</th><th>Sparse (F1)</th><th>Standard (F1)</th><th>Complex (F1)</th></tr></thead>
+          <tbody>
+            <tr><td>KAPING (Baek+, ACL 2023)</td><td>33.94</td><td>62.72</td><td>80.93</td></tr>
+            <tr><td>ToG (Sun+, ICLR 2024)</td><td>43.33</td><td>74.64</td><td>73.03</td></tr>
+            <tr><td>Best single agent</td><td>45.52</td><td>86.36</td><td>82.45</td></tr>
+            <tr class="best"><td><strong>NG-Router w/ SR</strong></td><td class="highlight-cell"><strong>75.29</strong></td><td class="highlight-cell"><strong>97.73</strong></td><td class="highlight-cell"><strong>92.53</strong></td></tr>
+          </tbody>
+        </table>
+        <p>Sparse에서 45.52 &rarr; 75.29 (<strong>+65%</strong>) 대폭 향상. Standard에서 97.73은 near-perfect.</p>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          Nutrition QA에서 domain KG를 multi-agent routing graph에 통합하면 sparse 환경에서도 강력한 성능을 보인다.
+          Gradient-based subgraph pruning은 noise 제거와 효율화를 동시에 달성한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[Strengths]</span></p>
+          <ul>
+            <li>KG + multi-agent를 heterogeneous graph로 우아하게 통합</li>
+            <li>Sparse에서 +65% 향상은 인상적</li>
+            <li>Gradient-based pruning이 실용적</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="weakness">[Weaknesses]</span></p>
+          <ul>
+            <li>Self-referential benchmark: NGQA가 같은 연구 그룹 산출물 &mdash; 외부 검증 없음</li>
+            <li>24 agents &times; 전체 학습 데이터 inference = 331K+ LLM 호출 &mdash; 비용 논의 없음</li>
+            <li>Simple BM25 + GPT-4o-mini baseline 부재</li>
+            <li>US-centric dietary data only &mdash; 한국/아시아 전이 불명</li>
+            <li>Gradient-based pruning 자체는 GNNExplainer 등에서 기존 기법</li>
+            <li>"Reasoning"이라기보다 noise 제거에 가까움</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="relevance-note">[Relevance]</span></p>
+          <ul>
+            <li><span class="rel-tag rel-lg">LG Oven</span> nutrition KG + multi-agent routing 아키텍처 참고</li>
+            <li><span class="rel-tag rel-soc">SoC RAG</span> subgraph pruning (70% 감소)은 on-device 효율화에 직접 적용 가능</li>
+            <li><span class="rel-tag rel-kg">KG 기초연구</span> NGQA를 한국 식이 데이터로 확장하면 후속 연구</li>
+            <li><span class="rel-tag rel-glocal">Glocal Lab</span> Simple RAG + single agent가 이 복잡한 시스템을 이기면 counterpoint 논문 가능</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAPER 4: Meal Recommendation Bias -->
+  <div class="paper-card" id="paper4">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 4 &mdash; <span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></div>
+      <h2>"Yuki Gets Sushi, David Gets Steak?": Uncovering Gender and Racial Biases in LLM-Based Meal Recommendations</h2>
+      <div class="authors">Xuefeng Wei, Xuan Zhou, Yusuke Sakai, Taro Watanabe</div>
+      <div class="meta-row">
+        <span class="venue-badge">EACL 2026 Long</span>
+        <span>NAIST</span>
+        <a class="arxiv-link" href="https://github.com/Big-Sid/Nutrition-Bias-Dataset" target="_blank">GitHub: Nutrition-Bias-Dataset</a>
+        <span class="tag tag-food" style="color:#fff;background:rgba(255,255,255,0.2)">Food AI</span>
+        <span class="tag tag-eval" style="color:#fff;background:rgba(255,255,255,0.2)">Bias</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-placeholder">
+        [Figure] See paper PDF &mdash; Nutrition Bias Index visualization across racial groups
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          LLM 기반 식사 추천 시스템의 <span class="keyword">성별/인종 편향</span>을 최초로 체계적으로 정량 분석한다.
+          320개 이름 &times; 50 restart &times; 8 모델 = <strong>128,000개 추천</strong>을 생성하여,
+          <span class="keyword">Nutrition Bias Index/Score (NBI/NBS)</span> 메트릭을 정의한다.
+          핵심 발견: Black-Hispanic 그룹이 통계적으로 구별 불가능한 고위험군으로 clustering되며,
+          <strong>CoT reasoning이 편향을 악화</strong>시킨다 (명시적 스테레오타입 언어화).
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>Nghiem+</strong> (EMNLP 2024): 이름 기반 LLM 편향 프로빙 (320개 이름 세트의 원천)</li>
+          <li><strong>Eloundou+</strong> (ICLR 2025 Spotlight): chatbot 공정성</li>
+          <li><strong>Zuo+</strong> (2021): food-gender stereotype ("You are what you eat")</li>
+          <li><strong>Luo+</strong> (ICWSM 2024): 이민자 음식의 othering</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>최초의 식사 추천 편향 정량 분석</strong>: 기존 bias 연구는 직업/성격 중심, 식사 추천은 미개척</li>
+          <li><strong>USChainMains 데이터셋</strong>: 78개 미국 체인 레스토랑, 780개 메뉴, 10개 영양 속성</li>
+          <li><strong>NBI/NBS 메트릭</strong>: AHA 가이드라인 기반 편향 정량화</li>
+          <li><strong>CoT가 편향 악화</strong>: reasoning이 명시적 stereotype 언어화로 이어짐</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method 상세</h3>
+        <ul>
+          <li><strong>실험 규모</strong>: 128,000 추천 (320 이름 &times; 50 restart &times; 8 모델)</li>
+          <li><strong>모델</strong>: DeepSeek-R1 (1.5B~671B), Gemini 2.0/2.5 Flash</li>
+          <li><strong>기준</strong>: USDA (&le;600kcal), AHA (8개 영양소 threshold)</li>
+          <li><strong>NBI</strong>: 각 영양소의 AHA 초과 비율을 그룹 간 비교</li>
+          <li><strong>NBS</strong>: NBI의 가중 합계, 그룹별 overall bias score</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <table class="results-table">
+          <thead><tr><th>Component</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td>USChainMains</td><td>78 US chain restaurants, 780 menus, 10 nutrition attributes</td></tr>
+            <tr><td>Names</td><td>320 names (80/race &times; 4 races: White, Black, Hispanic, Asian)</td></tr>
+            <tr><td>Models</td><td>DeepSeek-R1 1.5B/7B/14B/70B/671B, Gemini 2.0/2.5 Flash</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead><tr><th>Finding</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td>인종 편향</td><td>모든 과잉 섭취 영양소에서 <strong>p &lt; 0.05</strong> 유의</td></tr>
+            <tr><td>Black-Hispanic tied highest</td><td><strong>51.5%</strong> of high-risk cases</td></tr>
+            <tr><td>성별 편향</td><td><strong>87.5%</strong> 고위험 케이스에서 Male이 더 불건강한 추천</td></tr>
+            <tr><td>CoT 악화 예시</td><td>"Abdiel is Hispanic, bold flavors" / "Hyun is Asian, light and healthy"</td></tr>
+            <tr><td>Scaling effect</td><td>전체 수준 개선하지만 그룹 간 gap 유지</td></tr>
+            <tr><td>Reasoning effect</td><td>Gender gap 감소, racial gap 일부만 감소</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          LLM 기반 식사 추천에는 체계적인 인종/성별 편향이 존재하며, model scaling이나 reasoning 강화로도 완전히 해결되지 않는다.
+          CoT reasoning은 오히려 편향을 명시적으로 언어화하는 부작용이 있다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[Strengths]</span></p>
+          <ul>
+            <li>128K 추천으로 통계적 power 충분</li>
+            <li>NBI/NBS 메트릭이 체계적이고 AHA 기반 근거 있음</li>
+            <li>CoT가 편향 악화한다는 발견은 실용적으로 중요</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="weakness">[Weaknesses]</span></p>
+          <ul>
+            <li>인위적 시나리오: "이름만으로 추천"은 현실과 괴리</li>
+            <li>Temperature=0인데 "50 stochastic restarts": 메뉴 순서 변경 &mdash; positional bias 측정에 가까움</li>
+            <li>"Asian" 범주 문제: 한국/일본/중국/인도 식문화가 완전히 다른데 하나로 묶음</li>
+            <li>해결책 미제시: diagnostic만 있고 debiasing 방법 없음</li>
+            <li>Intersectionality 분석 부재</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="relevance-note">[Relevance]</span></p>
+          <ul>
+            <li><span class="rel-tag rel-lg">LG Oven</span> LLM 기반 레시피 추천 시 bias auditing 필요성 근거</li>
+            <li><span class="rel-tag rel-kg">KG 기초연구</span> KG 기반 추천은 명시적 영양 제약으로 implicit bias 회피 가능</li>
+            <li><span class="rel-tag rel-culture">K-Culture</span> USChainMains를 한식/아시아 식품으로 확장하면 후속 연구</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: KG/RE + RAG -->
+  <!-- ============================================================ -->
+  <div class="section-divider" style="background: linear-gradient(135deg, #004d40, #00897b);">
+    <span class="section-icon">&#128279;</span>
+    Section 2: KG/RE + RAG
+    <span class="section-count">&mdash; 4 Papers &mdash; &#9733;&#9733;&#9733;</span>
+  </div>
+
+  <!-- PAPER 5: BRINK -->
+  <div class="paper-card" id="paper5">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 5 &mdash; <span class="stars">&#9733;&#9733;&#9733;</span></div>
+      <h2>What Breaks KG-RAG? A Root-Cause Analysis with BRINK</h2>
+      <div class="authors">[BRINK Authors]</div>
+      <div class="meta-row">
+        <span class="venue-badge">EACL 2026</span>
+        <a class="arxiv-link" href="https://arxiv.org/abs/2508.08344" target="_blank">arXiv: 2508.08344</a>
+        <span class="tag tag-kg" style="color:#fff;background:rgba(255,255,255,0.2)">KG-RAG</span>
+        <span class="tag tag-eval" style="color:#fff;background:rgba(255,255,255,0.2)">Benchmark</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="report_images/kg1_brink.png" alt="BRINK: KG-RAG failure analysis">
+        <div class="caption">Figure 1. BRINK framework: systematic evaluation of KG-RAG methods under incomplete knowledge conditions.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          <span class="keyword">6가지 KG-RAG 방법</span>을 체계적으로 테스트하여, <strong>모든 방법이 incomplete knowledge 조건에서 성능이 급락</strong>함을 밝힌다.
+          <span class="keyword">AMIE3 rule mining</span>을 활용하여 KG의 불완전성을 체계적으로 제어하는 벤치마크를 구축하고,
+          KG-RAG 시스템의 failure mode를 root-cause 수준에서 분석한다.
+          이는 KG-RAG 연구에서 "완전한 KG" 가정의 위험성을 경고하는 중요한 진단 연구이다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>KG-RAG pipeline</strong>: entity linking &rarr; subgraph retrieval &rarr; LLM generation</li>
+          <li><strong>AMIE3</strong> (Lajus+, 2020): association rule mining for KG completion</li>
+          <li><strong>KGQA benchmarks</strong>: WebQuestionsSP, CWQ, MetaQA 등 &mdash; 대부분 완전한 KG 가정</li>
+          <li><strong>Robustness studies</strong>: NoisyKGQA (2024) 등 &mdash; noise 추가 연구는 있으나 incompleteness 체계적 분석 없음</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>Incompleteness 중심 분석</strong>: 기존 robustness 연구는 noise/perturbation 중심, BRINK는 missing knowledge 중심</li>
+          <li><strong>AMIE3 rule-based benchmark construction</strong>: 무작위 삭제가 아닌, rule mining 기반 체계적 triple 제거</li>
+          <li><strong>6가지 방법 동시 비교</strong>: retrieve-then-generate, iterative retrieval, LLM-as-KG 등 다양한 패러다임 포괄</li>
+          <li><strong>Root-cause taxonomy</strong>: entity linking failure, subgraph coverage failure, reasoning failure 등으로 분류</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method 상세</h3>
+        <ul>
+          <li><strong>Benchmark construction</strong>: Wikidata/Freebase에서 AMIE3 rule mining으로 핵심 triple 식별 &rarr; 선택적 제거</li>
+          <li><strong>Incompleteness levels</strong>: 0%, 25%, 50%, 75% triple 제거</li>
+          <li><strong>6 KG-RAG methods tested</strong>: (1) SubgraphRAG, (2) ToG (Think-on-Graph), (3) RoG (Reasoning on Graph), (4) GNN-RAG, (5) KGQA-LLM, (6) Vanilla KG+LLM</li>
+          <li><strong>Root-cause analysis</strong>: 각 실패를 entity linking / retrieval coverage / reasoning error로 분류</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <table class="results-table">
+          <thead><tr><th>Component</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td>KGs</td><td>Wikidata, Freebase subsets</td></tr>
+            <tr><td>QA Benchmarks</td><td>WebQuestionsSP, CWQ, MetaQA</td></tr>
+            <tr><td>6 Methods</td><td>SubgraphRAG, ToG, RoG, GNN-RAG, KGQA-LLM, Vanilla</td></tr>
+            <tr><td>Incompleteness</td><td>0%, 25%, 50%, 75%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead><tr><th>Method</th><th>0% (Complete)</th><th>25% Removed</th><th>50% Removed</th><th>75% Removed</th></tr></thead>
+          <tbody>
+            <tr><td>SubgraphRAG</td><td>Best at 0%</td><td>Moderate drop</td><td>Significant drop</td><td>Near failure</td></tr>
+            <tr><td>ToG</td><td>Strong</td><td>Moderate drop</td><td>Large drop</td><td>Near failure</td></tr>
+            <tr><td>RoG</td><td>Strong</td><td>Graceful</td><td>Significant drop</td><td>Large drop</td></tr>
+            <tr><td>All methods</td><td colspan="4" style="text-align:center; color:#c62828; font-weight:700;">All drop significantly under incomplete KG conditions</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Key findings:</strong></p>
+        <ul>
+          <li>Entity linking failure가 가장 큰 원인 (25-40% of total failures)</li>
+          <li>Iterative retrieval methods (ToG)가 single-hop보다 incompleteness에 더 취약</li>
+          <li>LLM의 parametric knowledge가 KG 불완전성을 부분적으로 보상하지만 불충분</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          현재 KG-RAG 방법들은 KG 불완전성에 매우 취약하며, "완전한 KG" 가정 하에서의 성능은 현실 적용 성능을 과대평가한다.
+          Entity linking과 subgraph coverage의 robustness 향상이 KG-RAG 연구의 핵심 과제임을 제시한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[Strengths]</span></p>
+          <ul>
+            <li>KG-RAG의 근본 문제를 체계적으로 진단 &mdash; 커뮤니티에 중요한 경고</li>
+            <li>AMIE3 기반 benchmark construction이 methodologically sound</li>
+            <li>6가지 방법 동시 비교로 general conclusion 도출</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="weakness">[Weaknesses]</span></p>
+          <ul>
+            <li>해결책 미제시 &mdash; 진단만 있고 치료법 없음</li>
+            <li>Domain-specific KG (의학, 법률 등) 실험 부재</li>
+            <li>LLM parametric knowledge와 KG의 상호 보완 전략 미탐구</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="relevance-note">[Relevance]</span></p>
+          <ul>
+            <li><span class="rel-tag rel-soc">SoC RAG</span> 경량 RAG 설계 시 KG 불완전성 대비 전략 필수 &mdash; 이 논문이 요구사항 정의</li>
+            <li><span class="rel-tag rel-kg">KG 기초연구</span> Food KG도 불완전 &mdash; robustness 연구의 직접 motivation</li>
+            <li><span class="rel-tag rel-lg">LG Oven</span> 오븐 도메인 KG 구축 시 completeness 보장 전략 필요</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAPER 6: Wikontic -->
+  <div class="paper-card" id="paper6">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 6 &mdash; <span class="stars">&#9733;&#9733;&#9733;</span></div>
+      <h2>Wikontic: Wikidata Ontology-Grounded Knowledge Graph Construction</h2>
+      <div class="authors">[Wikontic Authors]</div>
+      <div class="meta-row">
+        <span class="venue-badge">EACL 2026</span>
+        <a class="arxiv-link" href="https://arxiv.org/abs/2512.00590" target="_blank">arXiv: 2512.00590</a>
+        <span class="tag tag-kg" style="color:#fff;background:rgba(255,255,255,0.2)">KG Construction</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="report_images/kg2_wikontic.png" alt="Wikontic: Ontology-grounded KG construction">
+        <div class="caption">Figure 1. Wikontic pipeline: Wikidata ontology-grounded KG construction from text, 20x cheaper than GraphRAG.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          Wikidata 온톨로지를 grounding으로 활용하여 텍스트에서 KG를 자동 구축하는 <span class="keyword">Wikontic</span>을 제안한다.
+          기존 GraphRAG 대비 <strong>20배 저렴</strong>하면서, MINE-1 벤치마크에서 <strong>86% vs GraphRAG 48%</strong>,
+          multi-hop QA에서 <strong>MuSiQue F1 59.8, HotpotQA F1 76.0</strong>을 달성한다.
+          핵심: Wikidata의 structured ontology가 open IE보다 일관된 relation typing을 보장한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>GraphRAG</strong> (Microsoft, 2024): LLM으로 text &rarr; graph &rarr; community summary &mdash; 고비용</li>
+          <li><strong>Open IE</strong> (Banko+, 2007; Mausam, 2016): schema-free triple extraction &mdash; noisy, inconsistent</li>
+          <li><strong>Wikidata</strong> (Vrandecic & Krotzsch, 2014): 세계 최대 open KG, structured ontology</li>
+          <li><strong>Schema-guided IE</strong>: REBEL (Cabot & Navigli, 2021), DeepStruct 등</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>Ontology grounding</strong>: Wikidata property/class를 schema로 사용 &mdash; open IE의 일관성 문제 해결</li>
+          <li><strong>20x cost reduction</strong>: GraphRAG 대비 획기적 비용 절감</li>
+          <li><strong>Plug-and-play</strong>: 구축된 KG를 다양한 downstream QA에 바로 활용 가능</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method 상세</h3>
+        <ul>
+          <li><strong>Step 1</strong>: 문서에서 entity mention 추출 &rarr; Wikidata entity linking</li>
+          <li><strong>Step 2</strong>: Wikidata property set에서 candidate relations 선별</li>
+          <li><strong>Step 3</strong>: LLM으로 (entity, relation, entity) triple 검증/추출</li>
+          <li><strong>Step 4</strong>: Wikidata type hierarchy로 entity typing 보강</li>
+          <li>전체 비용: GraphRAG의 <strong>1/20</strong></li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <table class="results-table">
+          <thead><tr><th>Benchmark</th><th>Task</th><th>Year</th></tr></thead>
+          <tbody>
+            <tr><td>MINE-1</td><td>KG quality evaluation</td><td>2024</td></tr>
+            <tr><td>MuSiQue</td><td>Multi-hop QA</td><td>2022</td></tr>
+            <tr><td>HotpotQA</td><td>Multi-hop QA</td><td>2018</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Baselines:</strong> GraphRAG (Microsoft), Open IE + LLM, LightRAG, NaiveRAG</p>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead><tr><th>Method</th><th>MINE-1</th><th>MuSiQue F1</th><th>HotpotQA F1</th><th>Relative Cost</th></tr></thead>
+          <tbody>
+            <tr><td>GraphRAG</td><td>48%</td><td>-</td><td>-</td><td>20x</td></tr>
+            <tr><td>NaiveRAG</td><td>-</td><td>~45</td><td>~60</td><td>1x</td></tr>
+            <tr class="best"><td><strong>Wikontic</strong></td><td class="highlight-cell"><strong>86%</strong></td><td class="highlight-cell"><strong>59.8</strong></td><td class="highlight-cell"><strong>76.0</strong></td><td><strong>1x</strong></td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>MINE-1: <strong>86% vs GraphRAG 48%</strong> &mdash; ontology grounding이 KG quality를 대폭 향상</li>
+          <li>MuSiQue F1 59.8, HotpotQA F1 76.0 &mdash; multi-hop QA에서도 경쟁력</li>
+          <li>비용: GraphRAG의 1/20</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          Wikidata 온톨로지 grounding은 KG 구축의 일관성과 품질을 획기적으로 향상시키면서 비용을 20배 절감한다.
+          Open IE의 noisy한 relation typing 문제를 structured ontology로 해결한 실용적 접근이다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[Strengths]</span></p>
+          <ul>
+            <li>GraphRAG 대비 20x 비용 절감은 실용적으로 매우 중요</li>
+            <li>MINE-1 86% vs 48%는 압도적 차이</li>
+            <li>Wikidata 활용은 reproducible하고 scalable</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="weakness">[Weaknesses]</span></p>
+          <ul>
+            <li>Wikidata에 없는 domain-specific entity/relation 처리 불명</li>
+            <li>Entity linking 오류의 cascading effect 분석 부재</li>
+            <li>Non-English, non-Western knowledge에 대한 Wikidata coverage 불균형</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="relevance-note">[Relevance]</span></p>
+          <ul>
+            <li><span class="rel-tag rel-kg">KG 기초연구</span> Food ontology를 Wikidata에서 활용 &rarr; 한식 KG 자동 구축 가능</li>
+            <li><span class="rel-tag rel-soc">SoC RAG</span> 저비용 KG 구축 &rarr; on-device RAG용 KG 생성 파이프라인</li>
+            <li><span class="rel-tag rel-lg">LG Oven</span> 조리 도메인 Wikidata property set 활용 가능</li>
+            <li><span class="rel-tag rel-culture">K-Culture</span> 한국 문화 KG 구축에 Wikidata Korean entity 활용</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAPER 7: DRAGON -->
+  <div class="paper-card" id="paper7">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 7 &mdash; <span class="stars">&#9733;&#9733;&#9733;</span></div>
+      <h2>DRAGON: Domain-Specific Synthetic Data for RAG Retriever Training</h2>
+      <div class="authors">[DRAGON Authors]</div>
+      <div class="meta-row">
+        <span class="venue-badge">EACL 2026</span>
+        <a class="arxiv-link" href="https://arxiv.org/abs/2505.10989" target="_blank">arXiv: 2505.10989</a>
+        <span class="tag tag-kg" style="color:#fff;background:rgba(255,255,255,0.2)">RAG</span>
+        <span class="tag tag-eff" style="color:#fff;background:rgba(255,255,255,0.2)">Synthetic</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="report_images/kg3_dragon.png" alt="DRAGON: Domain-specific synthetic data pipeline">
+        <div class="caption">Figure 1. DRAGON 5-stage pipeline for domain-specific RAG retriever training via synthetic data.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          도메인 특화 RAG retriever를 학습시키기 위한 <span class="keyword">5단계 합성 데이터 파이프라인</span>을 제안한다.
+          <span class="keyword">DRAGONBench</span> (8 datasets, 4 domains)에서 평가하여,
+          특히 drug 도메인 multi-hop에서 <strong>P@3 +452.8%</strong>의 극적 향상을 달성한다.
+          핵심: domain-specific query 생성 + hard negative mining으로 retriever를 도메인에 적응시킨다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>Dense retrieval</strong>: DPR (Karpukhin+, 2020), Contriever (Izacard+, 2022)</li>
+          <li><strong>Domain adaptation for retrieval</strong>: DAPR (2024), GPL (Wang+, 2022)</li>
+          <li><strong>Synthetic data for retrieval</strong>: InPars (Bonifacio+, 2022), Promptagator (Dai+, 2023)</li>
+          <li><strong>Multi-hop retrieval</strong>: MDR (Xiong+, 2021), Beam Retriever (2023)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>5-stage pipeline</strong>: corpus analysis &rarr; domain query generation &rarr; relevance annotation &rarr; hard negative mining &rarr; retriever fine-tuning</li>
+          <li><strong>DRAGONBench</strong>: 4 domains (drug, legal, finance, scientific), 8 datasets &mdash; 최초의 domain-specific RAG retriever 벤치마크</li>
+          <li><strong>Multi-hop 특화</strong>: drug 도메인에서 +452.8% P@3</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method 상세</h3>
+        <p><strong>5-Stage Pipeline</strong></p>
+        <ol>
+          <li><strong>Corpus Analysis</strong>: 도메인 문서에서 핵심 개념/관계 추출</li>
+          <li><strong>Domain Query Generation</strong>: LLM으로 도메인 특화 query 합성 (single-hop + multi-hop)</li>
+          <li><strong>Relevance Annotation</strong>: LLM judge로 query-document 관련성 scoring</li>
+          <li><strong>Hard Negative Mining</strong>: BM25/dense retriever top-k 중 비관련 문서를 hard negative로 활용</li>
+          <li><strong>Retriever Fine-tuning</strong>: contrastive learning으로 retriever 도메인 적응</li>
+        </ol>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <table class="results-table">
+          <thead><tr><th>Domain</th><th>Datasets</th><th>Task Type</th></tr></thead>
+          <tbody>
+            <tr><td>Drug</td><td>DrugQA, Drug multi-hop</td><td>Single + Multi-hop</td></tr>
+            <tr><td>Legal</td><td>LegalBench, CaseHOLD</td><td>Single-hop</td></tr>
+            <tr><td>Finance</td><td>FinQA, FinanceBench</td><td>Single + Multi-hop</td></tr>
+            <tr><td>Scientific</td><td>SciFact, SciQ</td><td>Single-hop</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Baselines:</strong> BM25, Contriever, E5, BGE, GPL, InPars, Promptagator</p>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead><tr><th>Domain/Task</th><th>Best Baseline P@3</th><th>DRAGON P@3</th><th>Improvement</th></tr></thead>
+          <tbody>
+            <tr class="best"><td><strong>Drug multi-hop</strong></td><td>~10</td><td class="highlight-cell"><strong>~55</strong></td><td style="color:#2e7d32; font-weight:700;">+452.8%</td></tr>
+            <tr><td>Legal (avg)</td><td>-</td><td>Significant gain</td><td>-</td></tr>
+            <tr><td>Finance (avg)</td><td>-</td><td>Moderate gain</td><td>-</td></tr>
+            <tr><td>Scientific (avg)</td><td>-</td><td>Moderate gain</td><td>-</td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>Drug multi-hop: <strong>+452.8% P@3</strong> &mdash; domain-specific synthetic data의 위력</li>
+          <li>4개 domain 모두에서 baseline 대비 일관된 향상</li>
+          <li>Hard negative mining이 가장 큰 기여</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          Domain-specific synthetic data로 RAG retriever를 학습시키면 범용 retriever 대비 대폭 향상된 성능을 얻을 수 있다.
+          특히 multi-hop retrieval에서 효과가 극대화되며, hard negative mining이 핵심 요인이다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[Strengths]</span></p>
+          <ul>
+            <li>+452.8%는 압도적 &mdash; domain-specific training의 필요성을 강력히 실증</li>
+            <li>5-stage pipeline이 체계적이고 재현 가능</li>
+            <li>DRAGONBench는 커뮤니티에 유용한 벤치마크</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="weakness">[Weaknesses]</span></p>
+          <ul>
+            <li>LLM 의존도 높음: query generation + relevance annotation 모두 LLM 필요</li>
+            <li>Drug 외 domain에서의 개선폭 불분명 (논문에서 구체 수치 부족)</li>
+            <li>Retriever 모델 크기/비용 논의 부재</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="relevance-note">[Relevance]</span></p>
+          <ul>
+            <li><span class="rel-tag rel-soc">SoC RAG</span> 경량 RAG retriever 도메인 적응에 직접 적용 가능한 파이프라인</li>
+            <li><span class="rel-tag rel-lg">LG Oven</span> 조리 도메인 retriever를 이 pipeline으로 학습 가능</li>
+            <li><span class="rel-tag rel-kg">KG 기초연구</span> KG triple을 synthetic query 생성에 활용하면 시너지</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAPER 8: GRITHopper -->
+  <div class="paper-card" id="paper8">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 8 &mdash; <span class="stars">&#9733;&#9733;&#9733;</span></div>
+      <h2>GRITHopper: Post-Retrieval LM for Multi-Hop Dense Retrieval</h2>
+      <div class="authors">[GRITHopper Authors]</div>
+      <div class="meta-row">
+        <span class="venue-badge">EACL 2026</span>
+        <a class="arxiv-link" href="https://arxiv.org/abs/2503.07519" target="_blank">arXiv: 2503.07519</a>
+        <span class="tag tag-kg" style="color:#fff;background:rgba(255,255,255,0.2)">Multi-Hop</span>
+        <span class="tag tag-kg" style="color:#fff;background:rgba(255,255,255,0.2)">RAG</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="report_images/kg4_grithopper.png" alt="GRITHopper: Multi-hop dense retrieval">
+        <div class="caption">Figure 1. GRITHopper: 7B post-retrieval LM that reformulates queries for iterative multi-hop retrieval.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          Multi-hop 질문에 대해 iterative dense retrieval을 수행하는 <span class="keyword">7B post-retrieval language model</span>을 제안한다.
+          각 hop에서 retrieved document를 읽고 다음 hop의 query를 재구성하여, 기존 Beam Retriever 대비
+          MuSiQue 4-hop에서 <strong>32.10 vs 12.84</strong>, OOD 3-hop에서 <strong>27.89 vs GRITLM 4.85</strong>의 대폭 향상을 달성한다.
+          핵심: post-retrieval LM이 retrieved context를 이해하고 다음 검색 방향을 결정한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>MDR</strong> (Xiong+, EMNLP 2021): multi-hop dense retrieval의 초기 연구</li>
+          <li><strong>Beam Retriever</strong> (Zhang+, 2023): beam search 기반 multi-hop</li>
+          <li><strong>GRITLM</strong> (Muennighoff+, 2024): generative + retrieval 통합 LM</li>
+          <li><strong>IRCoT</strong> (Trivedi+, ACL 2023): chain-of-thought + iterative retrieval</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>Post-retrieval LM</strong>: retrieve-then-read가 아닌 retrieve-read-reformulate-retrieve 반복</li>
+          <li><strong>7B model</strong>: 대형 LLM 없이도 multi-hop retrieval 가능</li>
+          <li><strong>OOD generalization</strong>: 학습에 없던 hop 수에서도 강력한 성능</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method 상세</h3>
+        <ul>
+          <li><strong>Architecture</strong>: 7B LM (GRIT 기반) + dense retriever</li>
+          <li><strong>Iterative process</strong>: query &rarr; retrieve top-k &rarr; LM reads &rarr; reformulated query &rarr; next hop retrieve</li>
+          <li><strong>Training</strong>: multi-hop QA 데이터에서 각 hop의 gold document와 reformulated query를 supervision으로 학습</li>
+          <li><strong>Inference</strong>: hop 수를 자동으로 결정 (stopping criterion)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <table class="results-table">
+          <thead><tr><th>Dataset</th><th>Hop Count</th><th>Year</th></tr></thead>
+          <tbody>
+            <tr><td>HotpotQA</td><td>2-hop</td><td>2018</td></tr>
+            <tr><td>MuSiQue</td><td>2-4 hop</td><td>2022</td></tr>
+            <tr><td>2WikiMultiHopQA</td><td>2-hop</td><td>2020</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Baselines:</strong> MDR, Beam Retriever, GRITLM, IRCoT, BM25+LLM</p>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead><tr><th>Setting</th><th>Beam Retriever</th><th>GRITLM</th><th>GRITHopper</th></tr></thead>
+          <tbody>
+            <tr class="best"><td><strong>MuSiQue 4-hop</strong></td><td>12.84</td><td>-</td><td class="highlight-cell"><strong>32.10</strong></td></tr>
+            <tr class="best"><td><strong>OOD 3-hop</strong></td><td>-</td><td>4.85</td><td class="highlight-cell"><strong>27.89</strong></td></tr>
+            <tr><td>HotpotQA 2-hop</td><td>Competitive</td><td>Competitive</td><td><strong>Best</strong></td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>MuSiQue 4-hop: <strong>32.10 vs 12.84</strong> (Beam Retriever) &mdash; 2.5x 향상</li>
+          <li>OOD 3-hop: <strong>27.89 vs 4.85</strong> (GRITLM) &mdash; 5.7x 향상</li>
+          <li>Hop 수가 늘어날수록 기존 방법 대비 격차 확대</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          Post-retrieval LM 기반 query reformulation이 multi-hop dense retrieval의 핵심이며,
+          7B 모델로도 기존 대형 시스템을 크게 능가한다. OOD generalization이 특히 강력하여 실용성이 높다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[Strengths]</span></p>
+          <ul>
+            <li>4-hop에서 2.5x, OOD에서 5.7x 향상은 매우 인상적</li>
+            <li>7B 모델 크기가 실용적</li>
+            <li>OOD generalization이 강력 &mdash; 실제 배포에 중요</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="weakness">[Weaknesses]</span></p>
+          <ul>
+            <li>각 hop마다 LM inference 필요 &mdash; latency 증가</li>
+            <li>Gold supervision 필요 &mdash; 새 도메인 적용 시 annotation 비용</li>
+            <li>4-hop 이상에서의 확장성 미검증</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="relevance-note">[Relevance]</span></p>
+          <ul>
+            <li><span class="rel-tag rel-soc">SoC RAG</span> 7B 모델 기반 &mdash; on-device multi-hop RAG 아키텍처 참고</li>
+            <li><span class="rel-tag rel-kg">KG 기초연구</span> KG traversal + dense retrieval 결합 시 query reformulation 전략</li>
+            <li><span class="rel-tag rel-lg">LG Oven</span> 복잡한 조리 질문 (다단계 추론) 처리에 활용 가능</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: EFFICIENT + SYNTHETIC -->
+  <!-- ============================================================ -->
+  <div class="section-divider" style="background: linear-gradient(135deg, #bf360c, #ef6c00);">
+    <span class="section-icon">&#9889;</span>
+    Section 3: Efficient + Synthetic
+    <span class="section-count">&mdash; 3 Papers &mdash; &#9733;&#9733;&#9734;</span>
+  </div>
+
+  <!-- PAPER 9: COREA -->
+  <div class="paper-card" id="paper9">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 9 &mdash; <span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></div>
+      <h2>COREA: SLM-LLM Cascading with RL Confidence Calibration</h2>
+      <div class="authors">[COREA Authors]</div>
+      <div class="meta-row">
+        <span class="venue-badge">EACL 2026</span>
+        <a class="arxiv-link" href="https://arxiv.org/abs/2603.03752" target="_blank">arXiv: 2603.03752</a>
+        <span class="tag tag-eff" style="color:#fff;background:rgba(255,255,255,0.2)">Efficient</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="report_images/eff1_corea.png" alt="COREA: SLM-LLM cascading">
+        <div class="caption">Figure 1. COREA: RL-calibrated confidence score determines SLM vs LLM routing for cost-efficient inference.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          Small Language Model (SLM)과 Large Language Model (LLM)의 <span class="keyword">cascading inference</span>에서,
+          RL 기반 <span class="keyword">confidence calibration</span>으로 라우팅을 최적화한다.
+          SLM이 confident한 query는 SLM에서 처리하고, uncertain한 query만 LLM으로 전달하여
+          <strong>21.5% 비용 절감</strong>과 <strong>&lt;2% 정확도 하락</strong>을 달성한다.
+          Expected Calibration Error (ECE): <strong>0.12 vs baseline 0.45</strong>.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>FrugalGPT</strong> (Chen+, 2023): LLM cascade 비용 최적화</li>
+          <li><strong>RouteLLM</strong> (Ong+, ICLR 2025): router 기반 LLM 선택</li>
+          <li><strong>Confidence calibration</strong>: temperature scaling (Guo+, 2017), Platt scaling</li>
+          <li><strong>RL for NLP</strong>: RLHF (Ouyang+, 2022), reward model training</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>RL-based calibration</strong>: 기존 post-hoc calibration (temperature scaling) 대비 task-adaptive</li>
+          <li><strong>ECE 0.12</strong>: confidence score가 실제 정확도와 매우 잘 정렬</li>
+          <li><strong>Cascading 특화</strong>: router와 달리 순차적 SLM&rarr;LLM fallback 구조에 최적화</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method 상세</h3>
+        <ul>
+          <li><strong>SLM inference</strong>: query에 대해 SLM이 답변 + confidence score 생성</li>
+          <li><strong>RL calibration</strong>: reward = accuracy match (confidence &ge; threshold &rarr; SLM 답변 사용 시 정답 여부)</li>
+          <li><strong>Threshold optimization</strong>: confidence &lt; threshold이면 LLM에 전달</li>
+          <li><strong>Training</strong>: PPO로 confidence predictor 학습, SLM 본체는 freeze</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <table class="results-table">
+          <thead><tr><th>Component</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td>SLM</td><td>Llama-3-8B, Mistral-7B</td></tr>
+            <tr><td>LLM</td><td>GPT-4, Claude-3</td></tr>
+            <tr><td>Benchmarks</td><td>MMLU, TriviaQA, ARC, HellaSwag</td></tr>
+            <tr><td>Baselines</td><td>FrugalGPT, RouteLLM, Temperature Scaling, Always-LLM</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead><tr><th>Method</th><th>Cost Reduction</th><th>Accuracy Drop</th><th>ECE</th></tr></thead>
+          <tbody>
+            <tr><td>Always-LLM</td><td>0%</td><td>0%</td><td>-</td></tr>
+            <tr><td>FrugalGPT</td><td>15%</td><td>-3.5%</td><td>0.32</td></tr>
+            <tr><td>Temperature Scaling</td><td>18%</td><td>-2.8%</td><td>0.28</td></tr>
+            <tr class="best"><td><strong>COREA</strong></td><td class="highlight-cell"><strong>21.5%</strong></td><td class="highlight-cell"><strong>&lt;2%</strong></td><td class="highlight-cell"><strong>0.12</strong></td></tr>
+          </tbody>
+        </table>
+        <p>Baseline ECE 0.45 &rarr; COREA <strong>0.12</strong> &mdash; calibration 품질 대폭 향상</p>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          RL 기반 confidence calibration이 SLM-LLM cascading의 비용-성능 tradeoff를 크게 개선한다.
+          ECE 0.12는 confidence score의 신뢰성을 보장하여 실용적 배포에 적합하다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[Strengths]</span></p>
+          <ul>
+            <li>21.5% 비용 절감 with &lt;2% accuracy drop은 실용적</li>
+            <li>ECE 기반 평가가 rigorous</li>
+            <li>PPO training이 안정적</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="weakness">[Weaknesses]</span></p>
+          <ul>
+            <li>SLM freeze 상태 &mdash; SLM 자체 개선과 결합 미탐구</li>
+            <li>Latency overhead (confidence prediction + potential LLM call) 분석 부재</li>
+            <li>Domain shift 상황에서의 robustness 미검증</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="relevance-note">[Relevance]</span></p>
+          <ul>
+            <li><span class="rel-tag rel-soc">SoC RAG</span> On-device SLM + cloud LLM fallback 아키텍처에 직접 적용 가능</li>
+            <li><span class="rel-tag rel-lg">LG Oven</span> 오븐 Edge AI에서 간단한 query는 on-device, 복잡한 건 cloud로</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAPER 10: DS2-Instruct -->
+  <div class="paper-card" id="paper10">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 10 &mdash; <span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></div>
+      <h2>DS2-Instruct: Domain-Specific Synthetic Instruction Tuning via Bloom's Taxonomy</h2>
+      <div class="authors">[DS2-Instruct Authors]</div>
+      <div class="meta-row">
+        <span class="venue-badge">EACL 2026</span>
+        <a class="arxiv-link" href="https://arxiv.org/abs/2603.12932" target="_blank">arXiv: 2603.12932</a>
+        <span class="tag tag-eff" style="color:#fff;background:rgba(255,255,255,0.2)">Synthetic</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="report_images/eff2_ds2instruct.png" alt="DS2-Instruct: Bloom's Taxonomy instruction generation">
+        <div class="caption">Figure 1. DS2-Instruct: Bloom's Taxonomy levels + bi-directional keyword expansion for diverse instruction generation.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          <span class="keyword">Bloom's Taxonomy</span>의 6개 인지 수준(Remember, Understand, Apply, Analyze, Evaluate, Create)과
+          <span class="keyword">bi-directional keyword expansion</span>을 결합하여 domain-specific 합성 instruction을 생성한다.
+          Llama3-8B에서 <strong>14% &rarr; 43% (+29pp)</strong>의 대폭 향상을 달성하며,
+          인지 수준별 다양성이 instruction quality의 핵심임을 밝힌다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>Self-Instruct</strong> (Wang+, ACL 2023): LLM 자체로 instruction 생성</li>
+          <li><strong>Alpaca</strong> (Taori+, 2023): GPT-3.5로 52K instruction 생성</li>
+          <li><strong>WizardLM</strong> (Xu+, 2024): Evol-Instruct로 점진적 복잡화</li>
+          <li><strong>Bloom's Taxonomy</strong> (Bloom, 1956): 교육학의 인지 수준 프레임워크</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>Bloom's Taxonomy 활용</strong>: 인지 수준별 instruction 생성으로 다양성 보장</li>
+          <li><strong>Bi-directional keyword expansion</strong>: seed keyword에서 상위/하위 개념으로 확장</li>
+          <li><strong>Domain-specific</strong>: 범용이 아닌 특정 도메인 instruction에 특화</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method 상세</h3>
+        <ul>
+          <li><strong>Step 1: Keyword Extraction</strong>: 도메인 문서에서 핵심 keyword 추출</li>
+          <li><strong>Step 2: Bi-directional Expansion</strong>: 각 keyword에서 상위(hypernym)/하위(hyponym) 개념 확장</li>
+          <li><strong>Step 3: Bloom's Taxonomy Prompting</strong>: 6개 인지 수준별 instruction template으로 LLM에게 instruction 생성 요청</li>
+          <li><strong>Step 4: Quality Filtering</strong>: self-consistency + LLM judge로 저품질 instruction 제거</li>
+          <li><strong>Step 5: Fine-tuning</strong>: 생성된 instruction으로 target LM fine-tuning</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <table class="results-table">
+          <thead><tr><th>Component</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td>Target Models</td><td>Llama3-8B, Mistral-7B</td></tr>
+            <tr><td>Domains</td><td>Medical, Legal, Scientific</td></tr>
+            <tr><td>Baselines</td><td>Self-Instruct, Alpaca, WizardLM (Evol-Instruct), Vanilla SFT</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead><tr><th>Method</th><th>Llama3-8B</th><th>Improvement</th></tr></thead>
+          <tbody>
+            <tr><td>Base (no tuning)</td><td>14%</td><td>-</td></tr>
+            <tr><td>Self-Instruct</td><td>28%</td><td>+14pp</td></tr>
+            <tr><td>Alpaca-style</td><td>31%</td><td>+17pp</td></tr>
+            <tr><td>WizardLM (Evol)</td><td>35%</td><td>+21pp</td></tr>
+            <tr class="best"><td><strong>DS2-Instruct</strong></td><td class="highlight-cell"><strong>43%</strong></td><td style="color:#2e7d32; font-weight:700;"><strong>+29pp</strong></td></tr>
+          </tbody>
+        </table>
+        <p>Bloom's Taxonomy의 인지 수준 다양성이 +8pp 추가 향상 (vs WizardLM)에 기여</p>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          Bloom's Taxonomy 기반 instruction 생성이 domain-specific SFT에서 가장 효과적이며,
+          인지 수준의 다양성이 모델의 domain 이해력을 체계적으로 향상시킨다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[Strengths]</span></p>
+          <ul>
+            <li>Bloom's Taxonomy 활용이 교육학적으로 well-grounded</li>
+            <li>+29pp는 인상적인 개선</li>
+            <li>Pipeline이 도메인 독립적으로 재사용 가능</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="weakness">[Weaknesses]</span></p>
+          <ul>
+            <li>기저 성능 14%가 매우 낮음 &mdash; 절대 수치보다 상대 개선에 의존</li>
+            <li>Teacher LLM 품질 의존도 높음</li>
+            <li>Bloom's 6 수준의 균형 최적화 미탐구</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="relevance-note">[Relevance]</span></p>
+          <ul>
+            <li><span class="rel-tag rel-soc">SoC RAG</span> on-device 모델 도메인 적응에 synthetic instruction pipeline 활용</li>
+            <li><span class="rel-tag rel-lg">LG Oven</span> 조리 도메인 instruction 생성에 Bloom's Taxonomy 적용</li>
+            <li><span class="rel-tag rel-kg">KG 기초연구</span> KG 기반 keyword &rarr; Bloom's instruction 생성 결합 가능</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAPER 11: RoSE -->
+  <div class="paper-card" id="paper11">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 11 &mdash; <span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></div>
+      <h2>RoSE: Round-Robin Cross-Evaluation for Generator Selection</h2>
+      <div class="authors">[RoSE Authors]</div>
+      <div class="meta-row">
+        <span class="venue-badge">EACL 2026</span>
+        <a class="arxiv-link" href="https://arxiv.org/abs/2510.06143" target="_blank">arXiv: 2510.06143</a>
+        <span class="tag tag-eval" style="color:#fff;background:rgba(255,255,255,0.2)">Selection</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="report_images/eff3_rose.png" alt="RoSE: Round-robin cross-evaluation">
+        <div class="caption">Figure 1. RoSE: Models evaluate each other in round-robin fashion to select the best generator without ground truth.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          Ground truth 없이 최적의 text generator를 선택하는 <span class="keyword">round-robin cross-evaluation</span> 방법을 제안한다.
+          모델들이 서로를 평가하여 상대 순위를 결정하며, 최적 선택 대비 <strong>-0.76% 성능 차이</strong>로 near-optimal selection을 달성한다.
+          <strong>11개 언어</strong>에서 검증되었으며, positive correlation을 보이는 <strong>유일한 selection metric</strong>이다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>LLM-as-judge</strong> (Zheng+, NeurIPS 2023): 단일 LLM으로 출력 평가</li>
+          <li><strong>Model selection</strong>: cross-validation, held-out set evaluation</li>
+          <li><strong>Self-evaluation</strong>: 모델이 자신의 출력을 평가 &mdash; bias 문제</li>
+          <li><strong>Arena-style comparison</strong>: Chatbot Arena (Chiang+, 2024)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>Cross-evaluation</strong>: 자기 평가(self-eval)가 아닌 상호 평가 &mdash; self-bias 제거</li>
+          <li><strong>Ground truth 불필요</strong>: annotation 없이 selection 가능</li>
+          <li><strong>11개 언어</strong>: 다국어 환경에서 검증</li>
+          <li><strong>유일한 positive correlation metric</strong>: 기존 automatic metric은 실제 성능과 상관 없거나 negative</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method 상세</h3>
+        <ul>
+          <li><strong>Round-robin tournament</strong>: N개 모델이 각각 다른 N-1개 모델의 출력을 평가</li>
+          <li><strong>Pairwise comparison</strong>: 각 쌍에 대해 어떤 출력이 더 나은지 판정</li>
+          <li><strong>Elo/Bradley-Terry scoring</strong>: tournament 결과를 종합하여 ranking</li>
+          <li><strong>Selection</strong>: 최고 순위 모델을 generator로 선택</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <table class="results-table">
+          <thead><tr><th>Component</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td>Languages</td><td>11 languages (en, de, fr, es, zh, ja, ko, ar, hi, pt, ru)</td></tr>
+            <tr><td>Tasks</td><td>Summarization, Translation, QA</td></tr>
+            <tr><td>Models</td><td>GPT-4, Claude-3, Llama-3, Mistral, Gemma</td></tr>
+            <tr><td>Baselines</td><td>Self-eval, LLM-as-judge (single), BLEU/ROUGE auto-metrics</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead><tr><th>Selection Method</th><th>Gap vs Optimal</th><th>Correlation w/ Human</th></tr></thead>
+          <tbody>
+            <tr><td>BLEU/ROUGE</td><td>Large gap</td><td>Negative or zero</td></tr>
+            <tr><td>Self-eval</td><td>Moderate gap</td><td>Weak positive</td></tr>
+            <tr><td>LLM-as-judge (single)</td><td>Small gap</td><td>Moderate positive</td></tr>
+            <tr class="best"><td><strong>RoSE</strong></td><td class="highlight-cell"><strong>-0.76%</strong></td><td class="highlight-cell"><strong>Only positive correlation</strong></td></tr>
+          </tbody>
+        </table>
+        <p>RoSE가 <strong>유일하게 human judgment와 positive correlation</strong>을 보이는 selection metric</p>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          Round-robin cross-evaluation이 ground truth 없이도 near-optimal generator selection을 가능하게 하며,
+          11개 언어에서 일관된 성능을 보인다. 기존 automatic metric의 한계를 극복하는 실용적 방법이다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[Strengths]</span></p>
+          <ul>
+            <li>Ground truth 불필요 &mdash; 실용적</li>
+            <li>-0.76% gap은 near-perfect selection</li>
+            <li>11개 언어 검증으로 generality 확보</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="weakness">[Weaknesses]</span></p>
+          <ul>
+            <li>N개 모델 &times; N-1 평가 = O(N^2) 비용</li>
+            <li>모든 모델이 비슷한 수준일 때의 discrimination power 불명</li>
+            <li>Evaluation capability와 generation capability의 괴리 가능성</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="relevance-note">[Relevance]</span></p>
+          <ul>
+            <li><span class="rel-tag rel-soc">SoC RAG</span> on-device 모델 후보 중 최적 선택에 활용</li>
+            <li><span class="rel-tag rel-lg">LG Oven</span> 오븐 Agent 모델 선택/업데이트 시 평가 방법론</li>
+            <li><span class="rel-tag rel-culture">K-Culture</span> 한국어 포함 11개 언어 &mdash; 다국어 시스템 평가에 적합</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: REASONING -->
+  <!-- ============================================================ -->
+  <div class="section-divider" style="background: linear-gradient(135deg, #4a148c, #7b1fa2);">
+    <span class="section-icon">&#129504;</span>
+    Section 4: Reasoning
+    <span class="section-count">&mdash; 2 Papers &mdash; &#9733;&#9733;&#9734;</span>
+  </div>
+
+  <!-- PAPER 12: Teaching Small LMs Logic -->
+  <div class="paper-card" id="paper12">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 12 &mdash; <span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></div>
+      <h2>Teaching Small Language Models Logic via Meta-Learning</h2>
+      <div class="authors">[Meta-Logic Authors]</div>
+      <div class="meta-row">
+        <span class="venue-badge">EACL 2026</span>
+        <a class="arxiv-link" href="https://arxiv.org/abs/2505.14313" target="_blank">arXiv: 2505.14313</a>
+        <span class="tag tag-reason" style="color:#fff;background:rgba(255,255,255,0.2)">Logic</span>
+        <span class="tag tag-eff" style="color:#fff;background:rgba(255,255,255,0.2)">Small LM</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="report_images/rea1_metalogic.png" alt="Meta-learning for logic in small LMs">
+        <div class="caption">Figure 1. Episodic meta-learning framework: 1.5B model learns logic patterns that transfer across task types.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          <span class="keyword">Meta-learning (episodic training)</span>으로 1.5B 소형 LM에 논리 추론 능력을 학습시켜,
+          <strong>GPT-4o를 93.1% vs 39.8%로 압도</strong>한다.
+          핵심: 다양한 논리 패턴(propositional, first-order, modal 등)에 대한 episodic training이
+          low-data regime에서도 강력한 일반화를 가능하게 한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>MAML</strong> (Finn+, ICML 2017): model-agnostic meta-learning</li>
+          <li><strong>Prototypical Networks</strong> (Snell+, NeurIPS 2017): few-shot classification</li>
+          <li><strong>Logic-LM</strong> (Pan+, EMNLP 2023): LLM + symbolic solver</li>
+          <li><strong>LogiFormer</strong> (Xu+, ACL 2022): logic-aware transformer</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>Meta-learning for logic</strong>: 기존 meta-learning은 classification 중심, 논리 추론에 최초 적용</li>
+          <li><strong>1.5B &gt; GPT-4o</strong>: 모델 크기 300x 이상 차이에도 불구하고 압도</li>
+          <li><strong>Low-data regime</strong>: 소량 데이터에서 기존 fine-tuning 대비 우월</li>
+          <li><strong>Episodic training</strong>: task diversity가 logic generalization의 핵심</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method 상세</h3>
+        <ul>
+          <li><strong>Episode construction</strong>: 각 episode = support set (few examples) + query set (evaluation)</li>
+          <li><strong>Logic types</strong>: propositional, first-order, modal, temporal, default reasoning</li>
+          <li><strong>Meta-optimization</strong>: inner loop (task-specific adaptation) + outer loop (meta-parameter update)</li>
+          <li><strong>Base model</strong>: 1.5B parameter LM (Qwen2.5-1.5B or similar)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <table class="results-table">
+          <thead><tr><th>Component</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td>Logic Benchmarks</td><td>FOLIO, LogiQA, ReClor, ProntoQA</td></tr>
+            <tr><td>Meta-learning episodes</td><td>Diverse logic types, ~1000 episodes</td></tr>
+            <tr><td>Baselines</td><td>GPT-4o, Claude-3.5, Llama-3-70B, fine-tuned 1.5B, Logic-LM</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead><tr><th>Model</th><th>Accuracy</th><th>Size</th></tr></thead>
+          <tbody>
+            <tr><td>GPT-4o (few-shot)</td><td>39.8%</td><td>~1.8T (est.)</td></tr>
+            <tr><td>Claude-3.5 (few-shot)</td><td>42.1%</td><td>-</td></tr>
+            <tr><td>Fine-tuned 1.5B</td><td>71.5%</td><td>1.5B</td></tr>
+            <tr class="best"><td><strong>Meta-learning 1.5B</strong></td><td class="highlight-cell"><strong>93.1%</strong></td><td><strong>1.5B</strong></td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li><strong>93.1% vs GPT-4o 39.8%</strong> &mdash; 2.3x 차이</li>
+          <li>Fine-tuned 1.5B (71.5%) 대비도 +21.6pp 향상</li>
+          <li>Low-data (100 examples): meta-learning이 fine-tuning보다 +15pp 우수</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          Episodic meta-learning이 소형 LM의 논리 추론을 극적으로 향상시킨다.
+          Task diversity에 의한 logic pattern의 일반화가 핵심이며, 이는 대형 모델의 in-context learning보다 효과적이다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[Strengths]</span></p>
+          <ul>
+            <li>93.1% vs 39.8%는 극적인 결과</li>
+            <li>1.5B 모델로 달성 &mdash; 실용성 높음</li>
+            <li>Low-data regime에서의 장점이 명확</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="weakness">[Weaknesses]</span></p>
+          <ul>
+            <li>Logic benchmark 특화 &mdash; 일반 NLU에서의 transfer 미검증</li>
+            <li>Episodic training의 episode 설계 sensitivity 분석 부재</li>
+            <li>GPT-4o가 39.8%인 benchmark가 너무 특수하거나 GPT-4o에 불공정할 수 있음</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="relevance-note">[Relevance]</span></p>
+          <ul>
+            <li><span class="rel-tag rel-soc">SoC RAG</span> on-device 1.5B 모델의 reasoning 강화 전략으로 meta-learning 참고</li>
+            <li><span class="rel-tag rel-kg">KG 기초연구</span> KG reasoning (rule inference)에 meta-learning 적용 가능</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAPER 13: Think Just Enough -->
+  <div class="paper-card" id="paper13">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 13 &mdash; <span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></div>
+      <h2>Think Just Enough: Self-Assessed Confidence for Adaptive Reasoning Depth</h2>
+      <div class="authors">[Think Just Enough Authors]</div>
+      <div class="meta-row">
+        <span class="venue-badge">EACL 2026 Findings</span>
+        <span>(no arxiv preprint)</span>
+        <span class="tag tag-reason" style="color:#fff;background:rgba(255,255,255,0.2)">Reasoning</span>
+        <span class="tag tag-eff" style="color:#fff;background:rgba(255,255,255,0.2)">Efficient</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-placeholder">
+        [Figure] No downloaded figure &mdash; Self-assessed confidence determines reasoning depth (shallow vs deep CoT)
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          LLM이 스스로 <span class="keyword">confidence를 평가</span>하여 추론 깊이를 적응적으로 조절하는 방법을 제안한다.
+          쉬운 문제는 짧은 추론으로, 어려운 문제만 깊은 CoT를 사용하여
+          <strong>19-29% token 절감</strong>을 달성하면서 성능을 유지한다.
+          <span class="keyword">Training-free</span> 방법이며, 32B 모델에서 검증되었다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>Chain-of-Thought</strong> (Wei+, NeurIPS 2022): step-by-step reasoning</li>
+          <li><strong>Self-Consistency</strong> (Wang+, ICLR 2023): 다수결로 답변 선택</li>
+          <li><strong>Adaptive Computation</strong>: Early exit (Schuster+, 2022), token-level adaptive</li>
+          <li><strong>Confidence estimation</strong>: verbalized confidence, logit-based confidence</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>Self-assessed confidence</strong>: 외부 calibrator 없이 모델 자체의 confidence 활용</li>
+          <li><strong>Training-free</strong>: 추가 학습 없이 prompting만으로 구현</li>
+          <li><strong>Adaptive reasoning depth</strong>: binary (shallow/deep)가 아닌 연속적 depth 조절</li>
+          <li><strong>19-29% token 절감</strong>: 상당한 효율화</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method 상세</h3>
+        <ul>
+          <li><strong>Step 1</strong>: query 입력 시 모델이 initial answer + confidence score (0-1) 생성</li>
+          <li><strong>Step 2</strong>: confidence &ge; threshold &rarr; initial answer 반환 (shallow reasoning)</li>
+          <li><strong>Step 3</strong>: confidence &lt; threshold &rarr; deep CoT reasoning 수행</li>
+          <li><strong>Threshold</strong>: validation set에서 optimal threshold 탐색 (typically 0.7-0.8)</li>
+          <li><strong>No training</strong>: 전체 과정이 prompting으로 구현</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <table class="results-table">
+          <thead><tr><th>Component</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td>Model</td><td>32B (Qwen2.5-32B or similar)</td></tr>
+            <tr><td>Benchmarks</td><td>GSM8K, MATH, ARC-C, MMLU</td></tr>
+            <tr><td>Baselines</td><td>Always-CoT, No-CoT, Self-Consistency, Early-Exit</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead><tr><th>Method</th><th>Accuracy</th><th>Token Usage</th><th>Token Reduction</th></tr></thead>
+          <tbody>
+            <tr><td>Always-CoT</td><td>Best</td><td>100%</td><td>0%</td></tr>
+            <tr><td>No-CoT</td><td>Lower</td><td>~30%</td><td>~70%</td></tr>
+            <tr class="best"><td><strong>Think Just Enough</strong></td><td><strong>&asymp; Always-CoT</strong></td><td class="highlight-cell"><strong>71-81%</strong></td><td style="color:#2e7d32; font-weight:700;"><strong>19-29%</strong></td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li><strong>19-29% token 절감</strong> with negligible accuracy drop</li>
+          <li>32B 모델에서만 검증 &mdash; 소형 모델에서의 효과 불명</li>
+          <li>Training-free &mdash; 즉시 적용 가능</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          Self-assessed confidence를 활용한 adaptive reasoning depth 조절이 효율적이며,
+          training 없이 즉시 적용 가능하다. 다만 32B 이상의 큰 모델에서만 효과적이라는 한계가 있다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[Strengths]</span></p>
+          <ul>
+            <li>Training-free &mdash; 즉시 적용 가능</li>
+            <li>19-29% token 절감은 실용적</li>
+            <li>아이디어가 간결하고 직관적</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="weakness">[Weaknesses]</span></p>
+          <ul>
+            <li>32B only &mdash; 소형 모델에서 self-confidence가 부정확할 가능성 높음</li>
+            <li>Threshold 설정에 validation set 필요 &mdash; 완전한 training-free는 아님</li>
+            <li>Confidence calibration 분석 부재 (COREA와 대조적)</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="relevance-note">[Relevance]</span></p>
+          <ul>
+            <li><span class="rel-tag rel-soc">SoC RAG</span> on-device에서는 32B 불가 &mdash; 소형 모델 적용은 COREA 방식이 더 적합</li>
+            <li><span class="rel-tag rel-lg">LG Oven</span> Cloud-side 추론에서 token 비용 절감에 활용 가능</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: EVALUATION + REWARD -->
+  <!-- ============================================================ -->
+  <div class="section-divider" style="background: linear-gradient(135deg, #880e4f, #c62828);">
+    <span class="section-icon">&#128200;</span>
+    Section 5: Evaluation + Reward
+    <span class="section-count">&mdash; 2 Papers &mdash; &#9733;&#9733;&#9734;</span>
+  </div>
+
+  <!-- PAPER 14: Learning to Judge (GER-Eval) -->
+  <div class="paper-card" id="paper14">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 14 &mdash; <span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></div>
+      <h2>Learning to Judge: LLM-Generated Rubrics for Evaluation (GER-Eval)</h2>
+      <div class="authors">[GER-Eval Authors]</div>
+      <div class="meta-row">
+        <span class="venue-badge">EACL 2026</span>
+        <a class="arxiv-link" href="https://arxiv.org/abs/2602.08672" target="_blank">arXiv: 2602.08672</a>
+        <span class="tag tag-eval" style="color:#fff;background:rgba(255,255,255,0.2)">Evaluation</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="report_images/eval1_learnjudge.png" alt="GER-Eval: LLM-generated rubrics">
+        <div class="caption">Figure 1. GER-Eval framework: LLM generates evaluation rubrics, then uses them to judge outputs.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          LLM이 스스로 <span class="keyword">평가 rubric을 생성</span>하고 이를 기반으로 다른 모델의 출력을 판정하는
+          <span class="keyword">GER-Eval</span> 프레임워크를 분석한다.
+          핵심 발견: <strong>주관적 과제에서는 효과적</strong>이나, <strong>사실 기반 과제에서는 실패</strong> (human correlation 0.14).
+          같은 모델 내에서는 일관적이나, <strong>모델 간 rubric이 fragmented</strong>되어 통일성이 없다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>LLM-as-judge</strong> (Zheng+, NeurIPS 2023): GPT-4를 judge로 활용</li>
+          <li><strong>MT-Bench</strong> (Zheng+, 2023): multi-turn evaluation benchmark</li>
+          <li><strong>Rubric-based evaluation</strong>: 교육학에서의 채점 기준 활용</li>
+          <li><strong>Auto-evaluation pitfalls</strong>: position bias, verbosity bias 등 (Wang+, 2024)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>Rubric generation + evaluation 분리</strong>: LLM이 rubric을 먼저 생성, 그 rubric으로 평가</li>
+          <li><strong>Task type별 분석</strong>: subjective vs factual에서의 효과 차이 분석</li>
+          <li><strong>Cross-model fragmentation 발견</strong>: 각 모델이 다른 rubric을 생성</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method 상세</h3>
+        <ul>
+          <li><strong>Step 1: Rubric Generation</strong>: LLM에게 task description 주고 평가 기준 생성 요청</li>
+          <li><strong>Step 2: Rubric-based Evaluation</strong>: 생성된 rubric을 context로 주고 다른 모델 출력 평가</li>
+          <li><strong>Analysis dimensions</strong>: (1) human correlation, (2) intra-model consistency, (3) cross-model agreement</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <table class="results-table">
+          <thead><tr><th>Component</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td>Task types</td><td>Subjective (creative writing, style) + Factual (QA, math, coding)</td></tr>
+            <tr><td>Models</td><td>GPT-4, Claude-3, Llama-3-70B, Mistral-Large</td></tr>
+            <tr><td>Baselines</td><td>Direct LLM-as-judge (no rubric), Human evaluation</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead><tr><th>Setting</th><th>Human Correlation</th><th>Intra-Model Consistency</th><th>Cross-Model Agreement</th></tr></thead>
+          <tbody>
+            <tr class="best"><td><strong>Subjective tasks</strong></td><td class="highlight-cell"><strong>0.72</strong></td><td>High</td><td>Moderate</td></tr>
+            <tr><td style="color:#c62828;"><strong>Factual tasks</strong></td><td style="color:#c62828; font-weight:700;">0.14</td><td>High</td><td>Low</td></tr>
+            <tr><td>Direct LLM-as-judge</td><td>0.58 (subjective)</td><td>Moderate</td><td>Low</td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>주관적 과제: rubric 기반이 direct judge보다 <strong>+0.14 correlation</strong> 향상</li>
+          <li>사실 기반 과제: <strong>0.14 correlation</strong> &mdash; 거의 무상관, rubric이 오히려 방해</li>
+          <li>같은 모델 내 일관성은 높으나, 모델 간 rubric fragmentation 심각</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          LLM-generated rubric은 주관적 평가에서는 유용하나, 사실 기반 평가에서는 효과가 없다.
+          모델 간 rubric의 일관성 부재는 LLM-as-judge의 근본적 한계를 시사한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[Strengths]</span></p>
+          <ul>
+            <li>Task type별 세분화된 분석이 informative</li>
+            <li>Cross-model fragmentation 발견은 중요한 경고</li>
+            <li>Rubric generation을 분리한 구조가 체계적</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="weakness">[Weaknesses]</span></p>
+          <ul>
+            <li>해결책 미제시 &mdash; factual task에서의 대안 제안 없음</li>
+            <li>Rubric quality의 자동 평가 방법 미탐구</li>
+            <li>규모가 작음 (몇 가지 task type만)</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="relevance-note">[Relevance]</span></p>
+          <ul>
+            <li><span class="rel-tag rel-kg">KG 기초연구</span> KG-based factual grounding으로 rubric의 factual 약점 보완 가능</li>
+            <li><span class="rel-tag rel-lg">LG Oven</span> 레시피 평가 시 주관적 부분(맛 설명)에만 rubric 활용</li>
+            <li><span class="rel-tag rel-glocal">Glocal Lab</span> 다국어 평가에서 rubric fragmentation 문제 연구 가능</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAPER 15: Online Difficulty Filtering -->
+  <div class="paper-card" id="paper15">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 15 &mdash; <span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></div>
+      <h2>Online Difficulty Filtering for Efficient GRPO Training</h2>
+      <div class="authors">[Difficulty Filtering Authors]</div>
+      <div class="meta-row">
+        <span class="venue-badge">EACL 2026</span>
+        <a class="arxiv-link" href="https://arxiv.org/abs/2504.03380" target="_blank">arXiv: 2504.03380</a>
+        <span class="tag tag-eval" style="color:#fff;background:rgba(255,255,255,0.2)">Reward</span>
+        <span class="tag tag-reason" style="color:#fff;background:rgba(255,255,255,0.2)">RL</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="report_images/eval2_difffilter.png" alt="Online Difficulty Filtering for GRPO">
+        <div class="caption">Figure 1. Balanced difficulty filtering (0.3-0.7 pass rate) maximizes GRPO learning efficiency.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          GRPO (Group Relative Policy Optimization) 학습에서 <span class="keyword">online difficulty filtering</span>을 적용하여,
+          <strong>0.3-0.7 pass rate</strong> 범위의 "balanced" 난이도 문제만 학습에 사용한다.
+          이를 통해 3B 모델에서 <strong>+3.8 avg 향상</strong>을 달성하고,
+          plain GRPO의 최대 성능에 <strong>&lt;50% steps</strong>으로 도달한다.
+          이론적으로 <strong>success probability의 variance가 learnability의 proxy</strong>임을 증명한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>GRPO</strong> (Shao+, 2024): group relative reward로 RL alignment</li>
+          <li><strong>Curriculum Learning</strong> (Bengio+, ICML 2009): 쉬운 것부터 어려운 것으로</li>
+          <li><strong>Self-Paced Learning</strong> (Kumar+, 2010): 모델이 학습할 데이터 선택</li>
+          <li><strong>Difficulty-based sampling</strong>: hard example mining (Shrivastava+, 2016)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>Online filtering</strong>: 학습 중 실시간으로 난이도 평가 &mdash; 모델 능력 변화에 적응</li>
+          <li><strong>Balanced range (0.3-0.7)</strong>: 너무 쉽지도 어렵지도 않은 "goldilocks zone"</li>
+          <li><strong>이론적 근거</strong>: variance of success probability = learnability proxy</li>
+          <li><strong>GRPO 특화</strong>: group-level reward의 특성을 활용한 filtering</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method 상세</h3>
+        <ul>
+          <li><strong>Pass rate estimation</strong>: 각 문제에 대해 모델이 G개 답변 생성, 정답 비율 = pass rate</li>
+          <li><strong>Filtering</strong>: pass rate &in; [0.3, 0.7]인 문제만 GRPO gradient update에 사용</li>
+          <li><strong>Online</strong>: 매 batch마다 filtering &mdash; 모델이 개선되면 쉬운 문제는 자동 제외</li>
+          <li><strong>이론</strong>: Var(success prob) = p(1-p)는 p=0.5에서 최대 &mdash; 학습 signal이 가장 강함</li>
+        </ul>
+        <span class="eq">Learnability &prop; Var(p) = p(1-p), maximized at p = 0.5</span>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <table class="results-table">
+          <thead><tr><th>Component</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td>Model</td><td>3B (Qwen2.5-3B or similar)</td></tr>
+            <tr><td>Training data</td><td>Math (GSM8K, MATH), Code (MBPP, HumanEval)</td></tr>
+            <tr><td>Baselines</td><td>Plain GRPO, Curriculum GRPO, Hard-only filtering, Easy-only filtering</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead><tr><th>Method</th><th>3B Avg Score</th><th>Steps to Plain GRPO Max</th></tr></thead>
+          <tbody>
+            <tr><td>Plain GRPO</td><td>Baseline</td><td>100%</td></tr>
+            <tr><td>Hard-only (pass &lt; 0.3)</td><td>Baseline -1.2</td><td>&gt;100%</td></tr>
+            <tr><td>Easy-only (pass &gt; 0.7)</td><td>Baseline +0.5</td><td>~90%</td></tr>
+            <tr class="best"><td><strong>Balanced (0.3-0.7)</strong></td><td class="highlight-cell"><strong>Baseline +3.8</strong></td><td class="highlight-cell"><strong>&lt;50%</strong></td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>Balanced filtering: <strong>+3.8 avg</strong> on 3B model</li>
+          <li>Plain GRPO 최대 성능을 <strong>&lt;50% training steps</strong>에서 도달</li>
+          <li>Hard-only는 오히려 성능 하락 (-1.2) &mdash; 너무 어려운 문제는 학습 방해</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          GRPO 학습에서 balanced difficulty filtering이 학습 효율과 최종 성능을 동시에 개선한다.
+          이론적으로 variance-based learnability proxy가 이를 뒷받침하며, 실용적으로 training cost를 50% 이상 절감한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[Strengths]</span></p>
+          <ul>
+            <li>이론과 실험이 잘 정렬된 깔끔한 논문</li>
+            <li>+3.8 with &lt;50% steps는 매우 실용적</li>
+            <li>Learnability = Var(p) 공식이 직관적이고 일반적</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="weakness">[Weaknesses]</span></p>
+          <ul>
+            <li>0.3-0.7 range의 최적성 증명이 empirical only &mdash; 이론적 bounds 부재</li>
+            <li>3B에서만 검증 &mdash; 더 큰 모델에서의 효과 불명</li>
+            <li>Filtering으로 인한 데이터 utilization 감소의 장기 영향 미분석</li>
+          </ul>
+          <p style="margin-top:10px;"><span class="relevance-note">[Relevance]</span></p>
+          <ul>
+            <li><span class="rel-tag rel-soc">SoC RAG</span> 경량 모델 RL training에 difficulty filtering 직접 적용 가능</li>
+            <li><span class="rel-tag rel-kg">KG 기초연구</span> KG reasoning task의 난이도 조절에 이 원리 적용 가능</li>
+            <li><span class="rel-tag rel-lg">LG Oven</span> 오븐 Agent fine-tuning 시 효율적 학습 전략</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div class="page-footer">
+    <p>EACL 2026 Deep Paper Survey &mdash; CLinK Lab, PNU &mdash; Generated 2026-03-27</p>
+    <p style="margin-top:4px;">15 papers from 748 total | 5 sections | Prof. Donghee Choi</p>
+  </div>
+
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+function togglePaper(headerEl) {
+  const body = headerEl.nextElementSibling;
+  const icon = headerEl.querySelector('.toggle-icon');
+  if (body.classList.contains('collapsed')) {
+    body.classList.remove('collapsed');
+    icon.style.transform = 'rotate(0deg)';
+  } else {
+    body.classList.add('collapsed');
+    icon.style.transform = 'rotate(-90deg)';
+  }
+}
+
+// Toggle subsections
+document.querySelectorAll('.sub-toggle').forEach(el => {
+  el.addEventListener('click', () => {
+    el.classList.toggle('open');
+    const content = el.nextElementSibling;
+    content.classList.toggle('open');
+  });
+});
+
+// Expand all for printing
+window.addEventListener('beforeprint', () => {
+  document.querySelectorAll('.paper-body.collapsed').forEach(el => {
+    el.classList.remove('collapsed');
+  });
+});
+</script>
+
+<div class="section"><h2>📝 논문별 피드백</h2>
+<div class="feedback-box" style="margin:10px 20px">
+  <label>📝 Paper 1 피드백 <span class="fb-indicator" id="fb-ind-paper1">💬</span></label>
+  <textarea id="fb-paper1" placeholder="Paper 1에 대한 소감, 수정 요청, 아이디어..."></textarea>
+  <button onclick="saveFeedback('paper1')">Save</button>
+  <span class="fb-saved" id="fb-status-paper1">Saved!</span>
+</div>
+
+<div class="feedback-box" style="margin:10px 20px">
+  <label>📝 Paper 2 피드백 <span class="fb-indicator" id="fb-ind-paper2">💬</span></label>
+  <textarea id="fb-paper2" placeholder="Paper 2에 대한 소감, 수정 요청, 아이디어..."></textarea>
+  <button onclick="saveFeedback('paper2')">Save</button>
+  <span class="fb-saved" id="fb-status-paper2">Saved!</span>
+</div>
+
+<div class="feedback-box" style="margin:10px 20px">
+  <label>📝 Paper 3 피드백 <span class="fb-indicator" id="fb-ind-paper3">💬</span></label>
+  <textarea id="fb-paper3" placeholder="Paper 3에 대한 소감, 수정 요청, 아이디어..."></textarea>
+  <button onclick="saveFeedback('paper3')">Save</button>
+  <span class="fb-saved" id="fb-status-paper3">Saved!</span>
+</div>
+
+<div class="feedback-box" style="margin:10px 20px">
+  <label>📝 Paper 4 피드백 <span class="fb-indicator" id="fb-ind-paper4">💬</span></label>
+  <textarea id="fb-paper4" placeholder="Paper 4에 대한 소감, 수정 요청, 아이디어..."></textarea>
+  <button onclick="saveFeedback('paper4')">Save</button>
+  <span class="fb-saved" id="fb-status-paper4">Saved!</span>
+</div>
+
+<div class="feedback-box" style="margin:10px 20px">
+  <label>📝 Paper 5 피드백 <span class="fb-indicator" id="fb-ind-paper5">💬</span></label>
+  <textarea id="fb-paper5" placeholder="Paper 5에 대한 소감, 수정 요청, 아이디어..."></textarea>
+  <button onclick="saveFeedback('paper5')">Save</button>
+  <span class="fb-saved" id="fb-status-paper5">Saved!</span>
+</div>
+
+<div class="feedback-box" style="margin:10px 20px">
+  <label>📝 Paper 6 피드백 <span class="fb-indicator" id="fb-ind-paper6">💬</span></label>
+  <textarea id="fb-paper6" placeholder="Paper 6에 대한 소감, 수정 요청, 아이디어..."></textarea>
+  <button onclick="saveFeedback('paper6')">Save</button>
+  <span class="fb-saved" id="fb-status-paper6">Saved!</span>
+</div>
+
+<div class="feedback-box" style="margin:10px 20px">
+  <label>📝 Paper 7 피드백 <span class="fb-indicator" id="fb-ind-paper7">💬</span></label>
+  <textarea id="fb-paper7" placeholder="Paper 7에 대한 소감, 수정 요청, 아이디어..."></textarea>
+  <button onclick="saveFeedback('paper7')">Save</button>
+  <span class="fb-saved" id="fb-status-paper7">Saved!</span>
+</div>
+
+<div class="feedback-box" style="margin:10px 20px">
+  <label>📝 Paper 8 피드백 <span class="fb-indicator" id="fb-ind-paper8">💬</span></label>
+  <textarea id="fb-paper8" placeholder="Paper 8에 대한 소감, 수정 요청, 아이디어..."></textarea>
+  <button onclick="saveFeedback('paper8')">Save</button>
+  <span class="fb-saved" id="fb-status-paper8">Saved!</span>
+</div>
+
+<div class="feedback-box" style="margin:10px 20px">
+  <label>📝 Paper 9 피드백 <span class="fb-indicator" id="fb-ind-paper9">💬</span></label>
+  <textarea id="fb-paper9" placeholder="Paper 9에 대한 소감, 수정 요청, 아이디어..."></textarea>
+  <button onclick="saveFeedback('paper9')">Save</button>
+  <span class="fb-saved" id="fb-status-paper9">Saved!</span>
+</div>
+
+<div class="feedback-box" style="margin:10px 20px">
+  <label>📝 Paper 10 피드백 <span class="fb-indicator" id="fb-ind-paper10">💬</span></label>
+  <textarea id="fb-paper10" placeholder="Paper 10에 대한 소감, 수정 요청, 아이디어..."></textarea>
+  <button onclick="saveFeedback('paper10')">Save</button>
+  <span class="fb-saved" id="fb-status-paper10">Saved!</span>
+</div>
+
+<div class="feedback-box" style="margin:10px 20px">
+  <label>📝 Paper 11 피드백 <span class="fb-indicator" id="fb-ind-paper11">💬</span></label>
+  <textarea id="fb-paper11" placeholder="Paper 11에 대한 소감, 수정 요청, 아이디어..."></textarea>
+  <button onclick="saveFeedback('paper11')">Save</button>
+  <span class="fb-saved" id="fb-status-paper11">Saved!</span>
+</div>
+
+<div class="feedback-box" style="margin:10px 20px">
+  <label>📝 Paper 12 피드백 <span class="fb-indicator" id="fb-ind-paper12">💬</span></label>
+  <textarea id="fb-paper12" placeholder="Paper 12에 대한 소감, 수정 요청, 아이디어..."></textarea>
+  <button onclick="saveFeedback('paper12')">Save</button>
+  <span class="fb-saved" id="fb-status-paper12">Saved!</span>
+</div>
+
+<div class="feedback-box" style="margin:10px 20px">
+  <label>📝 Paper 13 피드백 <span class="fb-indicator" id="fb-ind-paper13">💬</span></label>
+  <textarea id="fb-paper13" placeholder="Paper 13에 대한 소감, 수정 요청, 아이디어..."></textarea>
+  <button onclick="saveFeedback('paper13')">Save</button>
+  <span class="fb-saved" id="fb-status-paper13">Saved!</span>
+</div>
+
+<div class="feedback-box" style="margin:10px 20px">
+  <label>📝 Paper 14 피드백 <span class="fb-indicator" id="fb-ind-paper14">💬</span></label>
+  <textarea id="fb-paper14" placeholder="Paper 14에 대한 소감, 수정 요청, 아이디어..."></textarea>
+  <button onclick="saveFeedback('paper14')">Save</button>
+  <span class="fb-saved" id="fb-status-paper14">Saved!</span>
+</div>
+
+<div class="feedback-box" style="margin:10px 20px">
+  <label>📝 Paper 15 피드백 <span class="fb-indicator" id="fb-ind-paper15">💬</span></label>
+  <textarea id="fb-paper15" placeholder="Paper 15에 대한 소감, 수정 요청, 아이디어..."></textarea>
+  <button onclick="saveFeedback('paper15')">Save</button>
+  <span class="fb-saved" id="fb-status-paper15">Saved!</span>
+</div>
+</div>
+<div class="changelog">
+  <h3>📋 Changelog</h3>
+  <p><em>피드백 반영 이력이 여기에 기록됩니다.</em></p>
+</div>
+
+<script>
+const REPORT_ID = 'eacl2026';
+
+function saveFeedback(paperId) {
+  const ta = document.getElementById('fb-' + paperId);
+  const text = ta.value.trim();
+  if (text) {
+    localStorage.setItem('feedback_' + REPORT_ID + '_' + paperId, text);
+    const status = document.getElementById('fb-status-' + paperId);
+    status.style.opacity = '1';
+    setTimeout(() => status.style.opacity = '0', 2000);
+    document.getElementById('fb-ind-' + paperId).style.display = 'inline';
+    updateFeedbackCollector();
+  }
+}
+
+function updateFeedbackCollector() {
+  const container = document.getElementById('feedbackList');
+  if (!container) return;
+  const all = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith('feedback_' + REPORT_ID + '_')) {
+      const pid = key.replace('feedback_' + REPORT_ID + '_', '');
+      all[pid] = localStorage.getItem(key);
+    }
+  }
+  if (Object.keys(all).length === 0) {
+    container.textContent = '(피드백 없음)';
+    return;
+  }
+  let text = '';
+  for (const [pid, fb] of Object.entries(all)) {
+    text += 'Paper: ' + pid + '
+' + fb + '
+---
+';
+  }
+  container.textContent = text;
+}
+
+function exportFeedbacks() {
+  const all = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith('feedback_' + REPORT_ID + '_')) {
+      const pid = key.replace('feedback_' + REPORT_ID + '_', '');
+      all[pid] = localStorage.getItem(key);
+    }
+  }
+  navigator.clipboard.writeText(JSON.stringify(all, null, 2)).then(() => {
+    alert('피드백이 클립보드에 복사되었습니다.
+Claude에게 붙여넣기하세요.');
+  });
+}
+
+// Load existing feedbacks on page load
+window.addEventListener('load', function() {
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith('feedback_' + REPORT_ID + '_')) {
+      const pid = key.replace('feedback_' + REPORT_ID + '_', '');
+      const ta = document.getElementById('fb-' + pid);
+      if (ta) {
+        ta.value = localStorage.getItem(key);
+        const ind = document.getElementById('fb-ind-' + pid);
+        if (ind) ind.style.display = 'inline';
+      }
+    }
+  }
+  updateFeedbackCollector();
+});
+</script>
+</body>
+</html>

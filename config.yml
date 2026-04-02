@@ -36,6 +36,9 @@ params:
 # 상단 메뉴(메인 네비게이션)
 menu:
   main:
+    - name: "Research"
+      url: "/research/"
+      weight: 1
     - name: "Lab Website →"
       url: "https://sites.google.com/view/pnu-clink"
-      weight: 1
+      weight: 2

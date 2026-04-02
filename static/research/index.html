@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLinK Lab Research Hub</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', -apple-system, sans-serif; background: #f5f7fa; color: #333; line-height: 1.6; }
+
+.header { background: linear-gradient(135deg, #1a237e, #283593); color: white; padding: 30px 40px; }
+.header h1 { font-size: 1.8em; margin-bottom: 5px; }
+.header .sub { opacity: 0.85; font-size: 0.95em; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+/* Research Interests Box */
+.interests-section { background: white; border-radius: 10px; padding: 20px 25px; margin-bottom: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.interests-section h2 { font-size: 1.2em; color: #1a237e; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.interests-section h2::before { content: '🔬'; }
+.interests-textarea {
+  width: 100%; min-height: 180px; padding: 12px 15px; border: 1.5px solid #ddd; border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif; font-size: 0.9em; line-height: 1.7; resize: vertical;
+  background: #fafbfc; transition: border-color 0.2s;
+}
+.interests-textarea:focus { border-color: #3f51b5; outline: none; background: white; }
+.save-btn {
+  margin-top: 8px; padding: 6px 18px; background: #3f51b5; color: white; border: none;
+  border-radius: 5px; cursor: pointer; font-size: 0.85em;
+}
+.save-btn:hover { background: #283593; }
+.save-status { font-size: 0.8em; color: #4caf50; margin-left: 10px; opacity: 0; transition: opacity 0.3s; }
+
+/* Stats */
+.stats { display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; }
+.stat-card { background: white; border-radius: 10px; padding: 15px 20px; flex: 1; min-width: 150px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center; }
+.stat-card .num { font-size: 2em; font-weight: 700; color: #1a237e; }
+.stat-card .label { font-size: 0.85em; color: #666; }
+
+/* Tags */
+.tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.tag { padding: 4px 12px; border-radius: 15px; font-size: 0.75em; font-weight: 600; cursor: pointer; transition: all 0.2s; border: 1.5px solid transparent; }
+.tag:hover { transform: translateY(-1px); }
+.tag.active { border-color: #333; }
+.tag-food { background: #fff3e0; color: #e65100; }
+.tag-kg { background: #e8eaf6; color: #1a237e; }
+.tag-rag { background: #e0f2f1; color: #004d40; }
+.tag-efficient { background: #fce4ec; color: #880e4f; }
+.tag-synthetic { background: #f3e5f5; color: #4a148c; }
+.tag-reasoning { background: #e3f2fd; color: #0d47a1; }
+.tag-evaluation { background: #fff8e1; color: #f57f17; }
+.tag-agents { background: #e8f5e9; color: #1b5e20; }
+.tag-reward { background: #efebe9; color: #3e2723; }
+.tag-judge { background: #fff3e0; color: #bf360c; }
+
+/* Sections */
+.section { background: white; border-radius: 10px; padding: 20px 25px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.section h2 { font-size: 1.15em; color: #1a237e; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid #e8eaf6; }
+
+/* Report Cards */
+.report-card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px; margin-bottom: 12px; transition: all 0.2s; }
+.report-card:hover { border-color: #3f51b5; box-shadow: 0 2px 12px rgba(63,81,181,0.15); }
+.report-card .date { font-size: 0.8em; color: #888; font-weight: 600; }
+.report-card .title { font-size: 1em; font-weight: 600; margin: 4px 0; }
+.report-card .title a { color: #1a237e; text-decoration: none; }
+.report-card .title a:hover { text-decoration: underline; }
+.report-card .papers { font-size: 0.85em; color: #555; margin-top: 5px; }
+.report-card .papers .paper-item { margin: 3px 0; padding-left: 12px; border-left: 3px solid #e8eaf6; }
+.report-card .paper-tags { margin-top: 5px; }
+
+/* Paper List */
+.paper-table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
+.paper-table th { background: #f5f7fa; padding: 8px 10px; text-align: left; font-weight: 600; border-bottom: 2px solid #ddd; }
+.paper-table td { padding: 7px 10px; border-bottom: 1px solid #eee; }
+.paper-table tr:hover { background: #f8f9ff; }
+.paper-table .relevance-high { color: #e65100; font-weight: 700; }
+.paper-table .relevance-medium { color: #f57f17; }
+.paper-table tr.hidden { display: none; }
+
+/* Survey Cards */
+.survey-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+.survey-card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px; text-align: center; }
+.survey-card .conf { font-size: 1.1em; font-weight: 700; color: #1a237e; }
+.survey-card .count { font-size: 0.85em; color: #666; margin-top: 3px; }
+.survey-card a { text-decoration: none; color: inherit; }
+
+@media print { .interests-section, .save-btn { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>CLinK Lab — Research Paper Hub</h1>
+  <div class="sub">최동희 | 부산대학교 정보컴퓨터공학부 | NLP · Food AI · Knowledge Graph</div>
+</div>
+
+<div class="container">
+
+<!-- Research Interests -->
+<div class="interests-section">
+  <h2>Research Interests & Focus Areas <button class="save-btn" onclick="saveInterests()">Save</button><span class="save-status" id="saveStatus">Saved!</span></h2>
+  <textarea class="interests-textarea" id="interestsBox">## 핵심 연구 관심사 (논문 분석 시 이 관점에서 평가)
+
+### Food AI / Culinary NLP
+- Recipe generation, understanding, knowledge graph
+- Synthetic Culinary Knowledge 생성 (LG 오븐 Agent)
+- Food-related bias, safety, evaluation
+
+### Knowledge Graph / Relation Extraction
+- Document-level RE, temporal KG, ontology construction
+- KG-based RAG, KG + LLM reasoning
+- Disease-Diet KG (기초연구)
+
+### On-Device / Lightweight AI
+- Small LLM (1B 이하), model compression, distillation
+- On-device inference, efficient RAG
+- Prior-guided adaptive reasoning workflow (글로컬랩)
+
+### LLM Evaluation & Reward
+- LLM-as-a-Judge, rubric-based evaluation
+- Reward models, preference optimization (DPO/RLHF)
+- Reasoning evaluation, calibration
+
+### Synthetic Data
+- Synthetic data generation for domain-specific training
+- Data quality evaluation without human annotation
+- Synthetic mixed training (QA + documents)
+
+### LLM Agents
+- Multi-agent systems, agentic workflow optimization
+- On-device agent, speculative control
+- Agent evaluation benchmarks
+
+## 현재 진행 과제
+- LG 키친솔루션: AI 오븐 Agent 고도화 (Synthetic CK + eval pipeline)
+- LG SoC 국책: 온디바이스 AI, 경량 RAG
+- 글로컬랩: Swarm Cluster On-Device AI (Prior-guided reasoning)
+- K-Culture: 관광·식문화 LLM Agent 평가 프레임워크
+- 기초연구 재도전: Disease-Diet KG + 벤치마크</textarea>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat-card"><div class="num" id="totalPapers">65</div><div class="label">Important Papers</div></div>
+  <div class="stat-card"><div class="num">15</div><div class="label">EACL 2026 Deep Analysis</div></div>
+  <div class="stat-card"><div class="num" id="totalDigests">4</div><div class="label">Daily Digests</div></div>
+  <div class="stat-card"><div class="num" id="totalSurveys">6</div><div class="label">Conference Surveys</div></div>
+  <div class="stat-card"><div class="num" id="totalAnalyzed">0</div><div class="label">Analyzed</div></div>
+</div>
+
+<!-- Tag Filter -->
+<div class="tags" id="tagFilter">
+  <span class="tag tag-food" data-cat="Food" onclick="toggleTag(this)">Food/Recipe</span>
+  <span class="tag tag-kg" data-cat="KG/RE" onclick="toggleTag(this)">KG/RE</span>
+  <span class="tag tag-rag" data-cat="RAG" onclick="toggleTag(this)">RAG</span>
+  <span class="tag tag-efficient" data-cat="Efficient" onclick="toggleTag(this)">Efficient</span>
+  <span class="tag tag-synthetic" data-cat="Synthetic" onclick="toggleTag(this)">Synthetic</span>
+  <span class="tag tag-reasoning" data-cat="Reasoning" onclick="toggleTag(this)">Reasoning</span>
+  <span class="tag tag-evaluation" data-cat="Evaluation" onclick="toggleTag(this)">Evaluation</span>
+  <span class="tag tag-agents" data-cat="Agents" onclick="toggleTag(this)">Agents</span>
+  <span class="tag tag-reward" data-cat="Reward/RLHF" onclick="toggleTag(this)">Reward/RLHF</span>
+  <span class="tag tag-judge" data-cat="LLM-as-Judge" onclick="toggleTag(this)">LLM-as-Judge</span>
+</div>
+
+<!-- Daily Digests -->
+<div class="section">
+  <h2>📅 Daily Paper Digests</h2>
+
+  <div class="report-card">
+    <div class="date">2026-04-01</div>
+    <div class="title"><a href="2026-04-01_paper_digest/report.html">Scholar Alert 논문 분석 (6편)</a></div>
+    <div class="papers">
+      <div class="paper-item">⭐⭐⭐ Synthetic Mixed Training — QA+doc 혼합→RAG 넘김 <span class="tag tag-synthetic" style="font-size:0.7em">Synthetic</span> <span class="tag tag-rag" style="font-size:0.7em">RAG</span></div>
+      <div class="paper-item">⭐⭐⭐ Synthetic Megadocs — 1.80x 데이터 효율 <span class="tag tag-synthetic" style="font-size:0.7em">Synthetic</span></div>
+      <div class="paper-item">⭐⭐ GraphER — 그래프 기반 RAG reranking <span class="tag tag-rag" style="font-size:0.7em">RAG</span> <span class="tag tag-kg" style="font-size:0.7em">KG/RE</span></div>
+      <div class="paper-item">⭐⭐ Price Reversal — 경량 모델 비용 역전 <span class="tag tag-efficient" style="font-size:0.7em">Efficient</span></div>
+      <div class="paper-item">⭐ CUBE — Agent 벤치마크 통합 표준 <span class="tag tag-agents" style="font-size:0.7em">Agents</span></div>
+      <div class="paper-item">⭐ Scientist AI — AI safety 철학 <span class="tag tag-evaluation" style="font-size:0.7em">Evaluation</span></div>
+    </div>
+    <div class="paper-tags" style="margin-top:8px;">
+      <a href="2026-04-01_paper_digest/deep_research_synthetic_pretraining.html" style="color:#1a237e; font-weight:600; font-size:0.85em;">🔬 Deep Research: Synthetic Pre-training 계보 (STaR→WRAP→Phi→Megadocs, 5편)</a>
+    </div>
+  </div>
+
+  <div class="report-card">
+    <div class="date">2026-03-27</div>
+    <div class="title"><a href="2026-03-27_paper_digest/02_intern_s1_pro.md">HF Daily Papers (1편 분석)</a></div>
+    <div class="papers">
+      <div class="paper-item">Intern-S1-Pro — 1T 과학 멀티모달 MoE <span class="tag tag-efficient" style="font-size:0.7em">Efficient</span></div>
+    </div>
+  </div>
+
+  <div class="report-card">
+    <div class="date">2026-03-26</div>
+    <div class="title"><a href="2026-03-26_paper_digest/04_workflow_optimization_survey.md">HF Daily Papers (1편 분석)</a></div>
+    <div class="papers">
+      <div class="paper-item">LLM Agent Workflow Optimization Survey (IBM) <span class="tag tag-agents" style="font-size:0.7em">Agents</span></div>
+    </div>
+  </div>
+
+  <div class="report-card">
+    <div class="date">2026-03-25</div>
+    <div class="title"><a href="2026-03-25_paper_digest/">HF Daily Papers (3편 분석)</a></div>
+    <div class="papers">
+      <div class="paper-item">KERL — KG 기반 추천 <span class="tag tag-kg" style="font-size:0.7em">KG/RE</span></div>
+      <div class="paper-item">OpenResearcher — 연구 자동화 <span class="tag tag-agents" style="font-size:0.7em">Agents</span></div>
+      <div class="paper-item">AwaRes — Visual attention <span class="tag tag-evaluation" style="font-size:0.7em">Evaluation</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Conference Surveys -->
+<div class="section">
+  <h2>🏛️ Conference Surveys</h2>
+  <div class="survey-grid">
+    <div class="survey-card"><a href="eacl2026_survey/report.html"><div class="conf">EACL 2026 📊</div><div class="count">748편 수집 · 15편 상세 HTML 보고서</div></a></div>
+    <div class="survey-card"><a href="neurips2025_survey/README.md"><div class="conf">NeurIPS 2025</div><div class="count">5,290편 · 11편 상세</div></a></div>
+    <div class="survey-card"><a href="acl2025_survey/README.md"><div class="conf">ACL 2025</div><div class="count">3,087편 · 18편 상세</div></a></div>
+    <div class="survey-card"><a href="emnlp2025_survey/README.md"><div class="conf">EMNLP 2025</div><div class="count">3,215편 · 14편 상세</div></a></div>
+    <div class="survey-card"><a href="iclr2025_survey/README.md"><div class="conf">ICLR 2025</div><div class="count">3,705편 · 7편 상세</div></a></div>
+    <div class="survey-card"><a href="icml2025_survey/README.md"><div class="conf">ICML 2025</div><div class="count">3,258편 · 5편 상세</div></a></div>
+  </div>
+</div>
+
+<!-- EACL 2026 Food Papers -->
+<div class="section">
+  <h2>🍳 EACL 2026 Food/Recipe Papers (상세 분석)</h2>
+  <div class="report-card">
+    <div class="papers">
+      <div class="paper-item"><a href="eacl2026_survey/analysis_recifine.md">ReciFine</a> — 2.2M 레시피 10 entity type, fine-tuned 7B > GPT-4.1 <span class="tag tag-food" style="font-size:0.7em">Food</span> <span class="tag tag-synthetic" style="font-size:0.7em">Synthetic</span></div>
+      <div class="paper-item"><a href="eacl2026_survey/analysis_knowledge_augmentation_recipe.md">Knowledge Augmentation Recipe</a> — BERT+KA가 GPT-4o F1 28점 압도, 5/7 SOTA <span class="tag tag-food" style="font-size:0.7em">Food</span> <span class="tag tag-kg" style="font-size:0.7em">KG/RE</span></div>
+      <div class="paper-item"><a href="eacl2026_survey/analysis_ng_router.md">NG-Router</a> — Nutrition KG + 24 agent GNN routing <span class="tag tag-food" style="font-size:0.7em">Food</span> <span class="tag tag-agents" style="font-size:0.7em">Agents</span></div>
+      <div class="paper-item"><a href="eacl2026_survey/analysis_meal_bias.md">Meal Recommendation Bias</a> — 128K 추천 인종/성별 편향 <span class="tag tag-food" style="font-size:0.7em">Food</span> <span class="tag tag-evaluation" style="font-size:0.7em">Evaluation</span></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+// Save/load interests from localStorage
+const box = document.getElementById('interestsBox');
+const saved = localStorage.getItem('researchInterests');
+if (saved) box.value = saved;
+
+function saveInterests() {
+  localStorage.setItem('researchInterests', box.value);
+  const status = document.getElementById('saveStatus');
+  status.style.opacity = '1';
+  setTimeout(() => status.style.opacity = '0', 2000);
+}
+
+// Tag filter (visual only for now)
+let activeTags = new Set();
+function toggleTag(el) {
+  const cat = el.dataset.cat;
+  if (activeTags.has(cat)) {
+    activeTags.delete(cat);
+    el.classList.remove('active');
+  } else {
+    activeTags.add(cat);
+    el.classList.add('active');
+  }
+  // Could filter paper list here if we had a full table
+}
+</script>
+
+</body>
+</html>

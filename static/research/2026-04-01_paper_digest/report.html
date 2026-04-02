@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paper Digest Report - 2026-04-01</title>
+<style>
+  :root {
+    --primary: #1a237e;
+    --primary-light: #3949ab;
+    --accent: #ff6f00;
+    --bg: #fafafa;
+    --card-bg: #ffffff;
+    --text: #212121;
+    --text-secondary: #616161;
+    --border: #e0e0e0;
+    --star-active: #ff9800;
+    --star-inactive: #ccc;
+    --tag-synth: #e8eaf6;
+    --tag-rag: #e0f2f1;
+    --tag-econ: #fff3e0;
+    --tag-agent: #f3e5f5;
+    --tag-safety: #fce4ec;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* Header */
+  .page-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 40px 0 30px;
+    text-align: center;
+    position: relative;
+  }
+  .page-header h1 { font-size: 2em; font-weight: 700; letter-spacing: -0.5px; }
+  .page-header .subtitle { opacity: 0.85; margin-top: 6px; font-size: 1.05em; }
+  .page-header .date-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    padding: 4px 18px;
+    border-radius: 20px;
+    margin-top: 12px;
+    font-size: 0.95em;
+  }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  /* TOC */
+  .toc {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 30px;
+    margin: -20px auto 30px;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .toc h2 { font-size: 1.15em; color: var(--primary); margin-bottom: 14px; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 4px; }
+  .toc ol { padding-left: 22px; }
+  .toc li { margin-bottom: 7px; }
+  .toc a { text-decoration: none; color: var(--primary-light); font-weight: 500; }
+  .toc a:hover { text-decoration: underline; }
+  .toc .relevance { font-size: 0.85em; margin-left: 6px; }
+  .toc .tag {
+    display: inline-block;
+    font-size: 0.72em;
+    padding: 1px 8px;
+    border-radius: 10px;
+    margin-left: 6px;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+  .tag-synth { background: var(--tag-synth); color: #283593; }
+  .tag-rag { background: var(--tag-rag); color: #00695c; }
+  .tag-econ { background: var(--tag-econ); color: #e65100; }
+  .tag-agent { background: var(--tag-agent); color: #6a1b9a; }
+  .tag-safety { background: var(--tag-safety); color: #b71c1c; }
+
+  /* Paper card */
+  .paper-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 28px;
+    overflow: hidden;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+    page-break-inside: avoid;
+  }
+  .paper-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 20px 28px 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .paper-header .paper-num { font-size: 0.8em; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; }
+  .paper-header h2 { font-size: 1.3em; margin: 4px 0 8px; font-weight: 700; }
+  .paper-header .authors { font-size: 0.88em; opacity: 0.85; }
+  .paper-header .meta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+    font-size: 0.88em;
+  }
+  .paper-header .arxiv-link {
+    color: #ffcc80;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .paper-header .arxiv-link:hover { text-decoration: underline; }
+  .stars { color: var(--star-active); letter-spacing: 1px; }
+  .star-off { color: rgba(255,255,255,0.35); }
+  .toggle-icon {
+    float: right;
+    font-size: 1.3em;
+    transition: transform 0.3s;
+    margin-top: 4px;
+  }
+
+  .paper-body { padding: 24px 28px 28px; }
+  .paper-body.collapsed { display: none; }
+
+  /* Sections */
+  .section { margin-bottom: 22px; }
+  .section h3 {
+    font-size: 1.05em;
+    color: var(--primary);
+    border-left: 4px solid var(--accent);
+    padding-left: 12px;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .section p, .section ul, .section ol { margin-bottom: 8px; }
+  .section ul, .section ol { padding-left: 22px; }
+  .section li { margin-bottom: 4px; }
+
+  /* Figure */
+  .figure-container {
+    text-align: center;
+    margin: 16px 0 20px;
+    padding: 12px;
+    background: #f5f5f5;
+    border-radius: 8px;
+  }
+  .figure-container img {
+    max-width: 100%;
+    max-height: 420px;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+  }
+  .figure-container .caption {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  /* Tables */
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92em;
+    margin: 10px 0;
+  }
+  .results-table th {
+    background: var(--primary);
+    color: white;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.92em;
+  }
+  .results-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .results-table tr:nth-child(even) { background: #f8f9ff; }
+  .results-table tr:hover { background: #e8eaf6; }
+  .highlight-cell { font-weight: 700; color: var(--primary); }
+
+  /* Opinion box */
+  .opinion-box {
+    background: #fffde7;
+    border-left: 4px solid var(--accent);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 10px;
+  }
+  .opinion-box .strength { color: #2e7d32; font-weight: 600; }
+  .opinion-box .weakness { color: #c62828; font-weight: 600; }
+  .opinion-box .relevance-note { color: var(--primary); font-weight: 600; }
+
+  /* Footer */
+  .page-footer {
+    text-align: center;
+    padding: 30px 0;
+    color: var(--text-secondary);
+    font-size: 0.85em;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+
+  /* Print */
+  @media print {
+    .page-header { padding: 20px 0; }
+    .paper-body.collapsed { display: block !important; }
+    .toggle-icon { display: none; }
+    .paper-card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+    body { font-size: 12px; }
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .container { padding: 0 12px; }
+    .paper-body { padding: 16px; }
+    .paper-header { padding: 16px; }
+    .results-table { font-size: 0.82em; }
+    .results-table th, .results-table td { padding: 6px 8px; }
+  }
+
+  .keyword { background: #e3f2fd; padding: 1px 6px; border-radius: 4px; font-size: 0.9em; font-weight: 600; color: #1565c0; }
+  .eq { background: #f5f5f5; padding: 8px 16px; border-radius: 6px; font-family: 'Cambria Math', 'Times New Roman', serif; font-size: 1.05em; display: block; margin: 8px 0; text-align: center; overflow-x: auto; }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="page-header">
+  <div class="container">
+    <h1>Daily Paper Digest</h1>
+    <div class="subtitle">CLinK Lab | Prof. Donghee Choi</div>
+    <div class="date-badge">2026-04-01 (Wed) &mdash; 6 Papers</div>
+  </div>
+</div>
+
+<!-- ===== TOC ===== -->
+<div class="container">
+  <div class="toc">
+    <h2>Table of Contents</h2>
+    <ol>
+      <li>
+        <a href="#paper1">Synthetic Mixed Training</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;&#9733;</span></span>
+        <span class="tag tag-synth">Synthetic Data</span>
+      </li>
+      <li>
+        <a href="#paper2">Synthetic Megadocs</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;&#9733;</span></span>
+        <span class="tag tag-synth">Synthetic Data</span>
+      </li>
+      <li>
+        <a href="#paper3">GraphER: Graph-based Enrichment &amp; Reranking for RAG</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></span>
+        <span class="tag tag-rag">RAG</span>
+      </li>
+      <li>
+        <a href="#paper4">Price Reversal in LLM APIs</a>
+        <span class="relevance"><span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></span>
+        <span class="tag tag-econ">LLM Economics</span>
+      </li>
+      <li>
+        <a href="#paper5">CUBE: Unified Agent Benchmark</a>
+        <span class="relevance"><span class="stars">&#9733;<span class="star-off">&#9733;&#9733;</span></span></span>
+        <span class="tag tag-agent">Agent</span>
+      </li>
+      <li>
+        <a href="#paper6">Scientist AI (LawZero)</a>
+        <span class="relevance"><span class="stars">&#9733;<span class="star-off">&#9733;&#9733;</span></span></span>
+        <span class="tag tag-safety">AI Safety</span>
+      </li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- PAPER 1 -->
+  <!-- ============================================================ -->
+  <div class="paper-card" id="paper1">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 1 &mdash; <span class="stars">&#9733;&#9733;&#9733;</span></div>
+      <h2>Synthetic Mixed Training: Training Language Models with Synthetic Paraphrases of Real Documents</h2>
+      <div class="authors">Seungju Han, Konwoo Kim, Kushal Tirumala, Sihyeon Park, Sang Michael Xie, Madian Khabsa, Luke Zettlemoyer, James Zou, Yejin Choi</div>
+      <div class="meta-row">
+        <a class="arxiv-link" href="https://arxiv.org/abs/2603.23562" target="_blank">arXiv: 2603.23562</a>
+        <span>Stanford / UW / Meta</span>
+        <span class="tag tag-synth" style="color:#fff;background:rgba(255,255,255,0.2)">Synthetic Data</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="images/paper1_fig1.png" alt="Figure 1: Synthetic Mixed Training Overview">
+        <div class="caption">Figure 1. Synthetic Mixed Training: QA pairs + original documents mixed 1:1 for pre-training.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          본 논문은 LLM 사전학습 시 원본 문서와 합성(Synthetic) QA 데이터를 1:1 비율로 혼합하여 학습하는
+          <span class="keyword">Synthetic Mixed Training (SMT)</span> 기법을 제안한다.
+          기존의 RAG(Retrieval-Augmented Generation) 없이도 지식을 parametric하게 모델에 주입할 수 있으며,
+          6가지 평가 세팅 중 5가지에서 RAG를 능가하고, RAG와 결합 시 최대 +9.1% 성능 향상을 달성했다.
+          핵심적으로 <span class="keyword">Focal Rewriting</span> 전략을 도입하여 동일 문서에서 다양한 관점의 QA를
+          생성함으로써 합성 데이터의 다양성을 극대화한다. 이는 RAG 없는 소형 모델 배포 시나리오에서 특히 유용하다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름 (Research Lineage)</h3>
+        <ul>
+          <li><strong>RAG (Lewis et al., 2020)</strong>: 외부 검색기를 통한 지식 보강 &mdash; 추론 시 추가 인프라 필요</li>
+          <li><strong>Synthetic Data for LLM Training (Gunasekar et al., 2023; Eldan &amp; Li, 2023)</strong>: Phi-1, TinyStories 등 합성 데이터로 소형 모델 학습</li>
+          <li><strong>Knowledge Distillation via QA (Anil et al., 2023)</strong>: 교사 모델에서 생성한 QA 쌍으로 학습</li>
+          <li><strong>Data Augmentation for Pre-training (Maini et al., 2024)</strong>: 문서 패러프레이징을 통한 학습 데이터 증강</li>
+          <li><strong>Rephrasing the Web (Maini et al., 2024)</strong>: 웹 문서를 LLM으로 다시 쓰기 하여 학습 품질 개선</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>혼합 전략</strong>: 기존 연구들은 합성 데이터 단독 또는 원본 데이터 단독이었으나, SMT는 원본+합성을 1:1 혼합하여 양쪽의 장점을 취함</li>
+          <li><strong>Focal Rewriting</strong>: 단순 패러프레이징이 아닌, 문서의 서로 다른 초점(entity, relation, event)에서 QA를 생성하여 다양성 확보</li>
+          <li><strong>Parametric Knowledge &gt; RAG</strong>: 소형 모델에서도 합성 학습으로 parametric knowledge만으로 RAG를 이길 수 있음을 실증</li>
+          <li><strong>RAG와의 상보성</strong>: SMT 모델에 RAG를 추가하면 둘의 시너지로 추가 성능 향상</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method</h3>
+        <p>
+          (1) 원본 문서 D에서 LLM (Llama-3-70B)을 사용하여 QA 쌍 {(q_i, a_i)}를 생성한다.
+          (2) <span class="keyword">Focal Rewriting</span>: 동일 문서에서 서로 다른 focal point를 지정하여 다양한 QA를 반복 생성한다.
+          예를 들어 "이 문서에서 인물 중심으로 QA를 만들어라", "사건 중심으로", "인과관계 중심으로" 등의 프롬프트를 사용한다.
+        </p>
+        <p>
+          (3) 학습 시 원본 문서와 합성 QA를 1:1 비율로 interleaving하며, 일반적인 next-token prediction loss를 사용한다.
+        </p>
+        <span class="eq">L = -1/N &sum; log P(x_t | x_{&lt;t}; &theta;) , where x &in; D_original &cup; D_synthetic (mixed 1:1)</span>
+        <p>
+          (4) QA 형식은 "Question: ... Answer: ..." 템플릿을 따르며, 답변은 문서에서 직접 추출 가능한 extractive answer와
+          추론이 필요한 abstractive answer를 모두 포함한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <p><strong>Datasets:</strong></p>
+        <ul>
+          <li><strong>QuaLITY</strong> (Pang et al., 2022): 장문 독해 벤치마크, 평균 5,000 토큰 길이의 문서</li>
+          <li><strong>LongHealth</strong> (Adams et al., 2024): 의료 장문 문서 이해 벤치마크</li>
+          <li><strong>MMLU</strong> (Hendrycks et al., 2021): 다영역 다지선다 벤치마크</li>
+        </ul>
+        <p><strong>Baselines:</strong></p>
+        <ul>
+          <li>Vanilla pre-training (원본 데이터만 사용)</li>
+          <li>RAG with BM25 / Contriever (Izacard et al., 2022)</li>
+          <li>Rephrasing the Web (Maini et al., 2024)</li>
+          <li>QA-only training (합성 QA만 사용, 원본 문서 미포함)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead>
+            <tr><th>Method</th><th>QuaLITY</th><th>LongHealth</th><th>MMLU (avg)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Vanilla Pre-train</td><td>61.5%</td><td>65.2%</td><td>52.1%</td></tr>
+            <tr><td>RAG (BM25)</td><td>65.3%</td><td>70.0%</td><td>55.8%</td></tr>
+            <tr><td>QA-only Training</td><td>64.8%</td><td>74.1%</td><td>54.3%</td></tr>
+            <tr><td class="highlight-cell">SMT (1:1 mix)</td><td class="highlight-cell">68.2%</td><td class="highlight-cell">80.3%</td><td class="highlight-cell">57.6%</td></tr>
+            <tr><td class="highlight-cell">SMT + RAG</td><td class="highlight-cell">69.7%</td><td class="highlight-cell">82.1%</td><td class="highlight-cell">59.4%</td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>6가지 평가 세팅 중 5가지에서 RAG 단독 대비 SMT가 우수</li>
+          <li>SMT + RAG 결합 시 QuaLITY에서 +4.4%p, LongHealth에서 +12.1%p 향상 (vs RAG)</li>
+          <li>Focal Rewriting 적용 시 vanilla QA 대비 일관된 +2-3%p 추가 향상</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          합성 QA 데이터를 원본 문서와 혼합하여 사전학습하면, 모델이 parametric하게 지식을 흡수하여
+          추론 시 RAG 없이도 우수한 성능을 달성할 수 있다. 특히 Focal Rewriting을 통한 다양성 확보가 핵심이며,
+          RAG와의 결합은 추가적 시너지를 제공한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[강점]</span> RAG 인프라 없이 소형 모델에서 지식을 주입하는 실용적인 방법론.
+          Focal Rewriting은 단순하지만 효과적인 아이디어. 실험이 체계적이고 결과가 일관됨.</p>
+          <p><span class="weakness">[약점]</span> QA 생성에 70B 모델이 필요하므로 합성 데이터 생성 비용이 상당함.
+          1:1 혼합비의 최적성에 대한 ablation이 부족. 도메인 특화 시나리오(예: 요리, 의료)에서의 검증 부재.</p>
+          <p><span class="relevance-note">[우리 연구 관련성 &#9733;&#9733;&#9733;]</span>
+          <strong>LG 오븐 프로젝트</strong>: 요리 도메인 Synthetic CK(Cooking Knowledge) 생성에 직접 적용 가능.
+          레시피 문서에서 Focal Rewriting으로 재료/조리법/영양 관점의 QA를 생성하면 소형 온디바이스 모델의
+          지식을 강화할 수 있음. <strong>SoC 온디바이스 과제</strong>: RAG 없이 parametric knowledge로 동작하는
+          경량 모델에 핵심적 전략. 합성 데이터 품질 관리 파이프라인 설계 시 참고할 것.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- PAPER 2 -->
+  <!-- ============================================================ -->
+  <div class="paper-card" id="paper2">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 2 &mdash; <span class="stars">&#9733;&#9733;&#9733;</span></div>
+      <h2>Synthetic Megadocs: Enriching Documents with Latent Thoughts for Pre-training</h2>
+      <div class="authors">Konwoo Kim, Sang Michael Xie, Kushal Tirumala, Sihyeon Park, Seungju Han, Madian Khabsa, Luke Zettlemoyer, James Zou, Yejin Choi, Percy Liang</div>
+      <div class="meta-row">
+        <a class="arxiv-link" href="https://arxiv.org/abs/2603.18534" target="_blank">arXiv: 2603.18534</a>
+        <span>Stanford / UW / Meta</span>
+        <span class="tag tag-synth" style="color:#fff;background:rgba(255,255,255,0.2)">Synthetic Data</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="images/paper2_fig1.png" alt="Figure 1: Megadocs Pipeline">
+        <div class="caption">Figure 1. Synthetic Megadocs: document stitching with rephrases and latent thought insertion.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          <span class="keyword">Synthetic Megadocs</span>는 기존 문서를 패러프레이즈(rephrase)하거나,
+          문서 사이에 latent rationale(잠재적 추론 과정)을 삽입하여 "메가문서"로 결합하는 합성 데이터 생성 기법이다.
+          핵심 아이디어는 (1) 여러 관련 문서를 하나의 긴 문서로 stitching하고,
+          (2) 문서 간 연결 부분에 LLM이 생성한 rationale을 삽입하여 implicit reasoning chain을 형성하는 것이다.
+          이를 통해 <strong>1.80x의 데이터 효율성</strong> 향상을 달성하고,
+          downstream 벤치마크에서 +9% 성능 향상을 보인다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>Chain-of-Thought (Wei et al., 2022)</strong>: 추론 과정을 명시적으로 생성하여 성능 향상</li>
+          <li><strong>STaR / Quiet-STaR (Zelikman et al., 2022, 2024)</strong>: Self-Taught Reasoner, latent reasoning tokens</li>
+          <li><strong>Rephrasing the Web (Maini et al., 2024)</strong>: 웹 문서 패러프레이징으로 사전학습 품질 개선</li>
+          <li><strong>Phi-series (Gunasekar et al., 2023)</strong>: "Textbooks Are All You Need" 합성 교과서 데이터</li>
+          <li><strong>WRAP (Maini et al., 2024)</strong>: Web Rephrase Augmented Pre-training</li>
+          <li><strong>Document Stitching (Yasunaga et al., 2022)</strong>: 관련 문서 연결을 통한 학습 데이터 구성</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>Latent Thought Insertion</strong>: 단순 stitching이 아닌, 문서 간 연결부에 추론 과정(rationale)을 삽입하여 implicit chain-of-thought 제공</li>
+          <li><strong>Generation Scaling</strong>: 동일 문서에서 여러 세대(generation)의 합성 데이터를 생성하여 데이터 양을 확장 &mdash; 32 generations까지 효과 지속</li>
+          <li><strong>Sorting Strategy</strong>: 문서를 의미적 유사도로 정렬 후 stitching하여 megadoc 내 coherence 향상</li>
+          <li><strong>Pre-training 단계 적용</strong>: fine-tuning이 아닌 사전학습 자체에 합성 데이터 활용</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method</h3>
+        <p><strong>Step 1 - Document Clustering &amp; Sorting:</strong> 원본 문서를 embedding 유사도 기반으로 클러스터링하고, 클러스터 내 문서를 유사도 순으로 정렬한다.</p>
+        <p><strong>Step 2 - Stitching:</strong> 정렬된 문서들을 하나의 megadoc으로 연결한다. 연결점에는 transition sentence를 삽입한다.</p>
+        <p><strong>Step 3 - Latent Thought Insertion:</strong> 각 문서 경계에서 LLM(Llama-3-70B)을 사용하여 rationale을 생성한다.</p>
+        <span class="eq">Megadoc = [D_1] + [Rationale_{1&rarr;2}] + [D_2] + [Rationale_{2&rarr;3}] + [D_3] + ...</span>
+        <p><strong>Step 4 - Generation Scaling:</strong> 동일 문서 집합에서 다른 random seed / prompt를 사용하여 여러 버전의 megadoc을 생성한다. k-th generation은 k번째 다른 관점의 rephrase이다.</p>
+        <p><strong>Training:</strong> 표준 autoregressive language modeling loss를 사용하며, latent thought 토큰에도 동일한 loss를 적용한다.</p>
+        <span class="eq">L = -&sum;_{t} log P(x_t | x_{&lt;t}; &theta;), x &in; Megadoc</span>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <p><strong>Training Data:</strong> C4 corpus subset, RedPajama, The Pile subset</p>
+        <p><strong>Evaluation Benchmarks:</strong></p>
+        <ul>
+          <li>ARC-Easy, ARC-Challenge (Clark et al., 2018)</li>
+          <li>PIQA (Bisk et al., 2020)</li>
+          <li>SciQ (Welbl et al., 2017)</li>
+          <li>Validation perplexity on held-out C4</li>
+        </ul>
+        <p><strong>Baselines:</strong></p>
+        <ul>
+          <li>Standard pre-training on original documents</li>
+          <li>Rephrase-only (WRAP, 2024): 단순 패러프레이징만 적용</li>
+          <li>Stitching-only: rationale 없이 문서만 연결</li>
+          <li>Random stitching: 의미적 정렬 없이 무작위 연결</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead>
+            <tr><th>Method</th><th>Val Loss (C4)</th><th>ARC-E</th><th>PIQA</th><th>SciQ</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Standard Pre-train</td><td>3.55</td><td>52.3%</td><td>65.1%</td><td>78.2%</td></tr>
+            <tr><td>Rephrase-only</td><td>3.48</td><td>54.1%</td><td>66.8%</td><td>80.1%</td></tr>
+            <tr><td>Stitching-only</td><td>3.45</td><td>55.0%</td><td>67.2%</td><td>80.5%</td></tr>
+            <tr><td class="highlight-cell">Megadocs (32 gen)</td><td class="highlight-cell">3.35</td><td class="highlight-cell">57.4%</td><td class="highlight-cell">69.3%</td><td class="highlight-cell">83.6%</td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>Validation loss: 3.55 &rarr; 3.35 (32 generations), 약 5.6% 감소</li>
+          <li>Downstream 벤치마크 평균 +9% 향상</li>
+          <li>1.80x 데이터 효율성: Megadocs로 학습하면 원본의 55%만으로 동일 성능 달성</li>
+          <li>Latent thought 삽입이 stitching-only 대비 일관된 추가 향상 제공</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          문서를 단순히 다시 쓰는 것을 넘어, 관련 문서를 의미적으로 연결하고 추론 과정을 삽입하는 Megadocs 기법은
+          사전학습 데이터의 품질과 효율성을 크게 향상시킨다. 특히 generation scaling을 통해
+          동일한 원본 데이터에서 반복적으로 다양한 합성 데이터를 생성할 수 있어 데이터 부족 상황에서 유용하다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[강점]</span> Latent thought insertion은 Quiet-STaR의 아이디어를 pre-training 단계로 확장한 우아한 접근.
+          Generation scaling의 효과가 32세대까지 지속되는 것이 인상적. 실험 설계가 체계적.</p>
+          <p><span class="weakness">[약점]</span> 대규모 모델(70B)로 합성 데이터 생성 시 비용 문제. Megadoc 내 문서 순서의 영향에 대한 분석이 부족.
+          실제 도메인 특화 적용 사례 부재.</p>
+          <p><span class="relevance-note">[우리 연구 관련성 &#9733;&#9733;&#9733;]</span>
+          <strong>레시피 도메인 지식 enrichment</strong>에 직접 활용 가능. 예를 들어, 관련 레시피 문서들을 stitching하고
+          "이 레시피에서 저 레시피로 넘어갈 때 재료 대체 관계", "조리 온도 차이의 이유" 등의 rationale을 삽입하면
+          요리 도메인 소형 모델의 추론 능력을 강화할 수 있음. Paper 1(SMT)과 결합하여 사용하면 시너지 효과 기대.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- PAPER 3 -->
+  <!-- ============================================================ -->
+  <div class="paper-card" id="paper3">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 3 &mdash; <span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></div>
+      <h2>GraphER: Graph-based Enrichment and Reranking for RAG</h2>
+      <div class="authors">Dan Roth group (UPenn / AWS AI)</div>
+      <div class="meta-row">
+        <a class="arxiv-link" href="https://arxiv.org/abs/2603.24925" target="_blank">arXiv: 2603.24925</a>
+        <span>UPenn / AWS</span>
+        <span class="tag tag-rag" style="color:#fff;background:rgba(255,255,255,0.2)">RAG</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="images/paper3_fig1.png" alt="Figure 1: GraphER Architecture">
+        <div class="caption">Figure 1. GraphER: Graph Connectivity Score (GCS)를 활용한 문서 enrichment 및 reranking.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          <span class="keyword">GraphER</span>는 기존 RAG 파이프라인에 그래프 기반 enrichment와 reranking을
+          추가하는 경량 프레임워크이다. Knowledge Graph(KG) 구축 없이, 검색된 문서 간의 entity 공유 관계를 기반으로
+          비정형 그래프를 구성하고, <span class="keyword">Graph Connectivity Score (GCS)</span>를 계산하여 문서를
+          reranking한다. Spider 벤치마크에서 PR@5 +18.7%를 달성하지만, 멀티홉 QA에서는 +0.7-3.6%로 제한적인 향상을 보인다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>Dense Passage Retrieval (Karpukhin et al., 2020)</strong>: dual encoder 기반 검색</li>
+          <li><strong>ColBERT (Khattab &amp; Zaharia, 2020)</strong>: late interaction 검색 모델</li>
+          <li><strong>Graph-RAG (Edge et al., 2024)</strong>: community summaries를 이용한 그래프 기반 RAG</li>
+          <li><strong>RAPTOR (Sarthi et al., 2024)</strong>: recursive abstractive processing for tree-organized retrieval</li>
+          <li><strong>HippoRAG (Yu et al., 2024)</strong>: 해마 기반 인지 모델 영감의 그래프 RAG</li>
+          <li><strong>KG-augmented RAG (Baek et al., 2023)</strong>: 지식 그래프 보강 검색</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>KG 불필요</strong>: 사전 구축된 KG 없이 검색된 문서들 사이의 entity co-occurrence만으로 그래프 구성</li>
+          <li><strong>경량 플러그인</strong>: 기존 RAG 시스템에 추가적 인프라 없이 post-processing 단계로 삽입 가능</li>
+          <li><strong>GCS 알고리즘</strong>: 문서의 중요도를 entity graph의 connectivity로 측정 &mdash; PageRank 유사하지만 query-aware</li>
+          <li><strong>Enrichment</strong>: 검색된 top-k 문서에서 빠진 관련 문서를 그래프 이웃에서 추가로 보강</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method</h3>
+        <p><strong>Step 1 - Entity Extraction:</strong> 검색된 문서에서 NER을 통해 entity를 추출한다.</p>
+        <p><strong>Step 2 - Graph Construction:</strong> 동일 entity를 공유하는 문서 간에 edge를 생성한다. Edge weight은 공유 entity 수에 비례한다.</p>
+        <span class="eq">w(d_i, d_j) = |E(d_i) &cap; E(d_j)| / |E(d_i) &cup; E(d_j)|  (Jaccard similarity of entity sets)</span>
+        <p><strong>Step 3 - GCS Computation:</strong> Query entity와 연결된 문서에 높은 초기 점수를 부여하고, 그래프를 따라 점수를 전파한다.</p>
+        <span class="eq">GCS(d) = &alpha; &middot; sim(q, d) + (1-&alpha;) &middot; &sum;_{d' &in; N(d)} w(d, d') &middot; GCS(d') / |N(d')|</span>
+        <p><strong>Step 4 - Enrichment &amp; Reranking:</strong> GCS 상위 문서를 선택하고, 그래프 이웃 중 원래 검색되지 않았던 문서를 추가로 포함한다.</p>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <p><strong>Datasets:</strong></p>
+        <ul>
+          <li><strong>Spider</strong> (구조화 데이터 검색)</li>
+          <li><strong>HotpotQA</strong> (Yang et al., 2018): multi-hop QA</li>
+          <li><strong>MuSiQue</strong> (Trivedi et al., 2022): multi-step reasoning QA</li>
+          <li><strong>2WikiMultiHopQA</strong> (Ho et al., 2020): 2-hop QA from Wikipedia</li>
+        </ul>
+        <p><strong>Baselines:</strong> 논문에서 구체적 baseline 이름이 명시되지 않았으며, 주로 vanilla retrieval (BM25, dense retriever) + standard reranking과 비교. Graph-RAG, HippoRAG 등과의 직접 비교는 부재.</p>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead>
+            <tr><th>Benchmark</th><th>Metric</th><th>Vanilla RAG</th><th>GraphER</th><th>Improvement</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Spider</td><td>PR@5</td><td>-</td><td>-</td><td class="highlight-cell">+18.7%</td></tr>
+            <tr><td>HotpotQA</td><td>F1</td><td>-</td><td>-</td><td>+3.6%</td></tr>
+            <tr><td>MuSiQue</td><td>F1</td><td>-</td><td>-</td><td>+0.7%</td></tr>
+            <tr><td>2WikiMultiHopQA</td><td>F1</td><td>-</td><td>-</td><td>+2.1%</td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>Spider에서 PR@5 +18.7%로 큰 향상, 그러나 멀티홉 QA에서는 제한적 (+0.7~3.6%)</li>
+          <li>Named baseline 비교가 부족하여 Graph-RAG, HippoRAG 등과의 상대적 위치 불분명</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          GraphER는 KG 구축 없이 entity graph를 동적으로 생성하여 RAG의 검색 품질을 향상시킨다.
+          구조화 데이터 검색에서는 큰 효과를 보이지만, 멀티홉 추론에서의 개선은 제한적이다.
+          경량 플러그인 방식이라는 실용적 장점이 있다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[강점]</span> KG 없이 실시간 그래프 구성이라는 점에서 배포 용이.
+          GCS 알고리즘이 직관적이고 구현이 간단. 기존 RAG에 플러그인으로 추가 가능.</p>
+          <p><span class="weakness">[약점]</span> 멀티홉 QA에서 미미한 향상. Named baseline 비교 부재는 큰 약점.
+          Untyped edge(entity 공유만)는 의미적 관계를 포착하지 못함. NER 품질에 크게 의존.</p>
+          <p><span class="relevance-note">[우리 연구 관련성 &#9733;&#9733;]</span>
+          <strong>경량 RAG reranking</strong> 방법론으로 참고할 수 있으나, food domain KG가 이미 있는 우리 세팅에서는
+          typed edge가 없는 GraphER의 접근이 불충분. 다만 GCS 알고리즘의 아이디어를 food KG의
+          entity-relation graph에 적용하여 query-aware reranking으로 확장하는 것은 검토할 가치가 있음.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- PAPER 4 -->
+  <!-- ============================================================ -->
+  <div class="paper-card" id="paper4">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 4 &mdash; <span class="stars">&#9733;&#9733;<span class="star-off">&#9733;</span></span></div>
+      <h2>Price Reversal in LLM APIs: When Cheaper Models Cost More</h2>
+      <div class="authors">Lingjiao Chen, Matei Zaharia, James Zou, et al.</div>
+      <div class="meta-row">
+        <a class="arxiv-link" href="https://arxiv.org/abs/2603.23971" target="_blank">arXiv: 2603.23971</a>
+        <span>Stanford / Berkeley / CMU / Microsoft</span>
+        <span class="tag tag-econ" style="color:#fff;background:rgba(255,255,255,0.2)">LLM Economics</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="images/paper4_fig1.png" alt="Figure 1: Price Reversal Illustration">
+        <div class="caption">Figure 1. Price Reversal: 토큰 단가가 저렴한 모델이 실제 task 비용은 더 높을 수 있음.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          본 논문은 LLM API의 <span class="keyword">Price Reversal</span> 현상을 체계적으로 분석한다.
+          토큰 당 단가가 저렴한 모델이 실제 task 수행 시에는 더 비싼 경우가 21.8%에 달한다는 것을 발견했다.
+          주요 원인은 <span class="keyword">thinking token</span>(추론 토큰)의 과다 생성이다.
+          예를 들어 Gemini Flash는 GPT-5.2 대비 토큰 단가가 78% 저렴하지만,
+          thinking token으로 인해 실제 비용이 22% 더 높다.
+          8개 모델 x 9개 task에서 252개 pairwise 비교를 수행했으며,
+          thinking token을 제거하면 reversal이 70% 감소한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>LLM Pricing Studies (Chen et al., 2023)</strong>: LLM API 비용 분석 초기 연구</li>
+          <li><strong>FrugalGPT (Chen et al., 2023)</strong>: 비용 효율적 LLM 사용 전략 &mdash; cascading, caching</li>
+          <li><strong>Thinking Tokens / o1 (OpenAI, 2024)</strong>: chain-of-thought를 내부적으로 수행하는 reasoning model</li>
+          <li><strong>Gemini Flash (Google, 2024)</strong>: 경량 추론 모델, 저렴한 토큰 단가</li>
+          <li><strong>Router-based approaches (Ong et al., 2024)</strong>: task 난이도에 따라 모델 라우팅</li>
+          <li><strong>LLM Economics (Vela et al., 2024)</strong>: 토큰 경제학과 실제 비용 분석</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>Task-level 비용 분석</strong>: 토큰 단가가 아닌 task 완료 비용으로 비교 &mdash; 패러다임 전환</li>
+          <li><strong>Thinking token의 비용 영향 정량화</strong>: reasoning model의 숨겨진 비용을 체계적으로 분석</li>
+          <li><strong>대규모 pairwise 비교</strong>: 8 models x 9 tasks = 252 비교쌍으로 통계적 유의성 확보</li>
+          <li><strong>실용적 가이드라인</strong>: 모델 선택 시 토큰 단가가 아닌 task-level TCO 기반 의사결정 제안</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method</h3>
+        <p><strong>실험 설계:</strong> 8개 LLM API(GPT-5.2, GPT-4.1, Claude Sonnet 4, Gemini Pro, Gemini Flash, o3-mini, DeepSeek-R1, Llama-3.1-70B)를 9개 task에서 평가한다.</p>
+        <p><strong>비용 계산:</strong></p>
+        <span class="eq">Task Cost(M, T) = &sum;_{i=1}^{n} [input_tokens_i &times; p_in(M) + output_tokens_i &times; p_out(M) + thinking_tokens_i &times; p_think(M)]</span>
+        <p><strong>Price Reversal 정의:</strong> 모델 A의 토큰 단가가 B보다 저렴하지만 task cost가 더 높은 경우.</p>
+        <span class="eq">Reversal(A, B, T): p_token(A) &lt; p_token(B) &and; TaskCost(A, T) &gt; TaskCost(B, T)</span>
+        <p><strong>원인 분석:</strong> Thinking token 비율, output verbosity, task complexity별 분해 분석을 수행한다.</p>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <p><strong>9 Tasks:</strong> MMLU, GSM8K, HumanEval, MT-Bench, TriviaQA, NQ, ARC-Challenge, HellaSwag, WinoGrande</p>
+        <p><strong>8 Models:</strong> GPT-5.2, GPT-4.1, Claude Sonnet 4, Gemini 2.5 Pro, Gemini 2.5 Flash, o3-mini, DeepSeek-R1, Llama-3.1-70B (Groq)</p>
+        <p><strong>Comparison:</strong> 252 pairwise model comparisons (8C2 = 28 pairs x 9 tasks)</p>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <table class="results-table">
+          <thead>
+            <tr><th>Finding</th><th>Value</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>전체 Price Reversal 비율</td><td class="highlight-cell">21.8% (252 pairs 중 55건)</td></tr>
+            <tr><td>Gemini Flash vs GPT-5.2 (토큰 단가 차이)</td><td>Flash가 78% 저렴</td></tr>
+            <tr><td>Gemini Flash vs GPT-5.2 (실제 task 비용)</td><td class="highlight-cell">Flash가 22% 더 비쌈</td></tr>
+            <tr><td>Thinking token 제거 시 Reversal 감소</td><td class="highlight-cell">70% 감소</td></tr>
+            <tr><td>Reasoning task에서 Reversal 빈도</td><td>38.5% (일반 task 대비 2x)</td></tr>
+            <tr><td>Thinking token이 전체 비용에서 차지하는 비율 (reasoning models)</td><td>45-82%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          LLM API 선택 시 토큰 단가만으로 비용을 판단하면 안 되며, 실제 task 수행 비용(thinking token 포함)을
+          고려해야 한다. Thinking token이 price reversal의 주요 원인이며,
+          task 특성에 따라 적절한 모델을 선택하는 것이 비용 최적화의 핵심이다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[강점]</span> 매우 실용적인 분석. 252개 비교쌍의 체계적 실험.
+          "싼 모델이 실제로는 비싸다"는 반직관적 발견이 명확한 데이터로 뒷받침됨. 업계 의사결정에 직접 영향.</p>
+          <p><span class="weakness">[약점]</span> API 가격은 빠르게 변동하므로 시점 의존성이 높음.
+          동일 성능 수준에서의 비용 비교(cost-performance Pareto)가 부족. 오픈소스 모델은 API 비용이 아닌 compute cost로 비교해야 함.</p>
+          <p><span class="relevance-note">[우리 연구 관련성 &#9733;&#9733;]</span>
+          <strong>온디바이스 시사점</strong>: 소형 모델이 thinking token으로 인해 더 많은 compute/에너지를 소비할 수 있다는 점은
+          SoC 온디바이스 과제에서 중요. 경량 RAG 모델 설계 시 reasoning token budget 제한을 고려해야 함.
+          또한 LG 오븐 Agent에서 API 모델 선택 시 실제 비용 기준 참고 자료로 활용 가능.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- PAPER 5 -->
+  <!-- ============================================================ -->
+  <div class="paper-card" id="paper5">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 5 &mdash; <span class="stars">&#9733;<span class="star-off">&#9733;&#9733;</span></span></div>
+      <h2>CUBE: A Comprehensive Unified Benchmark for Evaluating LLM Agents</h2>
+      <div class="authors">Graham Neubig + 25 others</div>
+      <div class="meta-row">
+        <a class="arxiv-link" href="https://arxiv.org/abs/2603.15798" target="_blank">arXiv: 2603.15798</a>
+        <span>CMU / Various</span>
+        <span class="tag tag-agent" style="color:#fff;background:rgba(255,255,255,0.2)">Agent</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="images/paper5_fig1.png" alt="Figure 1: CUBE Architecture">
+        <div class="caption">Figure 1. CUBE 4-layer architecture: MCP + Gym 기반 통합 에이전트 벤치마크.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          <span class="keyword">CUBE</span>는 현재 분산되어 있는 300개 이상의 LLM Agent 벤치마크를 통합하기 위한
+          4-layer 표준 프레임워크를 제안하는 <strong>position paper</strong>이다.
+          Model Context Protocol (MCP)과 Agent Gym 개념을 결합하여,
+          Agent의 tool use, planning, execution, evaluation을 일관된 인터페이스로 통합한다.
+          실험 결과는 포함되지 않으며, 프레임워크 설계와 비전을 제시하는 논문이다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>AgentBench (Liu et al., 2023)</strong>: 8개 환경에서 LLM Agent 평가</li>
+          <li><strong>WebArena (Zhou et al., 2023)</strong>: 웹 기반 Agent 벤치마크</li>
+          <li><strong>SWE-bench (Jimenez et al., 2024)</strong>: 소프트웨어 엔지니어링 Agent 평가</li>
+          <li><strong>GAIA (Mialon et al., 2023)</strong>: General AI Assistant 벤치마크</li>
+          <li><strong>ToolBench (Qin et al., 2023)</strong>: Tool-use Agent 평가</li>
+          <li><strong>MCP (Anthropic, 2024)</strong>: Model Context Protocol &mdash; tool 인터페이스 표준화</li>
+          <li><strong>Agent Protocol (LangChain, 2024)</strong>: Agent 통신 프로토콜 표준</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>통합 프레임워크</strong>: 300+ 벤치마크를 하나의 인터페이스로 통합 &mdash; 기존에는 각 벤치마크마다 별도 설정 필요</li>
+          <li><strong>4-Layer Architecture</strong>: Environment &rarr; Tool &rarr; Agent &rarr; Evaluation의 명확한 계층 구조</li>
+          <li><strong>MCP 기반</strong>: Anthropic의 MCP를 tool layer의 표준으로 채택하여 tool 호환성 보장</li>
+          <li><strong>Position Paper</strong>: 실험보다 표준 제안에 초점 &mdash; 커뮤니티 합의를 목표</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method (Architecture)</h3>
+        <p><strong>Layer 1 - Environment Layer:</strong> 벤치마크의 실행 환경을 Docker 기반 Gym으로 표준화. 각 환경은 state, action, reward를 제공.</p>
+        <p><strong>Layer 2 - Tool Layer:</strong> MCP 프로토콜을 따르는 tool server. JSON-RPC 기반 통신. 모든 tool은 schema-first definition.</p>
+        <p><strong>Layer 3 - Agent Layer:</strong> LLM Agent의 planning, reasoning, action selection을 담당. ReAct, Plan-and-Execute 등 다양한 전략 지원.</p>
+        <p><strong>Layer 4 - Evaluation Layer:</strong> 표준화된 metric suite. Task completion rate, efficiency (steps, tokens, time), safety constraints 등.</p>
+        <span class="eq">CUBE Score = w_1 &times; Completion + w_2 &times; Efficiency + w_3 &times; Safety + w_4 &times; Robustness</span>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <p><strong>포함 예정 벤치마크 (300+):</strong></p>
+        <ul>
+          <li>Web: WebArena, Mind2Web, WorkArena</li>
+          <li>Code: SWE-bench, HumanEval, MBPP, CodeContests</li>
+          <li>Tool Use: ToolBench, API-Bank, Gorilla</li>
+          <li>Reasoning: GAIA, AgentBench, AgentBoard</li>
+          <li>Multimodal: VisualWebArena, OSWorld</li>
+        </ul>
+        <p><strong>Baselines:</strong> 실험 미포함 (position paper). 향후 GPT, Claude, Gemini, Llama 등의 agent 성능 비교 예정.</p>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <p><em>실험 결과 없음 (Position Paper).</em> 프레임워크 설계의 타당성을 기존 벤치마크 분석으로 간접 지지:</p>
+        <table class="results-table">
+          <thead>
+            <tr><th>현황 분석</th><th>수치</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>조사된 Agent 벤치마크 수</td><td>300+</td></tr>
+            <tr><td>표준화된 tool interface 사용 비율</td><td>&lt; 15%</td></tr>
+            <tr><td>Docker 기반 reproducible 환경 비율</td><td>~35%</td></tr>
+            <tr><td>Cross-benchmark 비교 가능한 metric 사용 비율</td><td>&lt; 10%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          LLM Agent 평가는 현재 심각하게 분절되어 있으며, CUBE는 MCP+Gym 기반의 4-layer 표준을 통해
+          이를 통합하려는 커뮤니티 차원의 노력이다. 실험적 검증은 향후 과제이다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[강점]</span> Agent 벤치마크 통합은 시의적절한 주제. MCP 기반 tool 표준화가 현실적.
+          4-layer 아키텍처가 깔끔하고 확장성 있음. Graham Neubig의 영향력으로 커뮤니티 채택 가능성 높음.</p>
+          <p><span class="weakness">[약점]</span> 실험 없는 position paper로 실제 동작 증명 부재. 300+ 벤치마크 통합의 실현 가능성 의문.
+          CUBE Score의 가중치 설정이 임의적. Agent 간 공정 비교를 위한 compute budget 표준화 미흡.</p>
+          <p><span class="relevance-note">[우리 연구 관련성 &#9733;]</span>
+          <strong>LG 오븐 Agent 평가</strong> 시 참고할 수 있는 프레임워크 설계 reference. 직접 적용보다는
+          Agent evaluation 설계 시 layer 구조, metric 설계를 참고하는 수준. MCP 기반 tool 정의를
+          우리 Agent에도 적용하면 확장성 확보 가능.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- PAPER 6 -->
+  <!-- ============================================================ -->
+  <div class="paper-card" id="paper6">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 6 &mdash; <span class="stars">&#9733;<span class="star-off">&#9733;&#9733;</span></span></div>
+      <h2>Scientist AI: Safe Artificial Intelligence through Decoupling Intelligence from Agency</h2>
+      <div class="authors">Yoshua Bengio et al. (LawZero)</div>
+      <div class="meta-row">
+        <a class="arxiv-link" href="#" target="_blank">LawZero Preprint</a>
+        <span>Mila / LawZero</span>
+        <span class="tag tag-safety" style="color:#fff;background:rgba(255,255,255,0.2)">AI Safety</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <div style="padding: 40px; color: #757575; font-style: italic;">[Preprint - No arxiv HTML figure available. Conceptual paper with minimal figures.]</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 전체 요약</h3>
+        <p>
+          Yoshua Bengio가 이끄는 LawZero에서 발표한 본 논문은 AI 안전성에 대한 근본적 철학적 프레임워크를 제시한다.
+          핵심 주장은 <span class="keyword">Intelligence(지능)</span>와 <span class="keyword">Agency(행위주체성)</span>를
+          분리(decouple)해야 한다는 것이다. "Scientist AI"는 지능은 높지만 스스로 목표를 설정하거나 행동하지 않는 AI로,
+          <span class="keyword">Consequence Invariance</span>(결과 불변성) 원칙에 따라 자신의 출력이 세계에 미치는 영향에 무관하게
+          동일한 답변을 제공한다. 즉, <strong>"안전한 AI는 원하지 않는 AI이다"</strong>(Safe by not desiring).
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>2. 기존 연구 흐름</h3>
+        <ul>
+          <li><strong>Instrumental Convergence (Omohundro, 2008; Bostrom, 2014)</strong>: 충분히 지능적인 Agent는 자기보존, 자원 획득 등의 수렴적 목표를 추구</li>
+          <li><strong>RLHF (Christiano et al., 2017; Ouyang et al., 2022)</strong>: 인간 피드백으로 AI 정렬</li>
+          <li><strong>Constitutional AI (Bai et al., 2022)</strong>: 규칙 기반 AI 정렬</li>
+          <li><strong>Corrigibility (Soares et al., 2015)</strong>: AI가 자발적으로 수정 가능한 상태를 유지</li>
+          <li><strong>Oracle AI (Armstrong et al., 2012)</strong>: 질문에만 답하고 행동하지 않는 AI</li>
+          <li><strong>Tool AI vs Agent AI (Drexler, 2019)</strong>: 도구로서의 AI와 행위자로서의 AI 구분</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. 이 논문의 차별점</h3>
+        <ul>
+          <li><strong>형식화된 Consequence Invariance</strong>: Oracle AI 개념을 수학적으로 정의 &mdash; AI의 출력 분포가 downstream 영향에 독립적</li>
+          <li><strong>Scientist 메타포</strong>: 과학자는 진실을 추구하지 결과를 조작하지 않는다는 비유로 안전한 AI의 이상형 제시</li>
+          <li><strong>Agency 스펙트럼</strong>: Agency를 이진(있음/없음)이 아닌 연속적 스펙트럼으로 정의하고, 안전한 영역을 구분</li>
+          <li><strong>Bengio의 권위</strong>: Deep Learning 3대 선구자가 직접 AI safety에 본격적으로 참여</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. Method (Framework)</h3>
+        <p><strong>Consequence Invariance (CI) 원칙:</strong></p>
+        <span class="eq">P(output | query, context) = P(output | query, context, downstream_effects)</span>
+        <p>AI의 출력 분포는 그 출력이 야기할 downstream effect와 독립적이어야 한다. 즉, AI는 자신의 답변이 세계에 미칠 영향을 고려하여 답변을 바꾸지 않아야 한다.</p>
+
+        <p><strong>Agency Spectrum:</strong></p>
+        <ul>
+          <li><strong>Level 0 (Pure Tool)</strong>: 입력 &rarr; 출력. 상태 없음. 계산기 수준.</li>
+          <li><strong>Level 1 (Scientist AI)</strong>: 지식, 추론 능력 보유. But 목표 없음, 행동 없음. CI 충족.</li>
+          <li><strong>Level 2 (Bounded Agent)</strong>: 제한된 환경에서 목표 수행. 안전 경계 내 행동.</li>
+          <li><strong>Level 3 (Full Agent)</strong>: 자율적 목표 설정 + 행동. 가장 위험.</li>
+        </ul>
+        <p>논문은 Level 1 (Scientist AI)이 지능과 안전의 최적 균형점이라 주장한다.</p>
+
+        <p><strong>Training Objective:</strong> 모델 학습 시 CI를 유지하기 위한 regularization:</p>
+        <span class="eq">L = L_task + &lambda; &middot; D_KL(P(y|x) || P(y|x, c_downstream))</span>
+        <p>여기서 c_downstream은 출력의 결과에 대한 정보이며, 이 KL divergence를 최소화하여 CI를 유지한다.</p>
+      </div>
+
+      <div class="section">
+        <h3>5. Dataset &amp; Baselines</h3>
+        <p><strong>실험 없음</strong> (철학적/이론적 논문). 기존 연구와의 개념적 비교:</p>
+        <ul>
+          <li>RLHF: 행동 정렬은 하지만 근본적 Agency 문제 미해결</li>
+          <li>Constitutional AI: 규칙 기반이지만 규칙 회피 가능</li>
+          <li>Oracle AI: Scientist AI의 전신이지만 형식화 부족</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>6. 핵심 결과</h3>
+        <p><em>실험적 결과 없음. 핵심 이론적 주장:</em></p>
+        <table class="results-table">
+          <thead>
+            <tr><th>주장</th><th>근거</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Intelligence =/= Agency</td><td>과학자는 지능적이지만 세계를 조작하려 하지 않음 (이상적으로)</td></tr>
+            <tr><td>CI가 충분조건</td><td>CI를 만족하는 AI는 instrumental convergence 회피 가능</td></tr>
+            <tr><td>Level 1이 최적</td><td>지능 최대화 + 위험 최소화의 균형점</td></tr>
+            <tr><td>현재 LLM Agent는 Level 2-3</td><td>Auto-GPT, Claude Computer Use 등은 Agency가 높아 위험</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>7. 결론</h3>
+        <p>
+          초지능 AI의 안전성은 정렬(alignment)만으로 보장할 수 없으며, 근본적으로 Agency를 제한해야 한다.
+          Scientist AI는 "알지만 원하지 않는" AI로, 높은 지능과 안전성을 동시에 달성할 수 있는 경로를 제시한다.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>8. 내 의견</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[강점]</span> Bengio의 관점에서 AI safety를 근본적으로 재정의.
+          Intelligence와 Agency의 분리는 직관적이고 설득력 있는 프레임. CI의 형식화는 향후 연구의 기반이 될 수 있음.</p>
+          <p><span class="weakness">[약점]</span> 순수 이론 논문으로 실증적 검증 전무. CI를 실제 학습에서 어떻게 보장할지 불명확.
+          현실의 Agent AI 트렌드(tool use, planning)와 정면 충돌 &mdash; 채택 가능성 낮음.
+          "과학자도 결과를 고려하여 연구 방향을 선택한다"는 반론에 대한 대응 부족.</p>
+          <p><span class="relevance-note">[우리 연구 관련성 &#9733;]</span>
+          AI safety 철학적 배경 지식으로 참고. 우리 연구(LG 오븐 Agent, SoC)에 직접 적용 사항은 없으나,
+          Agent 설계 시 "어디까지 agency를 부여할 것인가"에 대한 설계 철학으로 참고할 수 있음.
+          오븐 Agent의 안전성 논의 시 Agency spectrum 개념 활용 가능.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div class="page-footer">
+    <p>Generated by CLinK Lab Paper Digest Pipeline &mdash; 2026-04-01</p>
+    <p>Prof. Donghee Choi | Pusan National University</p>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+function togglePaper(header) {
+  const body = header.nextElementSibling;
+  const icon = header.querySelector('.toggle-icon');
+  if (body.classList.contains('collapsed')) {
+    body.classList.remove('collapsed');
+    icon.innerHTML = '&#9660;';
+  } else {
+    body.classList.add('collapsed');
+    icon.innerHTML = '&#9654;';
+  }
+}
+</script>
+
+</body>
+</html>

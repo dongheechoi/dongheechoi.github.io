@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Research: Synthetic Pre-training의 기반 논문 계보</title>
+<style>
+  :root {
+    --primary: #1a237e;
+    --primary-light: #3949ab;
+    --accent: #ff6f00;
+    --bg: #fafafa;
+    --card-bg: #ffffff;
+    --text: #212121;
+    --text-secondary: #616161;
+    --border: #e0e0e0;
+    --star-active: #ff9800;
+    --star-inactive: #ccc;
+    --tag-synth: #e8eaf6;
+    --tag-reason: #e8f5e9;
+    --tag-data: #fff3e0;
+    --tag-stitch: #e0f2f1;
+    --tag-phi: #f3e5f5;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* Header */
+  .page-header {
+    background: linear-gradient(135deg, #0d1b3e 0%, var(--primary) 40%, var(--primary-light) 100%);
+    color: white;
+    padding: 44px 0 34px;
+    text-align: center;
+    position: relative;
+  }
+  .page-header h1 { font-size: 2em; font-weight: 700; letter-spacing: -0.5px; }
+  .page-header .subtitle { opacity: 0.85; margin-top: 8px; font-size: 1.0em; line-height: 1.6; }
+  .page-header .date-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    padding: 4px 18px;
+    border-radius: 20px;
+    margin-top: 14px;
+    font-size: 0.92em;
+  }
+  .back-link {
+    display: inline-block;
+    margin-top: 12px;
+    color: #ffcc80;
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: 600;
+  }
+  .back-link:hover { text-decoration: underline; }
+
+  .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+  /* Timeline */
+  .timeline-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin: -22px auto 30px;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.07);
+  }
+  .timeline-section h2 {
+    font-size: 1.2em;
+    color: var(--primary);
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--primary);
+    display: inline-block;
+    padding-bottom: 4px;
+  }
+  .timeline {
+    position: relative;
+    padding: 10px 0 10px 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 70px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--primary), var(--primary-light), var(--accent));
+    border-radius: 2px;
+  }
+  .tl-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .tl-year {
+    width: 60px;
+    font-weight: 800;
+    font-size: 1.1em;
+    color: var(--primary);
+    text-align: right;
+    padding-right: 12px;
+    flex-shrink: 0;
+    padding-top: 6px;
+  }
+  .tl-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid white;
+    box-shadow: 0 0 0 2px var(--primary-light);
+    flex-shrink: 0;
+    margin-top: 8px;
+    margin-right: 16px;
+    z-index: 2;
+  }
+  .tl-content {
+    flex: 1;
+    background: #f0f2fa;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 0.95em;
+  }
+  .tl-content strong { color: var(--primary); }
+  .tl-content .tl-tag {
+    display: inline-block;
+    font-size: 0.72em;
+    padding: 1px 8px;
+    border-radius: 10px;
+    margin-left: 4px;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+  .tag-reason { background: var(--tag-reason); color: #2e7d32; }
+  .tag-stitch { background: var(--tag-stitch); color: #00695c; }
+  .tag-synth-small { background: var(--tag-synth); color: #283593; }
+  .tag-data { background: var(--tag-data); color: #e65100; }
+  .tag-phi { background: var(--tag-phi); color: #6a1b9a; }
+  .tl-arrow {
+    display: block;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.85em;
+    margin: -6px 0 4px 90px;
+    font-style: italic;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 30px;
+    margin: 0 auto 30px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .toc h2 { font-size: 1.15em; color: var(--primary); margin-bottom: 14px; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 4px; }
+  .toc ol { padding-left: 22px; }
+  .toc li { margin-bottom: 7px; }
+  .toc a { text-decoration: none; color: var(--primary-light); font-weight: 500; }
+  .toc a:hover { text-decoration: underline; }
+  .toc .tag {
+    display: inline-block;
+    font-size: 0.72em;
+    padding: 1px 8px;
+    border-radius: 10px;
+    margin-left: 6px;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+
+  /* Paper card */
+  .paper-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 28px;
+    overflow: hidden;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+    page-break-inside: avoid;
+  }
+  .paper-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 20px 28px 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .paper-header .paper-num { font-size: 0.8em; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; }
+  .paper-header h2 { font-size: 1.3em; margin: 4px 0 8px; font-weight: 700; }
+  .paper-header .authors { font-size: 0.88em; opacity: 0.85; }
+  .paper-header .meta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+    font-size: 0.88em;
+    flex-wrap: wrap;
+  }
+  .paper-header .arxiv-link {
+    color: #ffcc80;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .paper-header .arxiv-link:hover { text-decoration: underline; }
+  .stars { color: var(--star-active); letter-spacing: 1px; }
+  .star-off { color: rgba(255,255,255,0.35); }
+  .toggle-icon {
+    float: right;
+    font-size: 1.3em;
+    transition: transform 0.3s;
+    margin-top: 4px;
+  }
+
+  .paper-body { padding: 24px 28px 28px; }
+  .paper-body.collapsed { display: none; }
+
+  /* Sections */
+  .section { margin-bottom: 22px; }
+  .section h3 {
+    font-size: 1.05em;
+    color: var(--primary);
+    border-left: 4px solid var(--accent);
+    padding-left: 12px;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .section p, .section ul, .section ol { margin-bottom: 8px; }
+  .section ul, .section ol { padding-left: 22px; }
+  .section li { margin-bottom: 4px; }
+
+  /* Figure */
+  .figure-container {
+    text-align: center;
+    margin: 16px 0 20px;
+    padding: 12px;
+    background: #f5f5f5;
+    border-radius: 8px;
+  }
+  .figure-container img {
+    max-width: 100%;
+    max-height: 420px;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+  }
+  .figure-container .caption {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  /* Tables */
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92em;
+    margin: 10px 0;
+  }
+  .results-table th {
+    background: var(--primary);
+    color: white;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.92em;
+  }
+  .results-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .results-table tr:nth-child(even) { background: #f8f9ff; }
+  .results-table tr:hover { background: #e8eaf6; }
+  .highlight-cell { font-weight: 700; color: var(--primary); }
+
+  /* Opinion box */
+  .opinion-box {
+    background: #fffde7;
+    border-left: 4px solid var(--accent);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 10px;
+  }
+  .opinion-box .strength { color: #2e7d32; font-weight: 600; }
+  .opinion-box .weakness { color: #c62828; font-weight: 600; }
+  .opinion-box .relevance-note { color: var(--primary); font-weight: 600; }
+
+  /* Connection box */
+  .connection-box {
+    background: #e8eaf6;
+    border-left: 4px solid var(--primary);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 10px;
+  }
+  .connection-box strong { color: var(--primary); }
+
+  /* Keyword / Equation */
+  .keyword { background: #e3f2fd; padding: 1px 6px; border-radius: 4px; font-size: 0.9em; font-weight: 600; color: #1565c0; }
+  .eq { background: #f5f5f5; padding: 8px 16px; border-radius: 6px; font-family: 'Cambria Math', 'Times New Roman', serif; font-size: 1.05em; display: block; margin: 8px 0; text-align: center; overflow-x: auto; }
+
+  /* Synthesis section */
+  .synthesis-card {
+    background: var(--card-bg);
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    margin-bottom: 28px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(26,35,126,0.12);
+  }
+  .synthesis-header {
+    background: linear-gradient(135deg, #0d1b3e 0%, var(--primary) 60%, var(--accent) 100%);
+    color: white;
+    padding: 22px 28px 18px;
+  }
+  .synthesis-header h2 { font-size: 1.35em; font-weight: 700; }
+  .synthesis-body { padding: 24px 28px 28px; }
+
+  .lineage-block {
+    background: #f8f9ff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+  .lineage-block h4 {
+    color: var(--primary);
+    font-size: 1.02em;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 4px;
+  }
+  .lineage-arrow {
+    text-align: center;
+    font-size: 1.3em;
+    color: var(--accent);
+    margin: 4px 0;
+    font-weight: 700;
+  }
+
+  /* Feedback */
+  .feedback-box {
+    margin-top: 16px;
+    padding: 14px 18px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .feedback-box label {
+    display: block;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 6px;
+    font-size: 0.92em;
+  }
+  .feedback-box textarea {
+    width: 100%;
+    min-height: 60px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 0.92em;
+    resize: vertical;
+  }
+  .feedback-box button {
+    margin-top: 6px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 6px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.88em;
+  }
+  .feedback-box button:hover { background: var(--primary-light); }
+  .feedback-saved {
+    display: none;
+    color: #2e7d32;
+    font-weight: 600;
+    font-size: 0.88em;
+    margin-top: 4px;
+  }
+
+  .feedback-collector {
+    background: var(--card-bg);
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }
+  .feedback-collector h3 {
+    color: var(--accent);
+    font-size: 1.1em;
+    margin-bottom: 12px;
+  }
+  .feedback-collector pre {
+    background: #263238;
+    color: #a5d6a7;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 0.85em;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  .feedback-collector button {
+    margin-top: 10px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.92em;
+  }
+  .feedback-collector button:hover { background: #e65100; }
+
+  /* Footer */
+  .page-footer {
+    text-align: center;
+    padding: 30px 0;
+    color: var(--text-secondary);
+    font-size: 0.85em;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+
+  /* Print */
+  @media print {
+    .page-header { padding: 20px 0; }
+    .paper-body.collapsed { display: block !important; }
+    .toggle-icon { display: none; }
+    .paper-card, .synthesis-card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+    .feedback-box, .feedback-collector { display: none; }
+    body { font-size: 12px; }
+    .timeline-section { break-inside: avoid; }
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .container { padding: 0 12px; }
+    .paper-body, .synthesis-body { padding: 16px; }
+    .paper-header { padding: 16px; }
+    .results-table { font-size: 0.82em; }
+    .results-table th, .results-table td { padding: 6px 8px; }
+    .timeline::before { left: 50px; }
+    .tl-year { width: 42px; font-size: 0.95em; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="page-header">
+  <div class="container">
+    <h1>Deep Research: Synthetic Pre-training의 기반 논문 계보</h1>
+    <div class="subtitle">STaR &rarr; Quiet-STaR &rarr; WRAP &rarr; Document Stitching &rarr; Phi-series &rarr; Synthetic Megadocs</div>
+    <div class="date-badge">2026-04-01 &mdash; CLinK Lab Deep Dive &mdash; 5 Foundational Papers</div>
+    <br>
+    <a class="back-link" href="report.html">&larr; 메인 보고서로 돌아가기</a>
+  </div>
+</div>
+
+<!-- ===== TIMELINE ===== -->
+<div class="container">
+  <div class="timeline-section">
+    <h2>Timeline / Lineage Diagram</h2>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-year">2022</div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <strong>STaR</strong> &mdash; Self-Taught Reasoner (Zelikman et al., NeurIPS 2022)
+          <span class="tl-tag tag-reason">Synthetic Reasoning</span>
+          <br>Generate rationales &rarr; filter by correctness &rarr; fine-tune &rarr; repeat
+          <br><strong>LinkBERT</strong> &mdash; Document Linking (Yasunaga et al., ACL 2022)
+          <span class="tl-tag tag-stitch">Document Linking</span>
+        </div>
+      </div>
+
+      <div class="tl-arrow">&darr; self-generated reasoning traces as training data</div>
+
+      <div class="tl-item">
+        <div class="tl-year">2023</div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <strong>Phi-1</strong> &mdash; "Textbooks Are All You Need" (Gunasekar et al., 2023)
+          <span class="tl-tag tag-phi">Synthetic Textbooks</span>
+          <br>GPT-3.5 generates textbook-quality synthetic code data &rarr; 1.3B beats 15B StarCoder
+          <br><strong>In-Context Pretraining</strong> &mdash; Document Stitching (Shi et al., 2023)
+          <span class="tl-tag tag-stitch">Document Stitching</span>
+          <br>Reorder corpus so related documents are adjacent &rarr; ICL +8%, RAG +9%
+        </div>
+      </div>
+
+      <div class="tl-arrow">&darr; synthetic data quality + document ordering</div>
+
+      <div class="tl-item">
+        <div class="tl-year">2024</div>
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <strong>Quiet-STaR</strong> &mdash; Latent Reasoning at Every Token (Zelikman et al., 2024)
+          <span class="tl-tag tag-reason">Latent Reasoning</span>
+          <br>Generalize STaR to ALL text: generate internal thoughts at every token position
+          <br><strong>WRAP</strong> &mdash; Web Rephrase Augmented Pre-training (Maini et al., 2024)
+          <span class="tl-tag tag-data">Data Rephrasing</span>
+          <br>Rephrase web docs in 4 styles &rarr; 3x speedup, 10%+ perplexity improvement
+        </div>
+      </div>
+
+      <div class="tl-arrow">&darr; latent thoughts + rephrasing converge</div>
+
+      <div class="tl-item">
+        <div class="tl-year">2026</div>
+        <div class="tl-dot" style="background:#c62828;"></div>
+        <div class="tl-content" style="background:#fff3e0; border: 1px solid var(--accent);">
+          <strong>Synthetic Megadocs</strong> &mdash; Stitching + Stretching (Kim et al., 2026)
+          <span class="tl-tag tag-synth-small">Stitching+Stretching</span>
+          <br>WRAP rephrasing + In-Context Pretraining ordering + Quiet-STaR latent thoughts &rarr; 1.80x efficiency
+          <br><strong>Synthetic Mixed Training</strong> &mdash; QA + Docs (Han et al., 2026)
+          <span class="tl-tag tag-data">QA+Docs</span>
+          <br>All lineages converge: synthetic reasoning + synthetic data + document organization
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== TOC ===== -->
+  <div class="toc">
+    <h2>Table of Contents</h2>
+    <ol>
+      <li>
+        <a href="#paper1">STaR: Self-Taught Reasoner (NeurIPS 2022)</a>
+        <span class="tag tag-reason">Synthetic Reasoning</span>
+      </li>
+      <li>
+        <a href="#paper2">Quiet-STaR: Latent Reasoning (2024)</a>
+        <span class="tag tag-reason">Latent Reasoning</span>
+      </li>
+      <li>
+        <a href="#paper3">WRAP: Rephrasing the Web (2024)</a>
+        <span class="tag tag-data">Data Rephrasing</span>
+      </li>
+      <li>
+        <a href="#paper4">Phi-1: Textbooks Are All You Need (2023)</a>
+        <span class="tag tag-phi">Synthetic Textbooks</span>
+      </li>
+      <li>
+        <a href="#paper5">In-Context Pretraining (2023)</a>
+        <span class="tag tag-stitch">Document Stitching</span>
+      </li>
+      <li>
+        <a href="#synthesis">통합 계보: 합성 추론과 합성 데이터의 수렴</a>
+        <span class="tag" style="background:#fff3e0;color:#e65100;">Synthesis</span>
+      </li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- PAPER 1: STaR -->
+  <!-- ============================================================ -->
+  <div class="paper-card" id="paper1">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 1 &mdash; NeurIPS 2022 <span class="tl-tag tag-reason" style="margin-left:8px;">Synthetic Reasoning</span></div>
+      <h2>STaR: Bootstrapping Reasoning With Reasoning</h2>
+      <div class="authors">Eric Zelikman, Yuhuai Wu, Jesse Mu, Noah D. Goodman</div>
+      <div class="meta-row">
+        <a class="arxiv-link" href="https://arxiv.org/abs/2203.14465" target="_blank">arXiv: 2203.14465</a>
+        <span>Stanford University</span>
+        <span>NeurIPS 2022</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="deep_research_images/star_fig1.png" alt="Figure 1: STaR Method Overview">
+        <div class="caption">Figure 1. STaR: Generate rationales, filter by correctness, fine-tune, and repeat.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 핵심 아이디어 한줄</h3>
+        <p>모델이 스스로 추론 과정(rationale)을 생성하고, 정답에 도달한 rationale만 선별하여 자기 자신을 반복 학습시키는 <span class="keyword">Self-Taught Reasoner</span> 부트스트래핑 기법.</p>
+      </div>
+
+      <div class="section">
+        <h3>2. 이 논문이 해결한 문제</h3>
+        <ul>
+          <li>Chain-of-Thought (CoT) 프롬프팅은 few-shot 예시에 의존하며, 모델 자체의 추론 능력을 근본적으로 개선하지 못함</li>
+          <li>대규모 rationale 데이터셋을 사람이 직접 작성하는 것은 비용이 과도</li>
+          <li>소형 모델(6B)은 CoT 프롬프팅만으로는 대형 모델(175B)에 비해 추론 능력이 크게 부족</li>
+          <li><strong>핵심 질문</strong>: 외부 annotation 없이 모델이 자기 자신의 추론 능력을 부트스트랩할 수 있는가?</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. Method 상세</h3>
+        <p><strong>Step 1 - Rationale Generation:</strong> 모델에 문제를 제시하고, few-shot CoT 프롬프트로 rationale + answer를 생성한다.</p>
+        <p><strong>Step 2 - Filtering:</strong> 생성된 rationale 중 <em>최종 답이 정답과 일치하는 것만</em> 선별한다. 이것이 "self-taught" 학습 데이터가 된다.</p>
+        <p><strong>Step 3 - Rationalization (핵심 혁신):</strong> 틀린 문제에 대해 정답을 힌트로 제공한 뒤 다시 rationale을 생성한다. 이렇게 생성된 "rationalized" 예시도 학습 데이터에 포함한다.</p>
+        <span class="eq">Rationalize: "Given the answer is [correct_answer], explain why:" &rarr; generate rationale</span>
+        <p><strong>Step 4 - Fine-tune:</strong> 필터링된 rationale + rationalized 예시로 모델을 fine-tune한다.</p>
+        <p><strong>Step 5 - Repeat:</strong> 업데이트된 모델로 다시 Step 1부터 반복한다 (iterative self-improvement).</p>
+        <span class="eq">for iteration i = 1, 2, ..., K: M_i = FineTune(M_{i-1}, FilterCorrect(Generate(M_{i-1}, Problems)) &cup; Rationalize(M_{i-1}, WrongProblems))</span>
+      </div>
+
+      <div class="section">
+        <h3>4. 핵심 결과</h3>
+        <table class="results-table">
+          <thead>
+            <tr><th>Model</th><th>CommonsenseQA</th><th>GSM8K</th><th>Parameters</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>GPT-3 (few-shot CoT)</td><td>73.0%</td><td>46.0%</td><td>175B</td></tr>
+            <tr><td>GPT-J baseline</td><td>55.4%</td><td>-</td><td>6B</td></tr>
+            <tr><td class="highlight-cell">STaR (GPT-J, 4 iterations)</td><td class="highlight-cell">72.5%</td><td class="highlight-cell">-</td><td class="highlight-cell">6B</td></tr>
+            <tr><td>STaR w/o rationalization</td><td>63.8%</td><td>-</td><td>6B</td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>6B 모델이 175B GPT-3에 거의 근접 (72.5% vs 73.0%) &mdash; 약 <strong>30x 적은 파라미터</strong>로 동등 성능</li>
+          <li>Rationalization 제거 시 72.5% &rarr; 63.8%: <strong>rationalization이 +8.7%p 기여</strong></li>
+          <li>반복 횟수에 따른 성능 향상이 로그 곡선으로 수렴 (4회가 최적)</li>
+          <li>생성된 rationale의 품질이 반복마다 향상됨을 정성적으로 확인</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. 후속 연구에 미친 영향</h3>
+        <ul>
+          <li><strong>Quiet-STaR (2024)</strong>: STaR을 특정 QA 태스크에서 "모든 텍스트의 모든 토큰"으로 일반화</li>
+          <li><strong>ReST (Reinforced Self-Training, 2023)</strong>: STaR의 아이디어를 RL 프레임워크로 확장</li>
+          <li><strong>Self-Play Fine-Tuning (SPIN, 2024)</strong>: self-generated data로 반복 학습하는 패턴의 확산</li>
+          <li><strong>Reasoning 모델 패러다임</strong>: o1, DeepSeek-R1 등 "thinking tokens"의 선구자적 역할</li>
+          <li>"합성 추론 데이터로 모델 학습" 패러다임의 시작점</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>6. Synthetic Megadocs와의 관계</h3>
+        <div class="connection-box">
+          <p><strong>직접적 계보:</strong> STaR의 "모델이 생성한 rationale을 학습 데이터로 사용" 아이디어가 Megadocs의 <span class="keyword">stretching</span>(latent thought insertion)으로 발전했다. STaR은 QA 태스크에 한정되었으나, Megadocs는 이를 일반 사전학습 코퍼스로 확장한다.</p>
+          <p><strong>저자 연결:</strong> Nick Haber(Stanford)가 Quiet-STaR와 Megadocs 양쪽의 공저자로 참여하여 아이디어의 직접적 전파 경로가 존재한다.</p>
+          <p><strong>핵심 차이:</strong> STaR은 task-specific fine-tuning 시 rationale을 생성하지만, Megadocs는 pre-training 시 문서 사이에 rationale을 삽입한다 (online generation vs offline insertion).</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>7. 비판적 평가</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[강점]</span> 외부 supervision 없이 자기 개선하는 우아한 프레임워크. Rationalization은 단순하지만 극적인 효과 (+8.7%p). 소형 모델의 가능성을 극적으로 보여줌.</p>
+          <p><span class="weakness">[약점]</span> (1) 정답이 명확한 문제(QA)에만 적용 가능 &mdash; 개방형 생성에는 "correctness filter" 적용 어려움. (2) 반복 학습에 따른 diversity collapse 위험 (모델이 특정 패턴에 수렴). (3) 초기 few-shot 예시의 품질에 크게 의존. (4) CommonsenseQA 외 다른 벤치마크에서의 검증이 제한적.</p>
+          <p><span class="relevance-note">[의의]</span> "합성 추론 데이터" 시대를 연 기념비적 논문. 이후 등장한 Quiet-STaR, Megadocs stretching, 그리고 현재의 reasoning model들의 직접적 선조.</p>
+        </div>
+      </div>
+
+      <div class="feedback-box">
+        <label>이 논문 분석에 대한 피드백:</label>
+        <textarea id="fb-paper1" placeholder="분석에 대한 의견이나 추가할 내용을 적어주세요..."></textarea>
+        <button onclick="saveFeedback('paper1')">저장</button>
+        <div class="feedback-saved" id="fb-saved-paper1">저장되었습니다.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- PAPER 2: Quiet-STaR -->
+  <!-- ============================================================ -->
+  <div class="paper-card" id="paper2">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 2 &mdash; 2024 <span class="tl-tag tag-reason" style="margin-left:8px;">Latent Reasoning</span></div>
+      <h2>Quiet-STaR: Language Models Can Teach Themselves to Think Before Speaking</h2>
+      <div class="authors">Eric Zelikman, Georges Harik, Yijia Shao, Varuna Jayasiri, Nick Haber, Noah D. Goodman</div>
+      <div class="meta-row">
+        <a class="arxiv-link" href="https://arxiv.org/abs/2403.09629" target="_blank">arXiv: 2403.09629</a>
+        <span>Stanford University</span>
+        <span>2024</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="deep_research_images/quietstar_fig1.png" alt="Figure 1: Quiet-STaR Overview">
+        <div class="caption">Figure 1. Quiet-STaR: At every token position, the model generates internal "thoughts" that help predict future text.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 핵심 아이디어 한줄</h3>
+        <p>STaR을 QA 태스크에서 <strong>모든 텍스트의 모든 토큰</strong>으로 일반화: 매 토큰 위치에서 내부 "생각(thought)"을 생성하고, 이 생각이 다음 토큰 예측에 도움이 되는 방향으로 학습하는 <span class="keyword">Quiet-STaR</span>.</p>
+      </div>
+
+      <div class="section">
+        <h3>2. 이 논문이 해결한 문제</h3>
+        <ul>
+          <li>STaR은 <em>정답이 존재하는 QA 태스크</em>에서만 작동 &mdash; 일반 텍스트에는 "정답"이 없어서 필터링 불가</li>
+          <li>Chain-of-Thought는 명시적으로 추론 과정을 출력해야 하므로, 추론 비용이 크고 사용자에게 불필요한 정보 노출</li>
+          <li><strong>핵심 질문</strong>: 모델이 텍스트를 읽으면서 "조용히(quietly)" 생각하고, 그 생각의 유용성을 next-token prediction으로 학습할 수 있는가?</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. Method 상세</h3>
+        <p><strong>Thought Generation:</strong> 매 토큰 위치 i에서, 모델은 특수 토큰 &lt;thought&gt; 뒤에 n개의 "thought tokens"를 생성한 후 &lt;/thought&gt;로 닫는다. 이 thought tokens는 외부에 출력되지 않는 "internal monologue"이다.</p>
+        <p><strong>Mixing Head:</strong> thought를 생성한 후의 hidden state와 thought 없이의 hidden state를 학습 가능한 mixing weight로 결합한다.</p>
+        <span class="eq">h_mixed = sigmoid(w) &middot; h_with_thought + (1 - sigmoid(w)) &middot; h_without_thought</span>
+        <p><strong>Training Signal:</strong> thought가 "다음 토큰 예측"을 개선했는지를 기준으로 REINFORCE를 사용하여 thought 생성 정책을 업데이트한다.</p>
+        <span class="eq">Reward = log P(x_{i+1} | x_{&le;i}, thought_i) - log P(x_{i+1} | x_{&le;i})</span>
+        <p><strong>Parallel Thought Generation:</strong> 효율성을 위해, 각 토큰 위치에서 독립적으로 thought를 병렬 생성한다. attention mask를 조작하여 thought_i가 다른 thought_j에 attend하지 못하도록 한다.</p>
+        <p><strong>Meta-tokens:</strong> &lt;thought&gt;, &lt;/thought&gt; 토큰을 vocabulary에 추가하고 학습 시 최적화한다.</p>
+      </div>
+
+      <div class="section">
+        <h3>4. 핵심 결과</h3>
+        <table class="results-table">
+          <thead>
+            <tr><th>Model</th><th>GSM8K (0-shot)</th><th>CommonsenseQA (0-shot)</th><th>Base Model</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Mistral 7B (baseline)</td><td>5.9%</td><td>36.3%</td><td>Mistral 7B</td></tr>
+            <tr><td class="highlight-cell">Quiet-STaR (Mistral 7B)</td><td class="highlight-cell">10.9%</td><td class="highlight-cell">47.2%</td><td class="highlight-cell">Mistral 7B</td></tr>
+            <tr><td colspan="4" style="font-size:0.88em; color: var(--text-secondary);">GSM8K: +5.0%p (84.7% relative), CommonsenseQA: +10.9%p (30.0% relative)</td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>GSM8K zero-shot: 5.9% &rarr; 10.9% (<strong>+84.7% relative improvement</strong>)</li>
+          <li>CommonsenseQA zero-shot: 36.3% &rarr; 47.2% (<strong>+30.0% relative improvement</strong>)</li>
+          <li>일반 웹 텍스트(C4)에서 학습했음에도 수학/상식 추론이 개선됨</li>
+          <li>Thought의 길이가 길수록 (더 많이 생각할수록) downstream 성능이 향상</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. 후속 연구에 미친 영향</h3>
+        <ul>
+          <li><strong>Synthetic Megadocs (2026)</strong>: Quiet-STaR의 "매 토큰에서의 latent thought"를 offline 방식으로 구현 &mdash; 문서 사이에 미리 생성한 rationale을 삽입</li>
+          <li><strong>Reasoning Model 패러다임</strong>: o1, DeepSeek-R1의 "internal chain-of-thought" 개념과 직접 연결</li>
+          <li><strong>Latent Reasoning Optimization</strong>: 생각을 외부에 출력하지 않고 모델 내부에서 처리하는 방식의 연구 촉발</li>
+          <li><strong>"Think before you speak" 패러다임</strong>의 형식화</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>6. Synthetic Megadocs와의 관계</h3>
+        <div class="connection-box">
+          <p><strong>핵심 연결:</strong> Megadocs의 <span class="keyword">stretching</span>(latent thought insertion)은 Quiet-STaR의 "모든 토큰에서 생각하기"를 <strong>오프라인 버전</strong>으로 구현한 것이다.</p>
+          <p><strong>차이점:</strong></p>
+          <ul>
+            <li>Quiet-STaR: 추론 시(online) 매 토큰마다 thought 생성 &rarr; 추론 비용 증가</li>
+            <li>Megadocs: 학습 데이터 생성 시(offline) 문서 경계에 thought 삽입 &rarr; 추론 시 추가 비용 없음</li>
+          </ul>
+          <p><strong>저자 연결:</strong> <span class="keyword">Nick Haber</span>가 Quiet-STaR와 Megadocs 양쪽의 공저자. Stanford의 동일 연구 그룹에서 아이디어가 직접 전파되었음.</p>
+          <p><strong>개념적 진화:</strong> STaR(QA에서 rationale) &rarr; Quiet-STaR(모든 텍스트에서 latent thought) &rarr; Megadocs(사전학습 데이터에 thought 삽입) 순으로 적용 범위가 확대됨.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>7. 비판적 평가</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[강점]</span> STaR의 task-specific 한계를 우아하게 극복. "모든 텍스트가 추론의 기회"라는 통찰이 독창적. Mixing head 설계가 기존 모델에 최소한의 변경으로 적용 가능.</p>
+          <p><span class="weakness">[약점]</span> (1) 절대적 성능 향상폭이 작음 (GSM8K 10.9%는 여전히 낮은 수준). (2) 추론 시 매 토큰마다 thought를 생성하는 비용이 과도 &mdash; 실용성 의문. (3) Thought의 내용을 해석/제어하기 어려움 (black-box internal monologue). (4) C4에서 학습했기에 수학적 추론 향상의 메커니즘이 불분명.</p>
+          <p><span class="relevance-note">[의의]</span> "생각하는 모델"의 개념을 사전학습 단계로 확장하는 핵심 다리 역할. Megadocs가 이 비용 문제를 offline insertion으로 해결함으로써 실용적 가치를 획득.</p>
+        </div>
+      </div>
+
+      <div class="feedback-box">
+        <label>이 논문 분석에 대한 피드백:</label>
+        <textarea id="fb-paper2" placeholder="분석에 대한 의견이나 추가할 내용을 적어주세요..."></textarea>
+        <button onclick="saveFeedback('paper2')">저장</button>
+        <div class="feedback-saved" id="fb-saved-paper2">저장되었습니다.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- PAPER 3: WRAP -->
+  <!-- ============================================================ -->
+  <div class="paper-card" id="paper3">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 3 &mdash; 2024 <span class="tl-tag tag-data" style="margin-left:8px;">Data Rephrasing</span></div>
+      <h2>WRAP: Rephrasing the Web &mdash; Web Rephrase Augmented Pre-training</h2>
+      <div class="authors">Pratyush Maini, Skyler Seto, He Bai, David Grangier, Yizhe Zhang, Navdeep Jaitly</div>
+      <div class="meta-row">
+        <a class="arxiv-link" href="https://arxiv.org/abs/2401.16380" target="_blank">arXiv: 2401.16380</a>
+        <span>Apple Research / CMU</span>
+        <span>2024</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="deep_research_images/wrap_fig1.png" alt="Figure 1: WRAP Pipeline">
+        <div class="caption">Figure 1. WRAP: LLM rephrases web documents in multiple styles, mixed 1:1 with original data for pre-training.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 핵심 아이디어 한줄</h3>
+        <p>웹 문서를 LLM(Mistral-7B)으로 4가지 스타일(Easy, Medium, Hard, Q&amp;A)로 <span class="keyword">재작성(rephrase)</span>하고, 원본과 1:1 혼합하여 사전학습하면 <strong>약 3배의 학습 효율 향상</strong>을 달성한다.</p>
+      </div>
+
+      <div class="section">
+        <h3>2. 이 논문이 해결한 문제</h3>
+        <ul>
+          <li>웹 크롤링 데이터의 품질이 낮고 노이즈가 많아 학습 효율이 떨어짐</li>
+          <li>고품질 데이터(Wikipedia, 교과서 등)는 양이 제한적</li>
+          <li>데이터 필터링만으로는 한계 &mdash; 저품질 데이터를 버리면 양이 줄어드는 트레이드오프</li>
+          <li><strong>핵심 질문</strong>: 저품질 웹 데이터를 "버리지 않고 개선"하여 학습 효율을 높일 수 있는가?</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. Method 상세</h3>
+        <p><strong>4가지 Rephrase 스타일:</strong></p>
+        <ul>
+          <li><span class="keyword">Easy</span>: 초등학생도 이해할 수 있는 쉬운 언어로 재작성</li>
+          <li><span class="keyword">Medium</span>: 고등학교 수준의 명확한 산문체로 재작성</li>
+          <li><span class="keyword">Hard</span>: 대학원 수준의 학술적 문체로 재작성</li>
+          <li><span class="keyword">Q&amp;A</span>: 문서 내용을 질문-답변 형식으로 변환</li>
+        </ul>
+        <p><strong>Rephrasing Pipeline:</strong></p>
+        <ol>
+          <li>C4 코퍼스에서 원본 문서 D를 선택</li>
+          <li>Mistral-7B-Instruct로 각 스타일에 맞는 프롬프트를 사용하여 D를 재작성 &rarr; D'</li>
+          <li>원본 D와 재작성된 D'를 1:1 비율로 혼합하여 학습 데이터 구성</li>
+        </ol>
+        <p><strong>Training:</strong> 표준 autoregressive LM loss. 원본과 합성 데이터를 균일하게 interleave.</p>
+        <span class="eq">Training Data = {D_1, D'_1, D_2, D'_2, ...} where D' = Rephrase(D, style)</span>
+        <p><strong>핵심 발견:</strong> 4가지 스타일을 모두 사용하는 것이 단일 스타일보다 효과적 (diversity가 핵심).</p>
+      </div>
+
+      <div class="section">
+        <h3>4. 핵심 결과</h3>
+        <table class="results-table">
+          <thead>
+            <tr><th>Model / Method</th><th>Training Tokens</th><th>C4 Perplexity</th><th>Downstream Avg</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1.3B Baseline (C4 only)</td><td>85B</td><td>20.1</td><td>baseline</td></tr>
+            <tr><td class="highlight-cell">1.3B + WRAP (85B)</td><td class="highlight-cell">85B</td><td class="highlight-cell">17.8</td><td class="highlight-cell">+10% perp. improvement</td></tr>
+            <tr><td>TinyLlama 1.1B</td><td>1T</td><td>~18.0</td><td>-</td></tr>
+            <tr><td class="highlight-cell">1.3B + WRAP (85B)</td><td class="highlight-cell">85B (12x less)</td><td class="highlight-cell">~17.8 (matches)</td><td class="highlight-cell">~3x speedup</td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>C4 perplexity: 20.1 &rarr; 17.8 (<strong>10%+ 개선</strong>) with same number of tokens</li>
+          <li>85B 토큰으로 TinyLlama(1T 토큰)와 동등 성능 &mdash; <strong>약 12x 적은 토큰</strong>, 학습 속도 약 <strong>3x</strong> 향상</li>
+          <li>4개 스타일 혼합이 단일 스타일 대비 일관적으로 우수</li>
+          <li>Rephrase 품질이 높을수록 효과가 커짐 (rephraser 모델 크기에 비례)</li>
+          <li>데이터 효율성: WRAP의 <strong>1.48x efficiency</strong> (Megadocs가 이를 1.80x로 향상)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. 후속 연구에 미친 영향</h3>
+        <ul>
+          <li><strong>Synthetic Megadocs (2026)</strong>: WRAP의 rephrasing을 document stitching과 결합하여 효율성을 1.48x &rarr; 1.80x로 향상</li>
+          <li><strong>Synthetic Mixed Training (2026)</strong>: WRAP의 rephrasing 대신 QA 형식의 합성 데이터를 사용하는 변형</li>
+          <li>"웹 데이터를 LLM으로 개선하여 사전학습에 사용" 패러다임의 확립</li>
+          <li>데이터 필터링(제거)에서 데이터 변환(개선)으로의 패러다임 전환</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>6. Synthetic Megadocs와의 관계</h3>
+        <div class="connection-box">
+          <p><strong>직접적 기반:</strong> Megadocs는 WRAP을 명시적 baseline으로 사용하며, WRAP의 1.48x 효율성을 <strong>1.80x로 개선</strong>했다고 보고한다.</p>
+          <p><strong>확장 방식:</strong></p>
+          <ul>
+            <li>WRAP: 개별 문서를 독립적으로 rephrase</li>
+            <li>Megadocs: 관련 문서들을 <em>stitching</em>(연결)한 후 rephrase + latent thought 삽입</li>
+          </ul>
+          <p><strong>기여 분석:</strong> Megadocs의 1.80x = WRAP의 rephrasing(1.48x) + In-Context Pretraining의 stitching + Quiet-STaR의 stretching. WRAP은 이 중 가장 큰 기여를 하는 기반 기술.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>7. 비판적 평가</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[강점]</span> 아이디어가 단순하고 직관적이면서 효과가 극적 (10%+ perplexity 개선). 실용적이고 즉시 적용 가능. 4가지 스타일의 diversity 효과를 체계적으로 검증. TinyLlama와의 비교가 인상적.</p>
+          <p><span class="weakness">[약점]</span> (1) Rephraser(Mistral-7B) 자체의 품질에 의존 &mdash; rephraser가 hallucinate하면 학습 데이터에 오류 삽입. (2) Rephrasing 비용: 전체 코퍼스를 LLM으로 재작성하는 계산 비용. (3) 원본:합성 = 1:1 비율의 최적성 검증 부족. (4) 영어 웹 데이터에만 검증 &mdash; 다국어/도메인 특화 시나리오 미검증.</p>
+          <p><span class="relevance-note">[의의]</span> "데이터 품질 개선"을 사전학습 파이프라인에 통합하는 실용적 방법론. Megadocs의 가장 직접적인 선행 연구이자 성능 기준선.</p>
+        </div>
+      </div>
+
+      <div class="feedback-box">
+        <label>이 논문 분석에 대한 피드백:</label>
+        <textarea id="fb-paper3" placeholder="분석에 대한 의견이나 추가할 내용을 적어주세요..."></textarea>
+        <button onclick="saveFeedback('paper3')">저장</button>
+        <div class="feedback-saved" id="fb-saved-paper3">저장되었습니다.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- PAPER 4: Phi-1 -->
+  <!-- ============================================================ -->
+  <div class="paper-card" id="paper4">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 4 &mdash; 2023 <span class="tl-tag tag-phi" style="margin-left:8px;">Synthetic Textbooks</span></div>
+      <h2>Textbooks Are All You Need (Phi-1)</h2>
+      <div class="authors">Suriya Gunasekar, Yi Zhang, Jyoti Aneja, Caio C&eacute;sar Teodoro Mendes, Allie Del Giorno, Srinivasan Gopi, Mojan Javaheripi, Piero Kauffmann, Gustavo de Rosa, Olli Saarikivi, Adil Salim, Shital Shah, Harkirat Singh Behl, Xin Wang, S&eacute;bastien Bubeck, Ronen Eldan, Adam Tauman Kalai, Yin Tat Lee, Yuanzhi Li</div>
+      <div class="meta-row">
+        <a class="arxiv-link" href="https://arxiv.org/abs/2306.11644" target="_blank">arXiv: 2306.11644</a>
+        <span>Microsoft Research</span>
+        <span>2023</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="section" style="background:#f5f5f5; padding:16px; border-radius:8px; text-align:center; margin-bottom:20px;">
+        <p style="color:var(--text-secondary); font-style:italic;">Figure not available for this paper. See the original paper for architecture diagrams.</p>
+      </div>
+
+      <div class="section">
+        <h3>1. 핵심 아이디어 한줄</h3>
+        <p>GPT-3.5로 <span class="keyword">"교과서 품질"의 합성 코드 데이터</span>를 생성하여 1.3B 모델(Phi-1)을 학습시키면, 15B StarCoder를 HumanEval에서 <strong>+17%p</strong> 능가한다 &mdash; <strong>"Data quality >> Model size"</strong> 패러다임의 확립.</p>
+      </div>
+
+      <div class="section">
+        <h3>2. 이 논문이 해결한 문제</h3>
+        <ul>
+          <li>대규모 코드 모델(StarCoder 15B, Code Llama 34B)은 수백 GPU-days의 훈련 비용이 필요</li>
+          <li>웹 크롤링 코드(GitHub)는 품질이 불균일: 복붙, 설명 없는 코드, 안티패턴 등</li>
+          <li>기존 관점: "데이터를 많이 넣으면 모델이 알아서 배운다" (scaling law 의존)</li>
+          <li><strong>핵심 질문</strong>: 웹 크롤링 대신 "교과서처럼 잘 설명된" 합성 데이터만으로 소형 모델이 대형 모델을 이길 수 있는가?</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. Method 상세</h3>
+        <p><strong>합성 데이터 생성 (Synthetic "Textbook"):</strong></p>
+        <ul>
+          <li>GPT-3.5-Turbo로 Python 코딩 "교과서"를 생성: 개념 설명 + 예제 코드 + 연습 문제</li>
+          <li>다양성 확보를 위해 토픽(자료구조, 알고리즘, API 사용 등)과 난이도를 구조화</li>
+          <li>약 <strong>1B 토큰</strong>의 합성 교과서 데이터 + 6B 토큰의 필터링된 웹 코드</li>
+        </ul>
+        <p><strong>CodeTextbook 필터링:</strong></p>
+        <ul>
+          <li>웹 코드(The Stack)에서 "교과서 품질"인 코드만 GPT-4를 사용하여 필터링</li>
+          <li>필터링 기준: 교육적 가치, 코드 명확성, 주석 품질</li>
+        </ul>
+        <p><strong>CodeExercises:</strong></p>
+        <ul>
+          <li>GPT-3.5로 함수 완성 형태의 연습문제를 추가 생성 (~180M 토큰)</li>
+          <li>이 연습문제로 fine-tuning하면 HumanEval 성능이 추가 향상</li>
+        </ul>
+        <p><strong>Training:</strong></p>
+        <ul>
+          <li>1.3B parameter Transformer, 4일 간 8x A100 GPU</li>
+          <li>비교: StarCoder는 수주 간 수백 GPU에서 훈련</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. 핵심 결과</h3>
+        <table class="results-table">
+          <thead>
+            <tr><th>Model</th><th>Parameters</th><th>HumanEval (pass@1)</th><th>MBPP (pass@1)</th><th>Training Cost</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>StarCoder</td><td>15.5B</td><td>33.6%</td><td>52.7%</td><td>~weeks, 512 GPUs</td></tr>
+            <tr><td>CodeGen-Multi</td><td>16.1B</td><td>18.3%</td><td>-</td><td>-</td></tr>
+            <tr><td class="highlight-cell">Phi-1</td><td class="highlight-cell">1.3B</td><td class="highlight-cell">50.6%</td><td class="highlight-cell">55.5%</td><td class="highlight-cell">4 days, 8 A100s</td></tr>
+            <tr><td>Phi-1-base (no exercises)</td><td>1.3B</td><td>29.0%</td><td>-</td><td>4 days, 8 A100s</td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>HumanEval: <strong>50.6% vs 33.6%</strong> (StarCoder 15B 대비 +17%p, 12x 적은 파라미터)</li>
+          <li>Training cost: 4 days on 8 A100 vs weeks on hundreds of GPUs &mdash; <strong>수십 배 절감</strong></li>
+          <li>합성 교과서 데이터의 기여: Phi-1-base(29.0%) &rarr; Phi-1(50.6%) &mdash; CodeExercises fine-tuning이 +21.6%p 추가 향상</li>
+          <li>"Textbook quality" 데이터의 효과가 모델 크기보다 결정적</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. 후속 연구에 미친 영향</h3>
+        <ul>
+          <li><strong>Phi-2 (2023)</strong>: 2.7B로 확장, Llama-2 70B에 근접하는 성능</li>
+          <li><strong>Phi-3 (2024)</strong>: 3.8B로 확장, GPT-3.5 능가 &mdash; "small but mighty" 패러다임 확립</li>
+          <li><strong>TinyStories (Eldan &amp; Li, 2023)</strong>: 같은 Microsoft 그룹, NLP 버전의 합성 교과서</li>
+          <li><strong>"Synthetic Data for Pre-training" 패러다임</strong>의 확립: 이후 WRAP, Megadocs, SMT 등이 모두 이 패러다임 위에 구축</li>
+          <li><strong>Scaling Law 재해석</strong>: "데이터 양" 중심에서 "데이터 품질" 중심으로 커뮤니티 인식 전환</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>6. Synthetic Megadocs와의 관계</h3>
+        <div class="connection-box">
+          <p><strong>패러다임 연결:</strong> Phi-1이 확립한 "합성 교과서 데이터로 소형 모델 학습" 패러다임이 Megadocs의 철학적 기반이다. 둘 다 <span class="keyword">"data quality >> data quantity"</span>를 핵심 전제로 한다.</p>
+          <p><strong>차이점:</strong></p>
+          <ul>
+            <li>Phi-1: GPT-3.5가 <em>처음부터</em> 교과서를 생성 (generation from scratch)</li>
+            <li>Megadocs: 기존 웹 문서를 <em>변환/개선</em>하여 품질 향상 (transformation of existing data)</li>
+          </ul>
+          <p><strong>보완 관계:</strong> Phi 접근법(처음부터 생성)과 Megadocs 접근법(기존 데이터 변환)은 서로 다른 시나리오에서 유용하며, 두 접근법의 결합이 Synthetic Mixed Training(2026)으로 수렴한다.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>7. 비판적 평가</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[강점]</span> 패러다임 전환의 결정적 논문. 결과가 극적이고 설득력 있음. 실용적 함의가 큼 (소형 모델 + 고품질 데이터 = 저비용 고성능). 후속 Phi 시리즈로 아이디어가 검증됨.</p>
+          <p><span class="weakness">[약점]</span> (1) 합성 데이터 생성 파이프라인의 상세가 부족하여 재현성 낮음 (프롬프트 미공개). (2) GPT-3.5/4에 의존적 &mdash; teacher 모델의 한계가 student에 전파. (3) 코드 도메인에 한정 &mdash; 일반 NLP로의 확장 가능성은 TinyStories에서만 부분 검증. (4) "교과서 품질"의 정의가 주관적.</p>
+          <p><span class="relevance-note">[의의]</span> "합성 데이터 사전학습" 전체 패러다임의 시작점. WRAP, Megadocs, SMT 등 모든 후속 연구가 Phi-1이 증명한 "합성 데이터의 가능성" 위에 구축됨.</p>
+        </div>
+      </div>
+
+      <div class="feedback-box">
+        <label>이 논문 분석에 대한 피드백:</label>
+        <textarea id="fb-paper4" placeholder="분석에 대한 의견이나 추가할 내용을 적어주세요..."></textarea>
+        <button onclick="saveFeedback('paper4')">저장</button>
+        <div class="feedback-saved" id="fb-saved-paper4">저장되었습니다.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- PAPER 5: In-Context Pretraining -->
+  <!-- ============================================================ -->
+  <div class="paper-card" id="paper5">
+    <div class="paper-header" onclick="togglePaper(this)">
+      <span class="toggle-icon">&#9660;</span>
+      <div class="paper-num">Paper 5 &mdash; 2023 <span class="tl-tag tag-stitch" style="margin-left:8px;">Document Stitching</span></div>
+      <h2>In-Context Pretraining: Language Modeling Beyond Document Boundaries</h2>
+      <div class="authors">Weijia Shi, Sewon Min, Maria Lomeli, Chunting Zhou, Margaret Li, Xi Victoria Lin, Noah A. Smith, Luke Zettlemoyer, Wen-tau Yih, Mike Lewis</div>
+      <div class="meta-row">
+        <a class="arxiv-link" href="https://arxiv.org/abs/2310.10638" target="_blank">arXiv: 2310.10638</a>
+        <span>Meta AI / UW</span>
+        <span>2023</span>
+      </div>
+    </div>
+    <div class="paper-body">
+
+      <div class="figure-container">
+        <img src="deep_research_images/icpt_fig1.png" alt="Figure 1: In-Context Pretraining">
+        <div class="caption">Figure 1. In-Context Pretraining: 관련 문서들을 인접하게 배치하여 학습 시 cross-document reasoning을 유도.</div>
+      </div>
+
+      <div class="section">
+        <h3>1. 핵심 아이디어 한줄</h3>
+        <p>사전학습 코퍼스의 문서 순서를 <span class="keyword">의미적 유사도 기반으로 재배열</span>하여 관련 문서가 같은 context window에 들어오도록 하면, 모델 아키텍처 변경 없이 ICL +8%, 독해 +15%, RAG +9% 향상을 달성한다.</p>
+      </div>
+
+      <div class="section">
+        <h3>2. 이 논문이 해결한 문제</h3>
+        <ul>
+          <li>기존 사전학습은 문서를 무작위로 연결(concatenation) &mdash; context window 내 문서들이 서로 관련 없음</li>
+          <li>이로 인해 모델이 cross-document reasoning, in-context learning을 충분히 학습하지 못함</li>
+          <li>Fine-tuning 시에는 instruction-following 데이터를 통해 ICL을 학습하지만, pre-training 단계에서는 기회가 없음</li>
+          <li><strong>핵심 질문</strong>: 아키텍처 변경 없이, 순수하게 데이터 배열 순서만 바꿔서 사전학습 효과를 높일 수 있는가?</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>3. Method 상세</h3>
+        <p><strong>Document Embedding:</strong> Contriever (Izacard et al., 2022) 모델로 모든 문서를 임베딩한다.</p>
+        <p><strong>Document Ordering (Greedy TSP):</strong></p>
+        <ol>
+          <li>문서 임베딩 간 코사인 유사도를 계산하여 유사도 그래프 구성</li>
+          <li>Greedy Traveling Salesman Problem (TSP) 알고리즘으로 유사한 문서가 인접하도록 순서를 결정</li>
+          <li>이 순서대로 문서를 연결하여 학습 시퀀스를 구성</li>
+        </ol>
+        <span class="eq">Order = GreedyTSP(Documents, similarity=CosineSim(Contriever(D_i), Contriever(D_j)))</span>
+        <p><strong>핵심: 아키텍처/Loss 변경 없음</strong></p>
+        <ul>
+          <li>표준 Transformer, 표준 next-token prediction loss</li>
+          <li>변경된 것은 오직 <em>학습 데이터의 문서 순서</em>뿐</li>
+          <li>추가 비용: 임베딩 계산 + TSP 해결 (one-time, offline)</li>
+        </ul>
+        <p><strong>선행 연구 &mdash; LinkBERT (Yasunaga et al., ACL 2022):</strong></p>
+        <ul>
+          <li>LinkBERT는 Wikipedia의 <em>명시적 하이퍼링크</em>를 사용하여 관련 문서를 연결</li>
+          <li>한계: 하이퍼링크가 없는 코퍼스에는 적용 불가</li>
+          <li>In-Context Pretraining은 이를 <em>의미적 유사도</em>로 일반화하여 모든 코퍼스에 적용 가능하게 함</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>4. 핵심 결과</h3>
+        <table class="results-table">
+          <thead>
+            <tr><th>Capability</th><th>Random Order (baseline)</th><th>In-Context Pretraining</th><th>Improvement</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>In-Context Learning (avg)</td><td>baseline</td><td class="highlight-cell">+8%</td><td class="highlight-cell">+8%</td></tr>
+            <tr><td>Reading Comprehension</td><td>baseline</td><td class="highlight-cell">+15%</td><td class="highlight-cell">+15%</td></tr>
+            <tr><td>Faithfulness (attribution)</td><td>baseline</td><td class="highlight-cell">+16%</td><td class="highlight-cell">+16%</td></tr>
+            <tr><td>RAG performance</td><td>baseline</td><td class="highlight-cell">+9%</td><td class="highlight-cell">+9%</td></tr>
+            <tr><td>Perplexity (held-out)</td><td>baseline</td><td>improved</td><td>consistent improvement</td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>모든 downstream 태스크에서 일관된 향상 &mdash; 특히 <strong>faithfulness +16%</strong>가 주목할 만함</li>
+          <li>아키텍처/Loss 변경이 전혀 없으므로 기존 학습 파이프라인에 쉽게 적용 가능</li>
+          <li>관련 문서가 인접할수록 (유사도가 높을수록) 효과가 큼</li>
+          <li>Greedy TSP가 optimal TSP의 ~85% 수준의 solution quality를 달성하면서 계산 가능</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>5. 후속 연구에 미친 영향</h3>
+        <ul>
+          <li><strong>Synthetic Megadocs (2026)</strong>: In-Context Pretraining의 document ordering을 synthetic rephrases와 결합 &mdash; "stitching" 개념의 직접적 확장</li>
+          <li><strong>ICLM (In-Context Language Modeling)</strong>: document ordering 최적화의 후속 연구들</li>
+          <li><strong>Curriculum Learning 재조명</strong>: 데이터 순서가 학습 효과에 미치는 영향에 대한 관심 증가</li>
+          <li><strong>"Zero-cost improvement"</strong>: 모델/아키텍처 변경 없이 데이터 전처리만으로 성능을 높이는 접근의 영향력</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>6. Synthetic Megadocs와의 관계</h3>
+        <div class="connection-box">
+          <p><strong>핵심 연결:</strong> Megadocs의 <span class="keyword">stitching</span>은 In-Context Pretraining의 document ordering을 합성 데이터에 적용한 것이다.</p>
+          <p><strong>확장 방식:</strong></p>
+          <ul>
+            <li>In-Context Pretraining: 원본 문서를 유사도 순으로 재배열</li>
+            <li>Megadocs: 원본 문서의 <em>합성 rephrase</em>를 유사도 순으로 stitching + latent thought 삽입</li>
+          </ul>
+          <p><strong>기여 분해:</strong> Megadocs의 성능 향상은 (1) WRAP의 rephrasing, (2) In-Context Pretraining의 ordering, (3) Quiet-STaR의 thought insertion의 결합이다. In-Context Pretraining은 이 중 "문서 조직 전략"을 담당.</p>
+          <p><strong>LinkBERT &rarr; In-Context Pretraining &rarr; Megadocs Stitching:</strong> 명시적 링크(하이퍼링크) &rarr; 암시적 링크(의미적 유사도) &rarr; 합성 데이터 내 조직화로의 진화 계보.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>7. 비판적 평가</h3>
+        <div class="opinion-box">
+          <p><span class="strength">[강점]</span> "데이터 순서만 바꿔도 된다"는 발견이 혁명적으로 단순. 완벽한 "zero-cost at inference" 개선. 아키텍처 독립적이므로 어떤 모델에도 적용 가능. Faithfulness +16%는 RAG 시나리오에서 매우 유용.</p>
+          <p><span class="weakness">[약점]</span> (1) Contriever 임베딩 + TSP 계산의 비용이 대규모 코퍼스에서 무시할 수 없음 (billions of documents). (2) Greedy TSP의 quality가 최적해에 미치지 못함 &mdash; 더 나은 ordering algorithm이 있을 수 있음. (3) Context window 길이에 의존적 &mdash; 짧은 context에서는 효과 감소. (4) "왜" 효과가 있는지에 대한 이론적 분석 부족.</p>
+          <p><span class="relevance-note">[의의]</span> "데이터 조직"이 모델 아키텍처만큼 중요하다는 메시지. Megadocs의 stitching 전략의 직접적 기원이자, 합성 데이터와 결합 시 시너지 효과를 만드는 핵심 기술.</p>
+        </div>
+      </div>
+
+      <div class="feedback-box">
+        <label>이 논문 분석에 대한 피드백:</label>
+        <textarea id="fb-paper5" placeholder="분석에 대한 의견이나 추가할 내용을 적어주세요..."></textarea>
+        <button onclick="saveFeedback('paper5')">저장</button>
+        <div class="feedback-saved" id="fb-saved-paper5">저장되었습니다.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SYNTHESIS SECTION -->
+  <!-- ============================================================ -->
+  <div class="synthesis-card" id="synthesis">
+    <div class="synthesis-header">
+      <h2>통합 계보: 합성 추론과 합성 데이터의 수렴</h2>
+    </div>
+    <div class="synthesis-body">
+
+      <div class="section">
+        <p>Synthetic Megadocs(2026)는 독립적으로 발전해 온 네 가지 연구 계보를 하나의 프레임워크로 통합한 논문이다. 아래에서 각 계보의 발전 과정과 수렴 지점을 분석한다.</p>
+      </div>
+
+      <!-- Lineage 1: STaR -->
+      <div class="lineage-block">
+        <h4>계보 1: 합성 추론 (Synthetic Reasoning Traces)</h4>
+        <p><strong>STaR (2022)</strong> &mdash; 모델이 생성한 rationale로 자기 자신을 학습시키는 자기 개선 루프</p>
+        <div class="lineage-arrow">&darr; QA 태스크에서 모든 텍스트로 일반화</div>
+        <p><strong>Quiet-STaR (2024)</strong> &mdash; 매 토큰에서 latent thought를 생성하여 next-token prediction 개선</p>
+        <div class="lineage-arrow">&darr; online thought generation을 offline data insertion으로 변환</div>
+        <p><strong>Megadocs Stretching (2026)</strong> &mdash; 문서 경계에 미리 생성된 rationale을 삽입하여 사전학습 데이터 품질 향상</p>
+        <p style="margin-top:8px; color:var(--text-secondary); font-style:italic;">핵심 전환: "추론 시 생각하기" &rarr; "학습 데이터에 생각 삽입" (cost shift from inference to data preparation)</p>
+      </div>
+
+      <!-- Lineage 2: WRAP -->
+      <div class="lineage-block">
+        <h4>계보 2: 데이터 품질 변환 (Data Quality Transformation)</h4>
+        <p><strong>WRAP / Rephrasing the Web (2024)</strong> &mdash; LLM으로 웹 문서를 4가지 스타일로 재작성, 1:1 혼합 &rarr; 3x 학습 효율</p>
+        <div class="lineage-arrow">&darr; rephrasing에 document organization을 결합</div>
+        <p><strong>Megadocs Rephrasing (2026)</strong> &mdash; WRAP의 rephrasing + 문서 순서 최적화 &rarr; 1.48x 효율을 1.80x로 향상</p>
+        <p style="margin-top:8px; color:var(--text-secondary); font-style:italic;">핵심 전환: "개별 문서 개선" &rarr; "문서 간 관계까지 포함한 조직적 개선"</p>
+      </div>
+
+      <!-- Lineage 3: Phi -->
+      <div class="lineage-block">
+        <h4>계보 3: 합성 교과서 (Synthetic Textbooks)</h4>
+        <p><strong>TinyStories (Eldan &amp; Li, 2023)</strong> &mdash; 합성 이야기로 소형 LM 학습 가능성 입증</p>
+        <div class="lineage-arrow">&darr;</div>
+        <p><strong>Phi-1 (Gunasekar et al., 2023)</strong> &mdash; 합성 교과서로 1.3B가 15B 능가 &mdash; "Data Quality >> Model Size" 확립</p>
+        <div class="lineage-arrow">&darr; Phi-2 (2023) &rarr; Phi-3 (2024) &rarr; Phi-4 (2025)</div>
+        <p><strong>도메인 특화 합성 학습의 확산</strong> &mdash; 코드를 넘어 과학, 수학, 의료 도메인으로 확장</p>
+        <p style="margin-top:8px; color:var(--text-secondary); font-style:italic;">핵심 기여: "합성 데이터가 웹 데이터보다 나을 수 있다"는 증거를 최초로 제시. 이후 모든 합성 사전학습 연구의 동기 부여.</p>
+      </div>
+
+      <!-- Lineage 4: Stitching -->
+      <div class="lineage-block">
+        <h4>계보 4: 문서 조직화 (Document Organization)</h4>
+        <p><strong>LinkBERT (Yasunaga et al., ACL 2022)</strong> &mdash; Wikipedia 하이퍼링크로 관련 문서를 연결하여 학습</p>
+        <div class="lineage-arrow">&darr; 명시적 링크를 의미적 유사도로 일반화</div>
+        <p><strong>In-Context Pretraining (Shi et al., 2023)</strong> &mdash; Contriever 임베딩 + Greedy TSP로 관련 문서 인접 배치 &rarr; ICL +8%, RAG +9%</p>
+        <div class="lineage-arrow">&darr; 원본 문서 ordering을 합성 문서 stitching으로 확장</div>
+        <p><strong>Megadocs Stitching (2026)</strong> &mdash; 합성 rephrases를 의미적으로 정렬하여 megadoc으로 결합 + rationale 삽입</p>
+        <p style="margin-top:8px; color:var(--text-secondary); font-style:italic;">핵심 전환: "링크 기반" &rarr; "의미 기반" &rarr; "합성 데이터 내 조직화"</p>
+      </div>
+
+      <!-- Convergence -->
+      <div class="lineage-block" style="background: #fff3e0; border: 2px solid var(--accent);">
+        <h4 style="color: var(--accent); border-color: var(--accent);">수렴 지점: Synthetic Megadocs + Synthetic Mixed Training (2026)</h4>
+        <p>네 가지 계보가 2026년에 두 편의 논문으로 수렴한다:</p>
+        <ul>
+          <li><strong>Synthetic Megadocs</strong> = WRAP의 rephrasing + In-Context Pretraining의 stitching + Quiet-STaR의 stretching</li>
+          <li><strong>Synthetic Mixed Training</strong> = Phi의 합성 데이터 철학 + WRAP의 혼합 전략 + 자체 Focal Rewriting</li>
+        </ul>
+        <p style="margin-top:10px;"><strong>궁극적 방향:</strong> 합성 추론 데이터(reasoning traces)와 합성 품질 데이터(rephrased/reorganized documents)가 결합되어, 사전학습 데이터의 양/질/조직 모두를 최적화하는 통합 파이프라인이 형성되고 있다. 이는 단순한 scaling law(데이터를 더 많이) 패러다임에서 <span class="keyword">data engineering</span>(데이터를 더 잘) 패러다임으로의 전환을 의미한다.</p>
+      </div>
+
+      <div class="section">
+        <h3>미래 전망</h3>
+        <ul>
+          <li><strong>Recursive Synthesis</strong>: 합성 데이터로 학습한 모델이 다시 합성 데이터를 생성하는 자기 참조 루프의 수렴/발산 조건 연구</li>
+          <li><strong>Domain-Specific Megadocs</strong>: 요리, 의료, 법률 등 도메인 특화 합성 사전학습 데이터 파이프라인</li>
+          <li><strong>Multilingual Synthetic Pretraining</strong>: 영어 중심 연구의 다국어 확장 (한국어 합성 교과서, 다국어 WRAP)</li>
+          <li><strong>On-device Synthetic Training</strong>: 소형 모델의 합성 데이터 학습과 온디바이스 배포의 결합 (LG SoC 프로젝트 관련)</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- FEEDBACK COLLECTOR -->
+  <!-- ============================================================ -->
+  <div class="feedback-collector" id="feedback-collector">
+    <h3>전체 피드백 수집</h3>
+    <p style="margin-bottom:10px; font-size:0.92em; color:var(--text-secondary);">각 논문별로 저장한 피드백을 모아서 확인하거나 복사할 수 있습니다.</p>
+    <button onclick="collectFeedback()">피드백 모아보기</button>
+    <button onclick="copyFeedback()" style="margin-left:8px; background:#1a237e;">클립보드에 복사</button>
+    <button onclick="clearAllFeedback()" style="margin-left:8px; background:#c62828;">전체 초기화</button>
+    <pre id="feedback-output">(아직 수집된 피드백이 없습니다)</pre>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div class="page-footer">
+    <p><a href="report.html" style="color:var(--primary-light); text-decoration:none; font-weight:600;">&larr; 메인 보고서로 돌아가기</a></p>
+    <p style="margin-top:8px;">Deep Research Report &mdash; CLinK Lab Paper Digest Pipeline</p>
+    <p>Prof. Donghee Choi | Pusan National University | 2026-04-01</p>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+const REPORT_ID = 'deep_research_synthetic';
+
+function togglePaper(header) {
+  const body = header.nextElementSibling;
+  const icon = header.querySelector('.toggle-icon');
+  if (body.classList.contains('collapsed')) {
+    body.classList.remove('collapsed');
+    icon.innerHTML = '&#9660;';
+  } else {
+    body.classList.add('collapsed');
+    icon.innerHTML = '&#9654;';
+  }
+}
+
+function saveFeedback(paperId) {
+  const textarea = document.getElementById('fb-' + paperId);
+  const saved = document.getElementById('fb-saved-' + paperId);
+  const key = REPORT_ID + '_feedback_' + paperId;
+  localStorage.setItem(key, textarea.value);
+  saved.style.display = 'block';
+  setTimeout(function() { saved.style.display = 'none'; }, 2000);
+}
+
+function loadFeedback() {
+  var papers = ['paper1', 'paper2', 'paper3', 'paper4', 'paper5'];
+  for (var i = 0; i < papers.length; i++) {
+    var key = REPORT_ID + '_feedback_' + papers[i];
+    var val = localStorage.getItem(key);
+    if (val) {
+      var el = document.getElementById('fb-' + papers[i]);
+      if (el) el.value = val;
+    }
+  }
+}
+
+function collectFeedback() {
+  var papers = [
+    {id: 'paper1', name: 'STaR (2022)'},
+    {id: 'paper2', name: 'Quiet-STaR (2024)'},
+    {id: 'paper3', name: 'WRAP (2024)'},
+    {id: 'paper4', name: 'Phi-1 (2023)'},
+    {id: 'paper5', name: 'In-Context Pretraining (2023)'}
+  ];
+  var output = 'Report: ' + REPORT_ID + '\nDate: ' + new Date().toISOString().slice(0, 10) + '\n';
+  output += '='.repeat(50) + '\n\n';
+  var hasFeedback = false;
+  for (var i = 0; i < papers.length; i++) {
+    var key = REPORT_ID + '_feedback_' + papers[i].id;
+    var val = localStorage.getItem(key);
+    if (val && val.trim()) {
+      output += '[' + papers[i].name + ']\n' + val.trim() + '\n\n';
+      hasFeedback = true;
+    }
+  }
+  if (!hasFeedback) {
+    output += '(저장된 피드백이 없습니다. 각 논문 하단의 텍스트 박스에서 피드백을 입력하고 저장하세요.)';
+  }
+  document.getElementById('feedback-output').textContent = output;
+}
+
+function copyFeedback() {
+  var text = document.getElementById('feedback-output').textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    alert('클립보드에 복사되었습니다.');
+  });
+}
+
+function clearAllFeedback() {
+  if (!confirm('모든 피드백을 초기화하시겠습니까?')) return;
+  var papers = ['paper1', 'paper2', 'paper3', 'paper4', 'paper5'];
+  for (var i = 0; i < papers.length; i++) {
+    localStorage.removeItem(REPORT_ID + '_feedback_' + papers[i]);
+    var el = document.getElementById('fb-' + papers[i]);
+    if (el) el.value = '';
+  }
+  document.getElementById('feedback-output').textContent = '(전체 초기화 완료)';
+}
+
+// Load saved feedback on page load
+window.addEventListener('load', loadFeedback);
+</script>
+
+</body>
+</html>
