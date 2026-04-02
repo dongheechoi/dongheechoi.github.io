@@ -1,28 +1,29 @@
-baseURL: "https://dongheechoi.github.io"   # 본인 GitHub Pages 주소
+baseURL: "https://dongheechoi.github.io"
 title: "Donghee Choi"
 theme: "PaperMod"
 
-# (테마 공통 추천 설정)
-paginate: 5
+pagination:
+  pagerSize: 5
 
-params:
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
 params:
   editPost:
     disabled: true
     hideFooter: true
-  # 홈 화면에 짧은 소개 + 링크
   homeInfoParams:
     Title: "PNU-CLinK Lab"
     Content: |
-      Computational Linguistics & Knowledge (CLinK) Lab  
+      Computational Linguistics & Knowledge (CLinK) Lab
       Pusan National University, Busan, South Korea
 
       <p>👉 <strong><a href="https://sites.google.com/view/pnu-clink" target="_blank">Visit the lab website →</a></strong></p>
-      
-  # 포스트 목록 감추고 홈을 간결하게
+
   disableHomePageList: true
 
-  # 소셜 아이콘
   socialIcons:
     - name: email
       url: "mailto:dchoi@pusan.ac.kr"
@@ -33,7 +34,6 @@ params:
     - name: x
       url: "https://x.com/iamdongheechoi"
 
-# 상단 메뉴(메인 네비게이션)
 menu:
   main:
     - name: "Research"
