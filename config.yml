@@ -20,7 +20,7 @@ params:
       Computational Linguistics & Knowledge (CLinK) Lab
       Pusan National University, Busan, South Korea
 
-      <p>👉 <strong><a href="https://sites.google.com/view/pnu-clink" target="_blank">Visit the lab website →</a></strong></p>
+      <p><strong><a href="https://sites.google.com/view/pnu-clink" target="_blank">Visit the lab website</a></strong></p>
 
   disableHomePageList: true
 
@@ -33,12 +33,14 @@ params:
       url: "https://www.linkedin.com/in/dongheechoi/"
     - name: x
       url: "https://x.com/iamdongheechoi"
+    - name: googlescholar
+      url: "https://scholar.google.com/citations?user=iR40DeMAAAAJ"
 
 menu:
   main:
     - name: "Research"
       url: "/research/"
       weight: 1
-    - name: "Lab Website →"
+    - name: "Lab Website"
       url: "https://sites.google.com/view/pnu-clink"
       weight: 2
